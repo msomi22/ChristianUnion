@@ -1,0 +1,39 @@
+
+ 
++++++++++++++++++++++++++++++++++++++++
++ Christian Union System Database Layout.
++++++++++++++++++++++++++++++++++++++++
+
+The tables are divided into the following sections:
+1. Student Management
+
+
+
+'UUID' stands for a universally unique identifier.
+
+======================
+======================
+1. Student Management
+======================
+======================
+
+-- -------------------
+-- Table Student
+-- -------------------
+
+    -Id  (primary key)
+    -Uuid 
+    -AdmNo
+    -FirstName 
+    -SurName
+    -LastName
+    -Email 
+    -Mobile
+    -Year
+    -Major
+    -DOB
+    -County
+
+
+
+
