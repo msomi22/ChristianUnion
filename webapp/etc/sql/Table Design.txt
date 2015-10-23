@@ -63,7 +63,7 @@ The tables are divided into the following sections:
 
 
 -- -------------------
--- Table StudentApproval
+-- Table StudentApproval.
 -- -------------------
       -Id
       -Uuid
