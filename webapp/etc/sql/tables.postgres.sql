@@ -77,3 +77,31 @@ ALTER TABLE StudentOtherInfo OWNER TO cu;
 
 
 
+-- -------------------
+-- Table ApprovalStatus
+-- -------------------
+CREATE TABLE  ApprovalStatus (
+    Id SERIAL PRIMARY KEY,
+    Uuid text UNIQUE NOT NULL,
+    Status text
+    
+
+);
+\COPY ApprovalStatus(Uuid,Status) FROM '/tmp/ApprovalStatus.csv' WITH DELIMITER AS '|' CSV HEADER
+ALTER TABLE ApprovalStatus OWNER TO cu;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

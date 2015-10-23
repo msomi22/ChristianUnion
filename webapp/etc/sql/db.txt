@@ -23,3 +23,6 @@ psql template1
 ALTER DATABASE cudb OWNER to cu;
 
 
+,
+
+
