@@ -28,19 +28,24 @@ public class Login extends HttpServlet{
      * @param config
      * @throws ServletException
      */
-    @Override
     public void init(ServletConfig config) throws ServletException {
         super.init(config);
 
     }
 
+    /**
+     * @param request
+     * @param response
+     * @throws ServletException
+     * @throws IOException
+     */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
          HttpSession session = request.getSession(true);
          
 
-         String username = StringUtils.trimToEmpty(request.getParameter("username"));
-         String password = StringUtils.trimToEmpty(request.getParameter("password"));
+         String username = StringUtils.trimToEmpty(request.getParameter("Username"));
+         String password = StringUtils.trimToEmpty(request.getParameter("Password"));
          
          
          System.out.println(username);
@@ -48,23 +53,26 @@ public class Login extends HttpServlet{
         
          if (!StringUtils.equals(password, PropertiesConfig.getConfigValue("ADMIN_PASSWORD"))) {
              //session.setAttribute(SessionConstants.ADMIN_SIGN_IN_ERROR_KEY, SessionConstants.ADMIN_SIGN_IN_ERROR_VALUE);
-             response.sendRedirect("index.jsp");
+             response.sendRedirect("admin/index.jsp");
 
              
         	
          } else if (!StringUtils.equals(username, PropertiesConfig.getConfigValue("ADMIN_USERNAME"))) {
             // session.setAttribute(SessionConstants.ADMIN_SIGN_IN_ERROR_KEY, SessionConstants.ADMIN_SIGN_IN_ERROR_KEY);
-            response.sendRedirect("index.jsp");
+            response.sendRedirect("admin/index.jsp");
          
          } else {
              //session.setAttribute(SessionConstants.ADMIN_SESSION_KEY, "admin");
              //session.setAttribute(SessionConstants.ADMIN_LOGIN_TIME_KEY, new Date());
              
-            response.sendRedirect("home.jsp");
+            response.sendRedirect("admin/home.jsp");
          }
 	}
 
-    @Override
+    /**
+     * @see javax.servlet.http.HttpServlet#doPost(javax.servlet.http.HttpServletRequest, javax.servlet.http.HttpServletResponse)
+     */
+
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         processRequest(request, response);

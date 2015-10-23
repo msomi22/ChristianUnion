@@ -23,16 +23,54 @@ The tables are divided into the following sections:
 
     -Id  (primary key)
     -Uuid 
-    -AdmNo
+    -AdmissionNo
     -FirstName 
     -SurName
     -LastName
     -Email 
     -Mobile
-    -Year
-    -Major
+    -GuardianContact
     -DOB
+    -Gender
+    -Program
+    -AcademicYear
+    -YearOfStudy 
+    -HomeTown
     -County
+    -DateOfRegistration
+
+
+-- -------------------
+-- Table StudentOtherInfo
+-- -------------------
+      -Id
+      -Uuid
+      -StudentUuid References Student(Uuid) 
+      -Christian
+      -Duration
+      -Ministry
+      -MinistryName
+      -DesiredMinistry
+      -MinistryVision
+
+
+-- -------------------
+-- Table ApprovalStatus
+-- -------------------
+      -Id
+      -Uuid
+      -Status
+
+
+-- -------------------
+-- Table StudentApproval
+-- -------------------
+      -Id
+      -Uuid
+      -StudentUuid References Student(Uuid) 
+      -ApprovalStatus References ApprovalStatus(Status) 
+      -SystemUser
+      -ApprovalDate
 
 
 

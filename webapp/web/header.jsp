@@ -1,15 +1,56 @@
-<!DOCTYPE html PUBLIC>
-<html xmlns="http://www.w3.org/1999/xhtml">
+
+
+
+<html lang="en">
 <head>
-<title>Maasai Mara Unuiversity Christian Union</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>Christian Union</title>
+<meta name="keywords" content="" />
+<meta name="description" content="" />
+
+<link href="css/tooplate_style.css" rel="stylesheet" type="text/css" />
+
+<script language="javascript" type="text/javascript">
+
+function clearText(field)
+{
+    if (field.defaultValue == field.value) field.value = '';
+    else if (field.value == '') field.value = field.defaultValue;
+}
+
+</script>
 
 
+<link rel="stylesheet" href="../css/nivo-slider.css" type="text/css" media="screen" />
 <link href="css/bootstrap/bootstrap-cerulean.css" rel="stylesheet">
  <link href="css/bootstrap/bootstrap-responsive.css" rel="stylesheet">
- <link href="css/cu/layout/styles/layout.css" rel="stylesheet"  />
- <link  href="css/cu/layout/scripts/liteaccordion-v2.2/css/liteaccordion.css" rel="stylesheet"  />
+<script src="js/jquery.min.js" type="text/javascript"></script>
+<script src="js/jquery.nivo.slider.js" type="text/javascript"></script>
 
- <style type="text/css">
+<script type="text/javascript">
+$(window).load(function() {
+	$('#slider').nivoSlider({
+		effect:'random',
+		slices:15,
+		animSpeed:500,
+		pauseTime:3000,
+		startSlide:0, //Set starting Slide (0 index)
+		directionNav:false,
+		directionNavHide:false, //Only show on hover
+		controlNav:false, //1,2,3...
+		controlNavThumbs:false, //Use thumbnails for Control Nav
+		pauseOnHover:true, //Stop animation while hovering
+		manualAdvance:false, //Force manual transitions
+		captionOpacity:0.8, //Universal caption opacity
+		beforeChange: function(){},
+		afterChange: function(){},
+		slideshowEnd: function(){} //Triggers after all slides have been shown
+	});
+});
+</script>
+
+
+<style type="text/css">
    input{
     height: 26px !important;
    }
@@ -17,24 +58,22 @@
  </style>
 
 </head>
-
-
-<body id="top">
-<div class="wrapper row1">
-  <div id="header" class="clear">
-    <div class="fl_left">
-      <h1>Maasai Mara Unuiversity Christian Union</h1>
+<body>
+<div id="tooplate_header">
+    	
+        <div id="site_title"><h1><a href="#">Maasai Mara University Christian Union</a></h1></div>
+       
+        
+        <div class="cleaner"></div>
     </div>
-  </div>
-</div>
-<!-- ####################################################################################################### -->
-
-<div class="wrapper row2">
-  <div id="topnav">
-    <ul>
-      <li class="active"><a href="index.jsp">Homepage</a></li>
-      <li class="last"><a href="#">ABCDEFGH</a></li>
-    </ul>
-    <div  class="clear"></div>
-  </div>
-</div>
+     <h3><i class="icon-edit"></i>Maasai Mara University Christian Union</h3>    
+    <div id="tooplate_menu">
+        <ul>
+            <li><a href="index.jsp" class="current">Home</a></li>
+            <li><a href="#">xxxxx</a></li>
+            
+          
+        
+        </ul>    	
+    
+    </div> <!-- end of tooplate_menu -->

@@ -1,8 +1,4 @@
-Uuid|AdmNo|FirstName|SurName|LastName|Email|Mobile|Year|Major|DOB|County
-AB92E647-52B6-4B24-8719-1E88158BC178|BS02/030/2012|Joram|Ndungu|Murithi|joramndungu10@gmail.com|254716319456|Four|Computer Science|1990|Nyandarua
-C29016A8-5547-4A59-9106-AA3B3DB76E01|BS02/009/2012|Peter|Njeru|Mwenda|mwendapeter72@gmail.com|254718953974|Four|Computer Science|1990|Tharaka Nithi
-659D4602-C595-46A2-A585-4B6C738998B6|BS02/008/2012|John|Nganga|Murithi|||Four|Computer Science|1991|Nyeri
-204F7D81-B109-4E85-8EEE-822452EAE572|BS02/031/2012|||||||||
-850D19F1-D02E-4B4B-8461-890B5C7256ED|BS02/025/2012|||||||||
-E4427C87-39ED-43EC-B6AE-2DD83FECF6F5|BS02/024/2012|||||||||
-D5E6ECEF-6A27-4FE6-89CA-1ABE6C813172|BS02/001/2012|||||||||
+Uuid|AdmNo|FirstName|SurName|LastName|Email|Mobile|GuardianContact|DOB|Gender|Program|AcademicYear|YearOfStudy|HomeTown|County|DateOfRegistration
+AB92E647-52B6-4B24-8719-1E88158BC178|BS02/030/2012|Joram|Ndungu|Muriithi|joramndungu10@gmail.com|254716319456|254716319456|1991|Male|Computer Science|2015/2016|4|Nyeri|Nyeri|Sat Dec 06 22:00:42 EAT 2015
+C29016A8-5547-4A59-9106-AA3B3DB76E01|BS02/009/2012|Peter|Njeru|Mwenda|mwendapeter72@gmail.com|254718953974|254718953974|1992|Male|Computer Science|2014/2015|4|Kiambu|Kiambu|Sat Dec 06 22:00:42 EAT 2015
+659D4602-C595-46A2-A585-4B6C738998B6|BS02/008/2012|John|Ng'ang'a|Muriithi|mattjohnmuri@yahoo.com|254716799975|254716799975|1993|Male|Computer Science|2014/2015|4|Limuru|Limuru|Sat Dec 06 22:00:42 EAT 2015

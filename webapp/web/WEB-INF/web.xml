@@ -34,10 +34,13 @@
 
 
 
-    <!-- Start - Account Holder servlets -->
-    
-
-
+    <!-- Start - Student registration servlets -->
+     <servlet>
+        <servlet-name>AddStudent</servlet-name>
+        <servlet-class>com.gmail.mwendapeter72.server.servlet.student.AddStudent</servlet-class>
+     
+    </servlet>
+     
 
 
 
@@ -48,7 +51,10 @@
     <servlet>
         <servlet-name>AdminLogin</servlet-name>
         <servlet-class>com.gmail.mwendapeter72.server.servlet.admin.Login</servlet-class>
+     
     </servlet>
+     
+
 
 
 
@@ -56,16 +62,33 @@
 
     <!-- Servlet mapping start -->
    
-
-
-    <!-- Start - Administrator servlet mapping -->  
-     <servlet-mapping>
-        <servlet-name>AdminLogin</servlet-name>
-        <url-pattern>/admin/AdminLogin</url-pattern>      
+      <servlet-mapping>
+        <servlet-name>AddStudent</servlet-name>
+        <url-pattern>/addStudent</url-pattern>      
     </servlet-mapping>
 
 
+
+
+
+
+    <!-- Start - Administrator servlet mapping -->
    
+      <servlet-mapping>
+        <servlet-name>AdminLogin</servlet-name>
+        <url-pattern>/adminLogin</url-pattern>      
+     </servlet-mapping>
+
+
+
+
+
+
+
+
+
+
+
      
     <session-config>
         <session-timeout>8</session-timeout>

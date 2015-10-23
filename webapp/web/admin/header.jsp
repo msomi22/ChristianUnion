@@ -1,7 +1,7 @@
 <html lang="en">
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-<title>School Management System</title>
+<title>Maasai Mara University Christian Union Management System</title>
 <meta name="keywords" content="" />
 <meta name="description" content="" />
 
@@ -59,10 +59,12 @@ $(window).load(function() {
 
 <div id="tooplate_header">
     	
-        <div id="site_title"><h1><a href="#">Admin Panel:CU Management System </a></h1></div>
+        <div id="site_title"><h1><a href="#">Admin Panel: </a></h1></div>
         
         <div id="social_box">
-           
+            <a href="#"><img src="../images/facebook.png" alt="facebook" /></a>
+            <a href="#"><img src="../images/myspace.png" alt="myspace" /></a>
+            <a href="#"><img src="../images/twitter.png" alt="twitter" /></a>
         </div>
         
         <div class="cleaner"></div>
@@ -71,9 +73,8 @@ $(window).load(function() {
     <div id="tooplate_menu">
         <ul>
             <li><a href="home.jsp" class="current">Home</a></li>
-            <li><a href="#">Management</a></li>
-             <li><a href="#">Notifications</a></li>
-            <li class="last"><a href="#">Reports</a></li>
+            <li><a href="#">Manage </a></li>
+            <li class="last"><a href="#">Sadaka</a></li>
         </ul>    	
         
         <div id="search_box">
@@ -84,6 +85,3 @@ $(window).load(function() {
         </div>
         <div class="cleaner"></div>
     </div> <!-- end of tooplate_menu -->
-
-    </body>
-    </html>

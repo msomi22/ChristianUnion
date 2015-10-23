@@ -42,13 +42,38 @@ CREATE TABLE  Student (
     LastName text,
     Email text,
     Mobile text,
-    Year text,
-    Major text,
+    GuardianContact text,
     DOB text,
-    County text
+    Gender text,
+    Program text,
+    AcademicYear text,
+    YearOfStudy text,
+    HomeTown text,
+    County text,
+    DateOfRegistration timestamp with time zone DEFAULT now()
 
 );
-\COPY Student(Uuid,AdmNo,FirstName,SurName,LastName,Email,Mobile,Year,Major,DOB,County) FROM '/tmp/Student.csv' WITH DELIMITER AS '|' CSV HEADER
+\COPY Student(Uuid,AdmNo,FirstName,SurName,LastName,Email,Mobile,GuardianContact,DOB,Gender,Program,AcademicYear,YearOfStudy,HomeTown,County,DateOfRegistration) FROM '/tmp/Student.csv' WITH DELIMITER AS '|' CSV HEADER
 ALTER TABLE Student OWNER TO cu;
+
+
+-- -------------------
+-- Table StudentOtherInfo
+-- -------------------
+CREATE TABLE  StudentOtherInfo (
+    Id SERIAL PRIMARY KEY,
+    Uuid text UNIQUE NOT NULL,
+    StudentUuid text REFERENCES Student(Uuid),
+    Christian text,
+    Duration text,
+    Ministry text,
+    MinistryName text,
+    DesiredMinistry text
+    
+
+);
+\COPY StudentOtherInfo(Uuid,StudentUuid,Christian,Duration,Ministry,MinistryName,DesiredMinistry) FROM '/tmp/StudentOtherInfo.csv' WITH DELIMITER AS '|' CSV HEADER
+ALTER TABLE StudentOtherInfo OWNER TO cu;
+
 
 

@@ -186,7 +186,7 @@
   .input-xxlarge,
   input[class*="span"],
   select[class*="span"],
-  textarea[class*="span"], 
+  textarea[class*="span"],
   .uneditable-input {
     display: block;
     width: 100%;
