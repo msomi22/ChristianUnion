@@ -68,7 +68,7 @@ The tables are divided into the following sections:
       -Id
       -Uuid
       -StudentUuid References Student(Uuid) 
-      -ApprovalStatus References ApprovalStatus(Status) 
+      -ApprovalStatusUuid References ApprovalStatus(Uuid) 
       -SystemUser
       -ApprovalDate
 
