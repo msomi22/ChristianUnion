@@ -23,7 +23,7 @@ The tables are divided into the following sections:
 
     -Id  (primary key)
     -Uuid 
-    -AdmissionNo
+    -AdmNo
     -FirstName 
     -SurName
     -LastName
