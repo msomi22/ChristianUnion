@@ -9,27 +9,28 @@ import java.util.List;
 import com.gmail.mwendapeter72.server.bean.student.Student;
 
 /**
- * @author joram
+ * @author peter<a href="mailto:mwendapeter72@gmail.com">Peter mwenda</a>
+ * @author joram <a href="mailto:mwendapeter72@gmail.com">Peter mwenda</a>
  *
  */
 public interface CuStudentDAO {
 	/**
 	 * 
 	 * @param AdmNo
-	 * @return
+	 * @return student object
 	 */
 	public Student getStudent(String AdmNo);
 	/**
 	 * 
 	 * @param Uuid
-	 * @return
+	 * @return student object
 	 */
 	public Student getStudentByUuid(String Uuid);
 	
         /**
          * 
          * @param student
-         * @return
+         * @return whether student was inserted successfully
          */
 	public boolean putStudent(Student student);
 	
@@ -37,7 +38,7 @@ public interface CuStudentDAO {
 	  * 
 	  * @param student
 	  * @param Uuid
-	  * @return
+	  * @return whether student was updated successfully
 	  */
 	public boolean updateStudent(Student student,String Uuid);
 	
@@ -45,14 +46,14 @@ public interface CuStudentDAO {
 	   * 
 	   * @param student
 	   * @param Uuid
-	   * @return
+	   * @return whether student was deleted successfully
 	   */
 	public boolean deleteStudent(Student student,String Uuid);
 	
 	
 	   /**
 	    * 
-	    * @return
+	    * @return List of all Students
 	    */
 	public List<Student> getAllStdeunt();
 
