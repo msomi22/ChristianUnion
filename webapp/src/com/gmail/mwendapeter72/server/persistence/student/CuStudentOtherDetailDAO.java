@@ -21,62 +21,66 @@
  *
  * 
  */
-package com.gmail.mwendapeter72.server.servlet.util;
+package com.gmail.mwendapeter72.server.persistence.student;
 
+import java.util.List;
 
-import javax.servlet.ServletConfig;
-import javax.servlet.ServletException;
-import javax.servlet.http.HttpServlet;
-
-import org.apache.log4j.Logger;
-
-import com.gmail.mwendapeter72.server.persistence.DButils;
+import com.gmail.mwendapeter72.server.bean.student.StudentOtherDetail;
 
 
 /**
- * Utility dealing with database connection pooling.
- * <p>
- *  
- *  @author peter<a href="mailto:mwendapeter72@gmail.com">Peter mwenda</a>
+ * @author Muriithi<a href="mailto:mattjohnmurii@gmail.com">Muriithi John</a>
+ * @author peter<a href="mailto:mwendapeter72@gmail.com">Peter mwenda</a>
+ *
  */
-public class DbPoolUtil extends HttpServlet {
-
+public interface CuStudentOtherDetailDAO {
 	
-	private static DButils dButils; 
-	
-	private Logger logger = Logger.getLogger(this.getClass());
+	/**
+	 * @param StudentUuid
+	 * @return student detail object
+	 */
+	public StudentOtherDetail getDetail(String StudentUuid);
 	
 	
 	/**
-     * @param config
-     * @throws ServletException
-     */
-    @Override
-    public void init(ServletConfig config) throws ServletException {
-        super.init(config);
-        
-        dButils = new DButils();
-    }
+	    * 
+	    * @param schoolaccount
+	    * @param admno
+	    * @return	a {@link List} of {@link Student}s whose admno partly or wholly
+	    * matches the admno and belongs to a particular school account. Matching is case 
+	    * insensitive. An empty list is returned if no Student matches the admno.
+	    */
+	  public List<StudentOtherDetail> getStudentAdmNo(String schoolaccountUuid, String StudentUuid);
+	
+	/**
+	 * 
+	 * @param studentDetail
+	 * @param StudentUuid
+	 * @return whether the students details was inserted successfully or not
+	 */
+	public boolean putDetail(StudentOtherDetail studentDetail);
+	
+	/**
+	 * 
+	 * @param studentDetail
+	 * @return whether the students details was updated successfully or not
+	 */
+	
+	public boolean updateDetail(StudentOtherDetail studentDetail,String StudentUuid) ;
+	
+	/**
+	 * 
+	 * @param studentDetail 
+	 * @return whether the students details was deleted successfully or not
+	 */
+	
+    public boolean deleteDetail(StudentOtherDetail studentDetail);
     
+	/**
+	 * 
+	 * @return the list of all students other details
+	 */
     
-    /**
-     * @return the database credentials class
-     */
-    public static DButils getDBCredentials() {
-    	return dButils;
-    }
-    
-    
-    /**
-     * 
-     */
-    @Override
-    public void destroy() {
-		logger.info("Now shutting down database pools.");
-    	
-		dButils.closeConnections();		
-	} 
-    
-    
-    private static final long serialVersionUID = -7899535368789138778L;
+	public List<StudentOtherDetail> getAllDetailList(int startIndex , int endIndex);
+
 }

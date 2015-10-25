@@ -1,4 +1,24 @@
-/**
+/******************************************************************************
+ * ****************************************************************************
+ ************* MAASAI MARA UNIVERITY CHRISTIAN UNION MANAGEMENT SYSTEM*********
+ *************THIS SYSTEM IS BASED ON JAVAEE, USING MVC MODEL******************
+ *************THE SYSTEM IS USED FOR STUDEN REGISTRATION TO THE UNION**********
+ *************STUDENT REGISTRATION MODULE WILL BE ACCESSIBLE REMOTELY**********
+ *************VIA USE OF PUBLIC IP ADDRESS OR A DOMAIN NAME********************
+ *THE STUDENT WILL ALSO BE ABLE TO CHECK THEIR REGISTERD DETAILS FOR VERIFICATION
+ *WHEREBY, THEY ARE ALLOWED TO MODIGY THEIR DETAILS WITHIN ONE WEEK AFTER REGISTRATION DATE
+ *****************************************************************************************
+ *****************************************************************************************
+ *THE OTHER MODULES OR ONLY FOR ADMIN, THE ADMIN WILL APPROVE STUDEDNTS AFTER THEY REGISTER
+ *THE REGISTRATION WILL REQURED RE-ACTIVATION AFTER A PERIOD OF ONE YEAR(12 MONTHS) THIS WILL
+ *HAPPEN AUTOMATICALLY WITH THE HELP OF QUARTZ SCHEDULAR, FOR EFFICIENCY AND KEEPING THE SYSTEM
+ *AT HIGH PERFORMANCE, SOME DATA ARE CACHED USING EHCHACE.
+ **********************************************************************************************
+ **********************************************************************************************
+ *COPYRIGHT REMAINS TO SOFTECH SOLUTIONS, A FAST GROWING IT COMPANY
+ *CONTSCTS: WWW.FASTECCHSOLUTIONS.CO.KE
+ *          WWW.FACEBOOK.COM/FASTECH.CO.KE
+ *
  * 
  */
 package com.gmail.mwendapeter72.server.bean.student;
@@ -7,12 +27,13 @@ import java.util.Date;
 
 import com.gmail.mwendapeter72.server.bean.AllBean;
 
+
 /**
  * @author peter<a href="mailto:mwendapeter72@gmail.com">Peter mwenda</a>
  * @author joram<a href="mailto:joramndungu10@gmail.com">Joram Muriithi</a>
  *
  */
-public class Student extends AllBean {
+public class Student extends AllBean implements Comparable<Student> {
 	private String StudentUuid;
 	private String AdmNo;
 	private String FirstName; 
@@ -28,7 +49,7 @@ public class Student extends AllBean {
 	private String YearOfStudy;
 	private String HomeTown;
 	private String County;
-	private Date DateOfRegistration = new Date();
+	private Date DateOfRegistration;
 
 	/**
 	 * 
@@ -50,18 +71,27 @@ public class Student extends AllBean {
 		YearOfStudy="";
 		HomeTown="";
 		County="";
-		DateOfRegistration = new Date(new Long(""));			
+		DateOfRegistration = new Date();			
 	}
 	
 
+
+	/**
+	 * @return the studentUuid
+	 */
 	public String getStudentUuid() {
 		return StudentUuid;
 	}
 
 
+
+	/**
+	 * @param studentUuid the studentUuid to set
+	 */
 	public void setStudentUuid(String studentUuid) {
-		StudentUuid = studentUuid;
+		this.StudentUuid = studentUuid;
 	}
+
 
 
 	public String getAdmNo() {
@@ -70,7 +100,7 @@ public class Student extends AllBean {
 
 
 	public void setAdmNo(String admNo) {
-		AdmNo = admNo;
+		this.AdmNo = admNo;
 	}
 
 
@@ -80,7 +110,7 @@ public class Student extends AllBean {
 
 
 	public void setFirstName(String firstName) {
-		FirstName = firstName;
+		this.FirstName = firstName;
 	}
 
 
@@ -90,7 +120,7 @@ public class Student extends AllBean {
 
 
 	public void setSurName(String surName) {
-		SurName = surName;
+		this.SurName = surName;
 	}
 
 
@@ -100,7 +130,7 @@ public class Student extends AllBean {
 
 
 	public void setLastName(String lastName) {
-		LastName = lastName;
+		this.LastName = lastName;
 	}
 
 
@@ -110,7 +140,7 @@ public class Student extends AllBean {
 
 
 	public void setEmail(String email) {
-		Email = email;
+		this.Email = email;
 	}
 
 
@@ -120,7 +150,7 @@ public class Student extends AllBean {
 
 
 	public void setMobile(String mobile) {
-		Mobile = mobile;
+		this.Mobile = mobile;
 	}
 
 
@@ -130,7 +160,7 @@ public class Student extends AllBean {
 
 
 	public void setGuardianContact(String guardianContact) {
-		GuardianContact = guardianContact;
+		this.GuardianContact = guardianContact;
 	}
 
 
@@ -140,7 +170,7 @@ public class Student extends AllBean {
 
 
 	public void setDOB(String dOB) {
-		DOB = dOB;
+		this.DOB = dOB;
 	}
 
 
@@ -150,7 +180,7 @@ public class Student extends AllBean {
 
 
 	public void setGender(String gender) {
-		Gender = gender;
+		this.Gender = gender;
 	}
 
 
@@ -160,7 +190,7 @@ public class Student extends AllBean {
 
 
 	public void setProgram(String program) {
-		Program = program;
+		this.Program = program;
 	}
 
 
@@ -170,7 +200,7 @@ public class Student extends AllBean {
 
 
 	public void setAcademicYear(String academicYear) {
-		AcademicYear = academicYear;
+		this.AcademicYear = academicYear;
 	}
 
 
@@ -180,7 +210,7 @@ public class Student extends AllBean {
 
 
 	public void setYearOfStudy(String yearOfStudy) {
-		YearOfStudy = yearOfStudy;
+		this.YearOfStudy = yearOfStudy;
 	}
 
 
@@ -190,7 +220,7 @@ public class Student extends AllBean {
 
 
 	public void setHomeTown(String homeTown) {
-		HomeTown = homeTown;
+		this.HomeTown = homeTown;
 	}
 
 
@@ -200,17 +230,17 @@ public class Student extends AllBean {
 
 
 	public void setCounty(String county) {
-		County = county;
+		this.County = county;
 	}
 
 
 	public Date getDateOfRegistration() {
-		return DateOfRegistration;
+		return new Date(DateOfRegistration.getTime());
 	}
 
 
 	public void setDateOfRegistration(Date dateOfRegistration) {
-		DateOfRegistration = dateOfRegistration;
+		this.DateOfRegistration = new Date(dateOfRegistration.getTime());
 	}
 
 
@@ -252,5 +282,11 @@ public class Student extends AllBean {
 		builder.append("]");
 		return builder.toString(); 
 		}
+
+
+	@Override
+	public int compareTo(Student s) {
+		return AdmNo.compareTo(((Student) s).getAdmNo());
+	}
 	
 }

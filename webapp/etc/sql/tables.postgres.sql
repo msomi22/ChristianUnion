@@ -68,11 +68,12 @@ CREATE TABLE  StudentOtherInfo (
     Duration text,
     Ministry text,
     MinistryName text,
-    DesiredMinistry text
+    DesiredMinistry text,
+    MinistryVision text
     
 
 );
-\COPY StudentOtherInfo(Uuid,StudentUuid,Christian,Duration,Ministry,MinistryName,DesiredMinistry) FROM '/tmp/StudentOtherInfo.csv' WITH DELIMITER AS '|' CSV HEADER
+\COPY StudentOtherInfo(Uuid,StudentUuid,Christian,Duration,Ministry,MinistryName,DesiredMinistry,MinistryVision) FROM '/tmp/StudentOtherInfo.csv' WITH DELIMITER AS '|' CSV HEADER
 ALTER TABLE StudentOtherInfo OWNER TO cu;
 
 

@@ -26,6 +26,7 @@ function clearText(field)
  <link href="../css/bootstrap/bootstrap-responsive.css" rel="stylesheet">
 <script src="../js/jquery.min.js" type="text/javascript"></script>
 <script src="../js/jquery.nivo.slider.js" type="text/javascript"></script>
+<script src="../js/searchstudent.js" type="text/javascript"></script>
 
 <script type="text/javascript">
 $(window).load(function() {
@@ -73,15 +74,12 @@ $(window).load(function() {
     <div id="tooplate_menu">
         <ul>
             <li><a href="home.jsp" class="current">Home</a></li>
-            <li><a href="#">Manage </a></li>
+             <li><a href="#">Manage </a></li>
             <li class="last"><a href="#">Sadaka</a></li>
         </ul>    	
         
-        <div id="search_box">
-            <form action="#" method="get">
-                <input type="text" value="Search" name="q" size="10" id="searchfield" title="searchfield" onfocus="clearText(this)" onblur="clearText(this)" />
-                <input type="submit" name="Search" value="" id="searchbutton" title="Search" />
-            </form>
-        </div>
         <div class="cleaner"></div>
     </div> <!-- end of tooplate_menu -->
+       <br> <br> <br>
+            
+    

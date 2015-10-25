@@ -1,21 +1,24 @@
-/**##########################################################
-/*************************************************************
- * ##########################################################
- * ##########################################################
- * ### This is My Forth Year Project#########################
- * ####### Maasai Mara University############################
- * ####### Year:2015-2016 ###################################
- * ####### Although this software is open source, No one
- * ###### should assume it ownership and copy paste 
- * ###### the code herein without the owner's approval.
- * ###################################################
- * ##########################################################
- * ##### School Management System ###########################
- * ##### Uses MVC Model, Postgres database, ant for 
- * ##### project management and other technologies.
- * ##### It consist Desktop application and a web
- * #### application all sharing the same DB.
- * ##########################################################
+/******************************************************************************
+ * ****************************************************************************
+ ************* MAASAI MARA UNIVERITY CHRISTIAN UNION MANAGEMENT SYSTEM*********
+ *************THIS SYSTEM IS BASED ON JAVAEE, USING MVC MODEL******************
+ *************THE SYSTEM IS USED FOR STUDEN REGISTRATION TO THE UNION**********
+ *************STUDENT REGISTRATION MODULE WILL BE ACCESSIBLE REMOTELY**********
+ *************VIA USE OF PUBLIC IP ADDRESS OR A DOMAIN NAME********************
+ *THE STUDENT WILL ALSO BE ABLE TO CHECK THEIR REGISTERD DETAILS FOR VERIFICATION
+ *WHEREBY, THEY ARE ALLOWED TO MODIGY THEIR DETAILS WITHIN ONE WEEK AFTER REGISTRATION DATE
+ *****************************************************************************************
+ *****************************************************************************************
+ *THE OTHER MODULES OR ONLY FOR ADMIN, THE ADMIN WILL APPROVE STUDEDNTS AFTER THEY REGISTER
+ *THE REGISTRATION WILL REQURED RE-ACTIVATION AFTER A PERIOD OF ONE YEAR(12 MONTHS) THIS WILL
+ *HAPPEN AUTOMATICALLY WITH THE HELP OF QUARTZ SCHEDULAR, FOR EFFICIENCY AND KEEPING THE SYSTEM
+ *AT HIGH PERFORMANCE, SOME DATA ARE CACHED USING EHCHACE.
+ **********************************************************************************************
+ **********************************************************************************************
+ *COPYRIGHT REMAINS TO SOFTECH SOLUTIONS, A FAST GROWING IT COMPANY
+ *CONTSCTS: WWW.FASTECCHSOLUTIONS.CO.KE
+ *          WWW.FACEBOOK.COM/FASTECH.CO.KE
+ *
  * 
  */
 package com.gmail.mwendapeter72.server.bean;
