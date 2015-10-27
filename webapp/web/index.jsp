@@ -64,7 +64,7 @@
    
     <div id="homepage" class="clear">  
      <h3><i class="icon-edit"></i> Student Registration Form: Basic Details</h3>            
-      <P> <b>Please NOTE that fields maked with(*) are required/mandatory </b></P>
+      <P> <b style=color:blue;>Please NOTE that fields marked with(*) are required/mandatory </b></P>
         
          <div class="box-content">
             <form  class="form-horizontal"   action="addStudent" method="POST" >
@@ -229,7 +229,7 @@
                    <div class="control-group">
                         <label class="control-label" for="name">If Yes Approximately For How long Have You Been In Christianity:</label>
                         <div class="controls">
-                            <input class="input-xlarge focused" id="receiver" type="text" name="Duration" placeholder="e.g(5 years)"
+                            <input class="input-xlarge focused" id="receiver" type="text" name="Duration" placeholder="e.g(5 weeks,months,years)"
                                value="<%= StringUtils.trimToEmpty(paramHash.get("Duration")) %>" >
                         </div>
                     </div> 

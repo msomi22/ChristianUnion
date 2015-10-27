@@ -37,6 +37,7 @@ import javax.servlet.http.HttpSession;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.validator.routines.EmailValidator;
 
+import com.gmail.mwendapeter72.server.bean.AllBean;
 import com.gmail.mwendapeter72.server.bean.student.Student;
 import com.gmail.mwendapeter72.server.bean.student.StudentOtherDetail;
 import com.gmail.mwendapeter72.server.persistence.student.StudentDAO;
@@ -50,8 +51,6 @@ import com.gmail.mwendapeter72.server.session.SessionConstants;
 public class AddStudent extends HttpServlet{
 	private static StudentDAO studentDAO;
 	private static StudentOtherDetailDAO studentOtherDetailDAO;
-	private StudentOtherDetail studentDetail;
-	private Student student;
 	private EmailValidator emailValidator;
 	
 	
@@ -91,8 +90,8 @@ public class AddStudent extends HttpServlet{
        super.init(config);
        studentDAO = StudentDAO.getInstance();
        studentOtherDetailDAO = StudentOtherDetailDAO.getInstance();
-       studentDetail = new StudentOtherDetail();
-       student = new Student();
+    
+ 
        emailValidator = EmailValidator.getInstance();
    }
    
@@ -218,34 +217,36 @@ protected void doPost(HttpServletRequest request, HttpServletResponse response)
 		  session.setAttribute(SessionConstants.STUDENT_REGISTER_DETAILS, null);
 		  Student s = new Student();
 		  String  StudeUuid = s.getUuid();
-		  //student = studentDAO.getStudent(AdmNo);
-		  
-		  student.setUuid(StudeUuid);
-		  student.setAdmNo(AdmNo.toUpperCase());
-		  student.setFirstName(FirstName.toUpperCase());
-		  student.setSurName(SurName.toUpperCase());
-		  student.setLastName(LastName.toUpperCase());
-		  student.setEmail(Email);
-		  student.setMobile(Phone);
-		  student.setGuardianContact(GuardianContact);
-		  student.setDOB(DOB);
-		  student.setGender(Gender.toUpperCase());
-		  student.setProgram(Program.toUpperCase());
-		  student.setAcademicYear(AcademicYear.toUpperCase());
-		  student.setYearOfStudy(YearOfStudy);
-		  student.setHomeTown(HomeTown.toUpperCase());
-		  student.setCounty(County.toUpperCase());
-		  studentDAO.putStudent(student);
+		 
+		  s.setUuid(StudeUuid);
+		  s.setAdmNo(AdmNo.toUpperCase());
+		  s.setFirstName(FirstName.toUpperCase());
+		  s.setSurName(SurName.toUpperCase());
+		  s.setLastName(LastName.toUpperCase());
+		  s.setEmail(Email);
+		  s.setMobile(Phone);
+		  s.setGuardianContact(GuardianContact);
+		  s.setDOB(DOB);
+		  s.setGender(Gender.toUpperCase());
+		  s.setProgram(Program.toUpperCase());
+		  s.setAcademicYear(AcademicYear.toUpperCase());
+		  s.setYearOfStudy(YearOfStudy);
+		  s.setHomeTown(HomeTown.toUpperCase());
+		  s.setCounty(County.toUpperCase());
+		  studentDAO.putStudent(s);
 		   
-		  //studentDetail = studentOtherDetailDAO.getDetail(StudeUuid);
-		  studentDetail.setStudentUuid(StudeUuid);
-		  studentDetail.setChristian(Christian.toUpperCase());
-		  studentDetail.setDuration(Duration.toUpperCase());
-		  studentDetail.setMinistry(Ministry.toUpperCase());
-		  studentDetail.setMinistryName(MinistryName.toUpperCase());
-		  studentDetail.setDesiredMinistry(DesiredMinistry.toUpperCase());
-		  studentDetail.setMinistryVision(Vision);
-		  studentOtherDetailDAO.putDetail(studentDetail);
+		  
+		StudentOtherDetail d = new StudentOtherDetail();
+		  String Uuid = d.getUuid();
+		  d.setUuid(Uuid);
+		  d.setStudentUuid(StudeUuid);
+		  d.setChristian(Christian.toUpperCase());
+		  d.setDuration(Duration.toUpperCase());
+		  d.setMinistry(Ministry.toUpperCase());
+		  d.setMinistryName(MinistryName.toUpperCase());
+		  d.setDesiredMinistry(DesiredMinistry.toUpperCase());
+		  d.setMinistryVision(Vision);
+		  studentOtherDetailDAO.putDetail(d);
 		  session.setAttribute(SessionConstants.STUDENT_ADD_SUCCESS, STUDENT_ADD_SUCCESS); 
 		 
 		   

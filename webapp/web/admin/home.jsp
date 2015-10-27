@@ -171,7 +171,7 @@
                 <thead>
                     <tr>
                         <th>*</th>
-                        <th>Admission Number</th>
+                         <th>Admission Number</th>
                         <th>Firstname</th>                
                        <!-- <th>Surname</th>  -->
                         <th>Lastname</th>
@@ -206,8 +206,9 @@
                        
                     %>
                       <tr class="tabledit">
+                         
                          <td width="10%"><%=ussdCount%> </td>
-                         <td class="center"><%=s.getAdmNo()%> </td>  
+                         <td class="center" name='<%=s.getUuid()%>'><a href="#" data-toggle="modal" data-target="#groupcheck" ><%=s.getAdmNo()%></a> </td>  
                          <td class="center"><%=s.getFirstName()%></td>
                        <!--  <td class="center"><%//=s.getSurName()%></td> -->
                          <td class="center"><%=s.getLastName()%></td>  
@@ -347,7 +348,11 @@
                 </div>
 
 
-
+<div class="modal fade" id="groupcheck" tabindex="-1" role="dialog" arialabelled="exampleModalLabeled" aria-hidden="true">
+<table id="scroll21">
+                                          <tr ><td width=50% > Network provider</td><td width=50%>Number of contacts</td></tr> 
+                                                </table>
+</div>
 
 
 

@@ -24,9 +24,8 @@ function clearText(field)
 <link rel="stylesheet" href="../css/nivo-slider.css" type="text/css" media="screen" />
 <link href="../css/bootstrap/bootstrap-cerulean.css" rel="stylesheet">
  <link href="../css/bootstrap/bootstrap-responsive.css" rel="stylesheet">
-<script src="../js/jquery.min.js" type="text/javascript"></script>
-<script src="../js/jquery.nivo.slider.js" type="text/javascript"></script>
-<script src="../js/searchstudent.js" type="text/javascript"></script>
+ <script src="../js/jquery-1.8.2.min.js" type="text/javascript"></script>
+
 
 <script type="text/javascript">
 $(window).load(function() {

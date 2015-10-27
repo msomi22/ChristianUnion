@@ -23,16 +23,19 @@
  */
 package com.gmail.mwendapeter72.server.bean.student;
 
+import com.gmail.mwendapeter72.server.bean.AllBean;
+
 /**
  * @author Muriithi<a href="mailto:mattjohnmurii@gmail.com">Muriithi John</a>
  * @author peter<a href="mailto:mwendapeter72@gmail.com">Peter mwenda</a>
  *
  */
-public class StudentOtherDetail extends Student {
+public class StudentOtherDetail extends AllBean {
 
 	/**
 	 * 
 	 */
+	private String StudentUuid;
 	private String Christian;
     private String Duration;
     private String Ministry;
@@ -42,6 +45,7 @@ public class StudentOtherDetail extends Student {
     
 	public StudentOtherDetail() {
 		super();
+		StudentUuid = "";
 		Christian = "";
 		Duration = "";
 		Ministry = "";
@@ -52,6 +56,20 @@ public class StudentOtherDetail extends Student {
 				
 	}
 			
+	/**
+	 * @return the studentUuid
+	 */
+	public String getStudentUuid() {
+		return StudentUuid;
+	}
+
+	/**
+	 * @param studentUuid the studentUuid to set
+	 */
+	public void setStudentUuid(String studentUuid) {
+		StudentUuid = studentUuid;
+	}
+
 	public String getChristian() {
 		return Christian;
 	}

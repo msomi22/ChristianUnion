@@ -64,6 +64,7 @@ public class StudentDAO extends DBConnectDAO  implements CuStudentDAO {
 	 */
 	public StudentDAO() { 
 		super();
+			
 	}
 	
 	/**
@@ -71,6 +72,7 @@ public class StudentDAO extends DBConnectDAO  implements CuStudentDAO {
 	 */
 	public StudentDAO(String databaseName, String Host, String databaseUsername, String databasePassword, int databasePort) {
 		super(databaseName, Host, databaseUsername, databasePassword, databasePort);
+		
 	}
 
 	/**
@@ -169,6 +171,10 @@ public class StudentDAO extends DBConnectDAO  implements CuStudentDAO {
 	            pstmt.setString(15, student.getCounty());
 	            pstmt.setTimestamp(16, new Timestamp(student.getDateOfRegistration().getTime()));
 	            pstmt.executeUpdate();
+	            
+	          
+	            
+	            
 			 
 		 }catch(SQLException e){
 			 logger.error("SQL Exception trying to put Student: "+student);

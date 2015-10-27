@@ -34,7 +34,7 @@ import com.gmail.mwendapeter72.server.bean.AllBean;
  *
  */
 public class Student extends AllBean implements Comparable<Student> {
-	private String StudentUuid;
+	
 	private String AdmNo;
 	private String FirstName; 
 	private String SurName; 
@@ -56,7 +56,7 @@ public class Student extends AllBean implements Comparable<Student> {
 	 */
 	public Student() {
 		super();
-		StudentUuid="";
+		
 		AdmNo ="";
 		FirstName="";
 		SurName="";
@@ -76,22 +76,7 @@ public class Student extends AllBean implements Comparable<Student> {
 	
 
 
-	/**
-	 * @return the studentUuid
-	 */
-	public String getStudentUuid() {
-		return StudentUuid;
-	}
-
-
-
-	/**
-	 * @param studentUuid the studentUuid to set
-	 */
-	public void setStudentUuid(String studentUuid) {
-		this.StudentUuid = studentUuid;
-	}
-
+	
 
 
 	public String getAdmNo() {
