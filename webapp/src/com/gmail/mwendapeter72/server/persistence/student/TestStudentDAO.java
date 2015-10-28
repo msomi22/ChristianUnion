@@ -46,7 +46,7 @@ public class TestStudentDAO {
 	final String databasePassword = "Cu12c";
 	final int databasePort = 5432;
 	
-	private String UUID = "AB92E647-52B6-4B24-8719-1E88158BC178";
+	private String UUID = "5C5724AF-B8C6-4322-ACE9-C340C6DB8D13";
 	private String UUID_NEW ="760182D0-A534-4D85-86BC-6FEA9F44540D";
 	
 	private String ADM_NO = "BS02/030/2012",
@@ -126,17 +126,20 @@ public class TestStudentDAO {
 	/**
 	 * Test method for {@link com.gmail.mwendapeter72.server.persistence.student.StudentDAO#getStudentByUuid(java.lang.String)}.
 	 */
-	@Ignore
+	//@Ignore
 	@Test
 	public void testGetStudentByUuid() {
-		fail("Not yet implemented");
+		store = new StudentDAO(databaseName, Host, databaseUsername, databasePassword, databasePort);
+		 Student s = store.getStudentByUuid(UUID);
+		 assertEquals(s.getUuid(),UUID);
+		// assertEquals(s.getAdmNo(),ADM_NO);
 	}
 
 	
 	/**
 	 * Test method for {@link com.yahoo.petermwenda83.persistence.student.StudentDAO#putStudent(com.yahoo.petermwenda83.bean.student.StudentSubject)}.
 	 */
-	//@Ignore
+	@Ignore
 	@Test
 	public void testGetStudentAdmNo() {
 	 store = new StudentDAO(databaseName, Host, databaseUsername, databasePassword, databasePort);

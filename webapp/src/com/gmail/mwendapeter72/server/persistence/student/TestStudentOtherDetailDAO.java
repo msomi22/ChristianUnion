@@ -46,7 +46,7 @@ public class TestStudentOtherDetailDAO {
 	private String UUID ="A95EA158-6D2E-4316-AC15-358E26C0CFA0",
 			       UUID_NEW="DD08D8CE-59E6-41AF-824F-4C6538771094";
 	
-	private String STUDENT_UUID = "AB92E647-52B6-4B24-8719-1E88158BC178",
+	private String STUDENT_UUID = "5C5724AF-B8C6-4322-ACE9-C340C6DB8D13",
 			       STUDENT_UUID_NEW ="FC31CA05-DDAB-45BF-AC3C-4AE010A39102";
 	
 	private String  CHRISTIAN = "Yes",
@@ -79,10 +79,13 @@ public class TestStudentOtherDetailDAO {
 	/**
 	 * Test method for {@link com.gmail.mwendapeter72.server.persistence.student.StudentOtherDetailDAO#getDetail(java.lang.String)}.
 	 */
-	@Ignore
+	//@Ignore
 	@Test
 	public void testGetDetail() {
 		store = new StudentOtherDetailDAO(databaseName, Host, databaseUsername, databasePassword, databasePort);
+		StudentOtherDetail d = new StudentOtherDetail();
+		d = store.getDetail(STUDENT_UUID);
+		//System.out.println(store.getDetail(STUDENT_UUID));
 	}
 
 	/**
@@ -125,7 +128,7 @@ public class TestStudentOtherDetailDAO {
 	/**
 	 * Test method for {@link com.gmail.mwendapeter72.server.persistence.student.StudentOtherDetailDAO#getAllDetgail()}.
 	 */
-	//@Ignore
+	@Ignore
 	@Test
 	public void testGetAllDetgail() {
 		store = new StudentOtherDetailDAO(databaseName, Host, databaseUsername, databasePassword, databasePort);

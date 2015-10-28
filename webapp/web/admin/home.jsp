@@ -208,7 +208,7 @@
                       <tr class="tabledit">
                          
                          <td width="10%"><%=ussdCount%> </td>
-                         <td class="center" name='<%=s.getUuid()%>'><a href="#" data-toggle="modal" data-target="#groupcheck" ><%=s.getAdmNo()%></a> </td>  
+                         <td class="center" ><a class="Zlink" href="#" data-toggle="modal" data-target="#groupcheck" name='<%=s.getUuid()%>'><%=s.getAdmNo()%></a> </td>  
                          <td class="center"><%=s.getFirstName()%></td>
                        <!--  <td class="center"><%//=s.getSurName()%></td> -->
                          <td class="center"><%=s.getLastName()%></td>  
@@ -267,105 +267,13 @@
                  <br> <br> <br> <br> <br> <br>
 
 
-               <div id="tooplate_middle">     
-               <div id="middle_left">
-              <p>MMU CU Student Other Details</p>
-             </div>
-                <table class="table table-striped table-bordered bootstrap-datatable datatable">
-                <thead>
-                    <tr>
-                        <th>*</th>
-                        <th>Admission Number</th>
-                        <th>Firstname</th>                
-                        <th>Lastname</th>
-                        <th>Is a Christian?</th>
-                        <th>For What Period?</th>
-                        <th>Ever serverd in a Ministry?</th>
-                        <th>Which Ministry?</th>
-                        <th>Desired Ministry</th>
-                        <th>Ministry Vision</th>
-                    </tr>
-                </thead>   
-                <tbody>
-                       
-
-                     <%   
-                                                                   
-                      int counts = 1;
-                       for (StudentOtherDetail d : studentDetailsList) {
-                              
-              
-                    %>
-                      <tr>
-                         <td width="10%"><%=ussdCount2%></td>
-                         <td class="center"><%=admnoHash.get(d.getStudentUuid())%></td> 
-                         <td class="center"><%=firstnameHash.get(d.getStudentUuid())%></td>
-                         <td class="center"><%=lastnameHash.get(d.getStudentUuid())%></td>  
-                         <td class="center"><%=d.getChristian()%></td>  
-                         <td class="center"><%=d.getDuration()%></td> 
-                         <td class="center"><%=d.getMinistry()%></td>
-                         <td class="center"><%=d.getMinistryName()%></td>  
-                         <td class="center"><%=d.getDesiredMinistry()%></td> 
-                         <td class="center"><%=d.getMinistryVision()%></td>
-                       
-                       </tr>
-
-                    <%
-                           ussdCount2++;
-                            } 
-                   
-                    %>
-
-                </tbody>
-                </table>  
-                    
-                     <div id="pagination">
-                <form name="pageForm" method="post" action="home.jsp">                                
-                    <%                                            
-                        if (!studentpage2.isFirstPage()) {
-                    %>
-                        <input class="toolbarBtn" type="submit" name="page2" value="First" />
-                        <input class="toolbarBtn" type="submit" name="page2" value="Previous" />
-                    <%
-                        }
-                    %>
-                    <span class="pageInfo">Page 
-                        <span class="pagePosition currentPage2"><%= studentpage2.getPageNum()%></span> of 
-                        <span class="pagePosition"><%= studentpage2.getTotalPage()%></span>
-                    </span>   
-                    <%
-                        if (!studentpage2.isLastPage()) {                        
-                    %>
-                        <input class="toolbarBtn" type="submit" name="page2" value="Next">  
-                        <input class="toolbarBtn" type="submit" name="page2" value="Last">
-                    <%
-                       }
-                    %>                                
-                </form>
-            </div>
-                    
-                    
-                </div>
-
+             
 
 <div class="modal fade" id="groupcheck" tabindex="-1" role="dialog" arialabelled="exampleModalLabeled" aria-hidden="true">
-<table id="scroll21">
-                                          <tr ><td width=50% > Network provider</td><td width=50%>Number of contacts</td></tr> 
-                                                </table>
+<div id="scroll21" style="width:800px; margin:5%;">
+ </div>
 </div>
 
-
-
-
-
-    
-
-
-
- <br> <br> <br> <br> <br> <br>
- <br> <br> <br> <br> <br> <br>
-     <p>&nbsp;&nbsp;&nbsp;</p>
-	
     <div id="tooplate_main_top"></div>        
     <div id="tooplate_main">
         

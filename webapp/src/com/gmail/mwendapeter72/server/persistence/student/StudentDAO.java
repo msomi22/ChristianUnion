@@ -137,8 +137,31 @@ public class StudentDAO extends DBConnectDAO  implements CuStudentDAO {
 	 */
 	@Override
 	public Student getStudentByUuid(String Uuid) {
-		// TODO Auto-generated method stub
-		return null;
+		Student student = null;
+        ResultSet rset = null;
+        try(
+        		  Connection conn = dbutils.getConnection();
+           	      PreparedStatement pstmt = conn.prepareStatement("SELECT * FROM Student WHERE Uuid = ?;");       
+        		
+        		){
+        	
+        	 pstmt.setString(1, Uuid); 
+	         rset = pstmt.executeQuery();
+	          while(rset.next()){
+	          
+	    	 student  = beanProcessor.toBean(rset,Student.class);
+	          }
+        	
+        	
+        	
+        }catch(SQLException e){
+        	 logger.error("SQL Exception when getting Student  with Uuid: " + Uuid);
+             logger.error(ExceptionUtils.getStackTrace(e));
+             System.out.println(ExceptionUtils.getStackTrace(e));
+            
+        }
+        //System.out.println(student);
+		return student; 
 	}
 
 	/**

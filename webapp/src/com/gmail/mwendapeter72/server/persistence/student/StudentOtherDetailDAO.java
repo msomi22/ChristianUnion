@@ -100,7 +100,7 @@ public class StudentOtherDetailDAO extends DBConnectDAO implements CuStudentOthe
              logger.error(ExceptionUtils.getStackTrace(e));
              
         }
-        
+        //System.out.println(studentDetail);
 		return studentDetail; 
 	}
 

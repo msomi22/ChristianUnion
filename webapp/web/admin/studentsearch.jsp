@@ -60,7 +60,7 @@
                     %>
                     <tr class="tabledit">
                        <td width="10%"><%=count%></td>
-                         <td class="center"><%=s.getAdmNo()%></td> 
+                         <td class="center" ><a class="Zlink" href="#" data-toggle="modal" data-target="#groupcheck" name='<%=s.getUuid()%>'><%=s.getAdmNo()%></a> </td>  
                          <td class="center"><%=s.getFirstName()%></td>
                        <!--  <td class="center"><%//=s.getSurName()%></td> -->
                          <td class="center"><%=s.getLastName()%></td>  
@@ -73,8 +73,7 @@
                          <td class="center"><%=s.getYearOfStudy()%></td>
                          <td class="center"><%=s.getHomeTown()%></td>
                          <td class="center"><%=s.getCounty()%></td>  
-                         <td class="center"><%=dateFormatter.format(s.getDateOfRegistration())%></td>  S
-                                          
+                         <td class="center"><%=dateFormatter.format(s.getDateOfRegistration())%></td>  
                     </tr>
 
                     <%       

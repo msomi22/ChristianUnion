@@ -3,15 +3,22 @@
  */
 package com.gmail.mwendapeter72.server.bean.student;
 
+import com.gmail.mwendapeter72.server.bean.AllBean;
+
 /**
  * @author muriithi
  *
  */
-public class StudentOtherDetails extends Student{
+public class StudentOtherDetails extends AllBean{
 
 	/**
 	 * 
 	 */
+	private static final long serialVersionUID = -2335839952627713099L;
+	/**
+	 * 
+	 */
+	private String StudentUuid;
 	private String Christian;
     private String Duration;
     private String Ministry;
@@ -20,6 +27,7 @@ public class StudentOtherDetails extends Student{
     
 	public StudentOtherDetails() {
 		super();
+		StudentUuid = "";
 		Christian = "";
 		Duration = "";
 		Ministry = "";
@@ -29,6 +37,20 @@ public class StudentOtherDetails extends Student{
 				
 	}
 	
+	/**
+	 * @return the studentUuid
+	 */
+	public String getStudentUuid() {
+		return StudentUuid;
+	}
+
+	/**
+	 * @param studentUuid the studentUuid to set
+	 */
+	public void setStudentUuid(String studentUuid) {
+		StudentUuid = studentUuid;
+	}
+
 	public String getChristian() {
 		return Christian;
 	}
