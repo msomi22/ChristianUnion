@@ -236,7 +236,7 @@ public class StudentDAO extends DBConnectDAO  implements CuStudentDAO {
 		
 		try(
 				Connection conn = dbutils.getConnection();
-				PreparedStatement psmt= conn.prepareStatement("SELECT * FROM Student ORDER BY Uuid ASC LIMIT ? OFFSET ? ;");
+				PreparedStatement psmt= conn.prepareStatement("SELECT * FROM Student ORDER BY AdmNo ASC LIMIT ? OFFSET ? ;");
 				) {
 			
 			psmt.setInt(1, endIndex - startIndex);

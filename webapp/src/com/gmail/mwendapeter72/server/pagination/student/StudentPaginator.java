@@ -17,7 +17,7 @@ import com.gmail.mwendapeter72.server.persistence.utils.StudentUtils;
  */
 public class StudentPaginator {
 	
-	public final int PAGESIZE = 10;
+	public final int PAGESIZE = 15;
 	private static StudentUtils studentUtils;
 	private static StudentDAO studentDAO;
 	private String AdmNo;

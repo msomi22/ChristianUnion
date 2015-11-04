@@ -56,11 +56,12 @@
                 %>
                 <tbody>                   
                          <tr>  <td width="30%" class="center">Surname</td>                <td class="center"><%=student.getSurName()%></td> </tr>
+                         <tr>  <td width="30%" class="center">Program/Major</td>         <td class="center"><%=student.getProgram()%></td> </tr>
                          <tr>  <td width="30%" class="center">Guardian Contact</td>         <td class="center"><%=student.getGuardianContact()%></td> </tr>
                          <tr>  <td width="30%" class="center">Academic Year</td>             <td class="center"><%=student.getAcademicYear()%></td>  </tr> 
                          <tr>  <td width="30%" class="center">Is a Christian?</td>            <td class="center"><%=studentDetails.getChristian()%></td>    </tr>
                          <tr>  <td width="30%" class="center">For What Period?</td>            <td class="center"><%=studentDetails.getDuration()%></td>     </tr>
-                         <tr>  <td width="30%" class="center">Ever serverd in a Ministry?</td>  <td class="center"><%=studentDetails.getMinistry()%></td>  </tr>
+                         <tr>  <td width="30%" class="center">Ever Served in a Ministry?</td>  <td class="center"><%=studentDetails.getMinistry()%></td>  </tr>
                          <tr>  <td width="30%" class="center">Which Ministry?</td>             <td class="center"><%=studentDetails.getMinistryName()%></td>    </tr>  
                          <tr>  <td width="30%" class="center">Desired Ministry</td>           <td class="center"><%=studentDetails.getDesiredMinistry()%></td> </tr>
                          <tr>  <td width="30%" class="center">Ministry Vision</td>             <td class="center"><%=studentDetails.getMinistryVision()%></td>   </tr>                    

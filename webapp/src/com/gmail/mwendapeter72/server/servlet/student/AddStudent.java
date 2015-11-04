@@ -128,6 +128,11 @@ protected void doPost(HttpServletRequest request, HttpServletResponse response)
 	   String Vision = StringUtils.trimToEmpty(request.getParameter("Vision"));
 	   String Declaration = StringUtils.trimToEmpty(request.getParameter("Declaration"));
 	   
+	   System.out.println(Gender);
+	  /* System.out.println(YearOfStudy);
+	   System.out.println(Duration);
+	   System.out.println(MinistryName);*/
+	   
 		// This is used to store parameter names and values from the form.
 	   	Map<String, String> paramHash = new HashMap<>();    	
 	   	paramHash.put("AdmNo", AdmNo);
@@ -138,7 +143,7 @@ protected void doPost(HttpServletRequest request, HttpServletResponse response)
 	   	paramHash.put("Phone", Phone);
 	   	paramHash.put("GuardianContact", GuardianContact);
 	   	paramHash.put("DOB", DOB);
-	   //	paramHash.put("Gender", Gender);
+	    paramHash.put("Gender", Gender);
 	   	paramHash.put("Program", Program);
 	   	paramHash.put("AcademicYear", AcademicYear);
 	   	paramHash.put("YearOfStudy", YearOfStudy);
@@ -154,64 +159,61 @@ protected void doPost(HttpServletRequest request, HttpServletResponse response)
 	  
 	    if(StringUtils.isBlank(AdmNo)){
 		   session.setAttribute(SessionConstants.STUDENT_ADD_ERROR, ERROR_NO_ADMNO); 
-    	   response.sendRedirect("index.jsp");  
+ 
 	   }else if(studentDAO.getStudent(AdmNo) !=null){
 		   session.setAttribute(SessionConstants.STUDENT_ADD_ERROR, ERROR_ADMNO_EXIST); 
-    	   response.sendRedirect("index.jsp"); 
+    	
 	   }else if(StringUtils.isBlank(FirstName)){
 		   session.setAttribute(SessionConstants.STUDENT_ADD_ERROR, ERROR_NO_STUDENT_FIRTSTNAME); 
-    	   response.sendRedirect("index.jsp"); 
+    	 
 	   }else if(StringUtils.isBlank(SurName)){
 		   session.setAttribute(SessionConstants.STUDENT_ADD_ERROR, ERROR_NO_STUDENT_SURNAME); 
-    	   response.sendRedirect("index.jsp"); 
+    	  
 	   }else if(StringUtils.isBlank(LastName)){
 		   session.setAttribute(SessionConstants.STUDENT_ADD_ERROR, ERROR_NO_STUDENT_LASTNAME); 
-    	   response.sendRedirect("index.jsp"); 
+    	  
 	   }else if(StringUtils.isBlank(Email)){
 		   session.setAttribute(SessionConstants.STUDENT_ADD_ERROR, ERROR_NO_STUDENT_EMAIL); 
-    	   response.sendRedirect("index.jsp"); 
+    	 
 	   }else if(!emailValidator.isValid(Email)){		     
 		   session.setAttribute(SessionConstants.STUDENT_ADD_ERROR, ERROR_INVALID_EMAIL);  
-		   response.sendRedirect("index.jsp");    	   
+		  	   
 	   }else if(StringUtils.isBlank(Phone)){
 		   session.setAttribute(SessionConstants.STUDENT_ADD_ERROR, ERROR_NO_PHONE); 
-    	   response.sendRedirect("index.jsp"); 
+    	 
 	   }else if(StringUtils.isBlank(GuardianContact)){
 		   session.setAttribute(SessionConstants.STUDENT_ADD_ERROR, ERROR_NO_GURDIAN_CONTACT); 
-    	   response.sendRedirect("index.jsp"); 
+    	  
 	   }else if(StringUtils.isBlank(DOB)){
 		   session.setAttribute(SessionConstants.STUDENT_ADD_ERROR, ERROR_NO_DOB); 
-    	   response.sendRedirect("index.jsp"); 
+    	   
 	   }else if(!ValidDob(DOB)){
 		   session.setAttribute(SessionConstants.STUDENT_ADD_ERROR, ERROR_INVALID_DOB); 
-    	   response.sendRedirect("index.jsp"); 
+    	   
 	   }else if(StringUtils.isBlank(Gender)){
 		   session.setAttribute(SessionConstants.STUDENT_ADD_ERROR, ERROR_NO_GENDER_SELECTED); 
-    	   response.sendRedirect("index.jsp"); 
+    	 
 	   }else if(StringUtils.isBlank(Program)){
 		   session.setAttribute(SessionConstants.STUDENT_ADD_ERROR, ERROR_NO_STUDENT_PROGRAM); 
-    	   response.sendRedirect("index.jsp"); 
+    	 
 	   }
 	    
 	   else if(StringUtils.isBlank(AcademicYear)){
 		   session.setAttribute(SessionConstants.STUDENT_ADD_ERROR, ERROR_NO_STUDENT_ACADEMIC_YEAR); 
-    	   response.sendRedirect("index.jsp"); 
+    	 
 	   }else if(StringUtils.isBlank(YearOfStudy)){
 		   session.setAttribute(SessionConstants.STUDENT_ADD_ERROR, ERROR_NO_STUDENT_YEAR_OF_STUDY); 
-    	   response.sendRedirect("index.jsp"); 
+    	   
 	   }else if(StringUtils.isBlank(HomeTown)){
 		   session.setAttribute(SessionConstants.STUDENT_ADD_ERROR, ERROR_NO_STUDENT_HOME_TOWN); 
-    	   response.sendRedirect("index.jsp"); 
+    	 
 	   }else if(StringUtils.isBlank(County)){
 		   session.setAttribute(SessionConstants.STUDENT_ADD_ERROR, ERROR_NO_STUDENT_COUNTY); 
-    	   response.sendRedirect("index.jsp"); 
+    	  
 	   }
-	   
-	   
-	   
 	   else if(!StringUtils.equals(Declaration, StringUtils.trimToEmpty("on"))){
 		   session.setAttribute(SessionConstants.STUDENT_ADD_ERROR, ERROR_DECLARATION_NOTCHECKED); 
-    	   response.sendRedirect("index.jsp");
+    	 
 	   }else{
 		   
 		  session.setAttribute(SessionConstants.STUDENT_REGISTER_DETAILS, null);

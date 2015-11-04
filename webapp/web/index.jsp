@@ -153,7 +153,7 @@
                      <div class="control-group">
                         <label class="control-label" for="name">Gender*:</label>
                         <div class="controls">
-                            <input class="input-xlarge focused" id="receiver" type="radio" name="studentgender" value="MALE" checked>Male 
+                            <input class="input-xlarge focused" id="receiver" type="radio" name="studentgender" value="MALE" >Male 
                             <input class="input-xlarge focused" id="receiver" type="radio" name="studentgender" value="FEMALE">Female 
                         </div>
                     </div> 
@@ -187,9 +187,16 @@
                      
                     <div class="control-group">
                         <label class="control-label" for="name">Year Of Study*:</label>
-                        <div class="controls">
-                            <input class="input-xlarge focused" id="receiver" type="text" name="YearOfStudy" 
-                             value="<%= StringUtils.trimToEmpty(paramHash.get("YearOfStudy")) %>" >
+                         <div class="controls">
+                            <select name="YearOfStudy" required="true">
+                                <option value="">Please select one</option> 
+                                <option value="1">1</option>
+                                <option value="2">2</option>
+                                <option value="3">3</option>
+                                <option value="4">4</option>
+                                
+                            </select>                           
+                          
                         </div>
                     </div> 
                     
@@ -213,7 +220,7 @@
                     </div> 
 
 
-                      <h3><i class="icon-edit"></i> Your Christian Life*:</h3> 
+                      <h3><i class="icon-edit"></i> Your Christian Life:</h3> 
 
                     
                    <div class="control-group">
@@ -224,13 +231,20 @@
                         </div>
 
                     </div> 
-                   
+                      
 
                    <div class="control-group">
                         <label class="control-label" for="name">If Yes Approximately For How long Have You Been In Christianity:</label>
                         <div class="controls">
-                            <input class="input-xlarge focused" id="receiver" type="text" name="Duration" placeholder="e.g(5 weeks,months,years)"
-                               value="<%= StringUtils.trimToEmpty(paramHash.get("Duration")) %>" >
+                            <select name="Duration" required="true">
+                                <option value="">Please select one</option> 
+                                <option value="Less Than 6 Months">Less Than 6 Months</option>
+                                <option value="Between 6-12 Months">Between 6-12 Months</option>
+                                <option value="Between 1-2 Years">Between 1-2 Years</option>
+                                <option value="Between 2-4 Years">Between 2-4 Years</option>
+                                <option value="Above 4 Years">Above 4 Years</option>
+                            </select>                           
+                          
                         </div>
                     </div> 
 
@@ -247,17 +261,31 @@
                    <div class="control-group">
                         <label class="control-label" for="name">If Yes which Ministry(s):</label>
                         <div class="controls">
-                            <input class="input-xlarge focused" id="receiver" type="text" name="MinistryName"  
-                             value="<%= StringUtils.trimToEmpty(paramHash.get("MinistryName")) %>" >
+                            <select name="MinistryName" required="true">
+                                <option value="">Please select one</option> 
+                                <option value="Bible Study">Bible Study</option>
+                                <option value="Praise And Worship">Praise And Worship</option>
+                                <option value="Intercessory">Intercessory</option>
+                                <option value="Evangelism">Evangelism</option>
+                                
+                            </select>                           
+                          
                         </div>
                     </div> 
 
 
                      <div class="control-group">
                         <label class="control-label" for="name">Which ministry would you like to serve in the Maasai Mara University Christian Union?:</label>
-                        <div class="controls">
-                            <input class="input-xlarge focused" id="receiver" type="text" name="DesiredMinistry"   
-                              value="<%= StringUtils.trimToEmpty(paramHash.get("DesiredMinistry")) %>">
+                       <div class="controls">
+                            <select name="DesiredMinistry" required="true">
+                                <option value="">Please select one</option> 
+                                <option value="Bible Study">Bible Study</option>
+                                <option value="Praise And Worship">Praise And Worship</option>
+                                <option value="Intercessory">Intercessory</option>
+                                <option value="Evangelism">Evangelism</option>
+                                
+                            </select>                           
+                          
                         </div>
                     </div> 
 

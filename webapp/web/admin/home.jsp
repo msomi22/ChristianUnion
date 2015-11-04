@@ -179,7 +179,7 @@
                        <!-- <th>Gurdian Contact</th>  -->
                         <th>Age</th>
                         <th>Gender</th>
-                        <th>Program/Major</th>
+                       <!--  <th>Program/Major</th>  -->
                       <!--   <th>Academic Year</th>    -->
                         <th>Year Of Study</th>   
                         <th>Home Town</th>
@@ -216,7 +216,7 @@
                        <!--  <td class="center"><%//=s.getGuardianContact()%></td> -->
                          <td class="center"><%=age%></td>
                          <td class="center"><%=s.getGender()%></td>
-                         <td class="center"><%=s.getProgram()%></td>  
+                        <!--   <td class="center"><%//=s.getProgram()%></td>   -->
                        <!--   <td class="center"><%//=s.getAcademicYear()%></td>     -->
                          <td class="center"><%=s.getYearOfStudy()%></td>
                          <td class="center"><%=s.getHomeTown()%></td>
@@ -267,6 +267,8 @@
                  <br> <br> <br> <br> <br> <br>
                  <br> <br> <br> <br> <br> <br>
                  <br> <br> <br> <br> <br> <br>
+                 <br> <br> <br> <br> <br> <br>
+                
 
 
              
