@@ -161,7 +161,7 @@ svn checkout https://github.com/msomi22/ChristianUnion
 
 Populate the database
 
-cd ~/svn/School/trunk/app/bin
+cd ~/svn/School/trunk/webapp/bin
 
 ###########Execute the script to populate the database
 

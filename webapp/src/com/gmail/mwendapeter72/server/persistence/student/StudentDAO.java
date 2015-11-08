@@ -210,13 +210,43 @@ public class StudentDAO extends DBConnectDAO  implements CuStudentDAO {
 		return success;
 	}
 
-	/* (non-Javadoc)
+	/**
 	 * @see com.gmail.mwendapeter72.server.persistence.student.CuStudentDAO#updateStudent(com.gmail.mwendapeter72.server.bean.student.Student, java.lang.String)
 	 */
-	@Override
 	public boolean updateStudent(Student student, String Uuid) {
-		// TODO Auto-generated method stub
-		return false;
+		boolean success = true;
+		
+		  try(   Connection conn = dbutils.getConnection();
+				PreparedStatement pstmt = conn.prepareStatement("UPDATE Student SET AdmNo =?," 
+			        +"FirstName =?,SurName =?,LastName =?,Email =?,Mobile =?,"
+			        + "GuardianContact =?,DOB =?,Gender=?, Program =?,AcademicYear =?,YearOfStudy=?,"
+			        + " HomeTown =?,County =? WHERE Uuid = ?;");
+		){
+			  
+	            pstmt.setString(1, student.getAdmNo());
+	            pstmt.setString(2, student.getFirstName());
+	            pstmt.setString(3, student.getSurName());	           
+	            pstmt.setString(4, student.getLastName());
+	            pstmt.setString(5, student.getEmail());
+	            pstmt.setString(6, student.getMobile());
+	            pstmt.setString(7, student.getGuardianContact());
+	            pstmt.setString(8, student.getDOB());
+	            pstmt.setString(9, student.getGender());                       
+	            pstmt.setString(10, student.getProgram());
+	            pstmt.setString(11, student.getAcademicYear());
+	            pstmt.setString(12, student.getYearOfStudy());
+	            pstmt.setString(13, student.getHomeTown());
+	            pstmt.setString(14, student.getCounty());
+	            pstmt.setString(15, student.getUuid());
+	            pstmt.executeUpdate();
+			 
+		 }catch(SQLException e){
+			 logger.error("SQL Exception trying to update Student: "+student);
+             logger.error(ExceptionUtils.getStackTrace(e));  
+             System.out.println(ExceptionUtils.getStackTrace(e));
+             success = false;
+		 }
+		return success;
 	}
 
 	/* (non-Javadoc)

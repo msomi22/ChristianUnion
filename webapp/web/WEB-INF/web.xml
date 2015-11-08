@@ -40,6 +40,12 @@
         <servlet-class>com.gmail.mwendapeter72.server.servlet.student.AddStudent</servlet-class>
      
     </servlet>
+
+     <servlet>
+        <servlet-name>EditStudent</servlet-name>
+        <servlet-class>com.gmail.mwendapeter72.server.servlet.student.EditStudent</servlet-class>
+     
+    </servlet>
      
 
 
@@ -65,6 +71,11 @@
       <servlet-mapping>
         <servlet-name>AddStudent</servlet-name>
         <url-pattern>/addStudent</url-pattern>      
+    </servlet-mapping>
+    
+     <servlet-mapping>
+        <servlet-name>EditStudent</servlet-name>
+        <url-pattern>/editStudent</url-pattern>      
     </servlet-mapping>
 
 

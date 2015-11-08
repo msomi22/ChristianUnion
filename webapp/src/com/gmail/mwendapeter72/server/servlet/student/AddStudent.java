@@ -128,7 +128,7 @@ protected void doPost(HttpServletRequest request, HttpServletResponse response)
 	   String Vision = StringUtils.trimToEmpty(request.getParameter("Vision"));
 	   String Declaration = StringUtils.trimToEmpty(request.getParameter("Declaration"));
 	   
-	   System.out.println(Gender);
+	  // System.out.println(Gender);
 	  /* System.out.println(YearOfStudy);
 	   System.out.println(Duration);
 	   System.out.println(MinistryName);*/

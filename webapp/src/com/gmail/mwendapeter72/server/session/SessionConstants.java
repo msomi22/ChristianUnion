@@ -35,6 +35,9 @@ public class SessionConstants {
 	final public static String STUDENT_ADD_SUCCESS = "Student Addedd Successfully";
 	final public static String STUDENT_ADD_ERROR = "Student Add Failed";
 	
+	final public static String STUDENT_UPDATE_SUCCESS = "Student Updated Successfully";
+	final public static String STUDENT_UPDATE_ERROR = "Student Update Failed";
+	
 	final public static String STUDENT_REGISTER_DETAILS = "Student Parameters";
 	
 	

@@ -152,13 +152,33 @@ public class StudentOtherDetailDAO extends DBConnectDAO implements CuStudentOthe
 		
 	}
 
-	/* (non-Javadoc)
+	/**
 	 * @see com.gmail.mwendapeter72.server.persistence.student.CuStudentOtherDetailDAO#updateDetail(com.gmail.mwendapeter72.server.bean.student.StudentOtherDetail)
 	 */
-	@Override
 	public boolean updateDetail(StudentOtherDetail studentDetail, String StudentUuid) {
-		// TODO Auto-generated method stub
-		return false;
+		boolean success = true;
+		
+		  try(   Connection conn = dbutils.getConnection();
+				PreparedStatement pstmt = conn.prepareStatement("UPDATE StudentOtherInfo SET Christian =?," 
+			        +"Duration =?,Ministry =?,MinistryName =?,DesiredMinistry =?,MinistryVision =? WHERE StudentUuid = ?;");
+		){
+			  
+	            pstmt.setString(1, studentDetail.getChristian());
+	            pstmt.setString(2, studentDetail.getDuration());
+	            pstmt.setString(3, studentDetail.getMinistry());	           
+	            pstmt.setString(4, studentDetail.getMinistryName());
+	            pstmt.setString(5, studentDetail.getDesiredMinistry());
+	            pstmt.setString(6, studentDetail.getMinistryVision());
+	            pstmt.setString(7, studentDetail.getStudentUuid());
+	            pstmt.executeUpdate();
+			 
+		 }catch(SQLException e){
+			 logger.error("SQL Exception trying to update Student Other Detail: "+studentDetail);
+             logger.error(ExceptionUtils.getStackTrace(e));  
+             System.out.println(ExceptionUtils.getStackTrace(e));
+             success = false;
+		 }
+		return success;
 	}
 
 	/* (non-Javadoc)

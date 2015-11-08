@@ -47,7 +47,7 @@ public class TestStudentOtherDetailDAO {
 			       UUID_NEW="DD08D8CE-59E6-41AF-824F-4C6538771094";
 	
 	private String STUDENT_UUID = "5C5724AF-B8C6-4322-ACE9-C340C6DB8D13",
-			       STUDENT_UUID_NEW ="FC31CA05-DDAB-45BF-AC3C-4AE010A39102";
+			       STUDENT_UUID_NEW ="2E3B7D20-42A5-47DE-A17C-8F685D91883F";
 	
 	private String  CHRISTIAN = "Yes",
 			        CHRISTIAN_NEW = "NewYes",
@@ -55,23 +55,23 @@ public class TestStudentOtherDetailDAO {
 	
 	private String DURATION = "9 Years",
 			       DURATION_NEW = "20 Years",
-			       DURATION_UPDATE = "";
+			       DURATION_UPDATE = "update above 4 years";
 	
 	private String MINISTRY = "Yes",
 			       MINISTRY_NEW = "No",
-			       MINISTRY_UPDATE = "";
+			       MINISTRY_UPDATE = "update Yea";
 	
 	private String MINISTRY_NAME = "Evangelism",
 			       MINISTRY_NAME_NEW = "Any Ministry",
-			       MINISTRY_NAME_UPDATE = "";
+			       MINISTRY_NAME_UPDATE = "update Praise&W";
 	
 	private String DESIRED_MINISTRY = "N/A",
 			       DESIRED_MINISTRY_NEW = "New Ministry",
-				   DESIRED_MINISTRY_UPDATE = "";
+				   DESIRED_MINISTRY_UPDATE = "update Praise & Worship";
 	
 	private String MINISTRY_VISION = "Coming soon",
 			       MINISTRY_VISION_NEW = "New Vision",
-			       MINISTRY_VISION_UPDATE = "";
+			       MINISTRY_VISION_UPDATE = "update Oh! u cant imagine";
 	
 	
 	private StudentOtherDetailDAO store;
@@ -79,7 +79,7 @@ public class TestStudentOtherDetailDAO {
 	/**
 	 * Test method for {@link com.gmail.mwendapeter72.server.persistence.student.StudentOtherDetailDAO#getDetail(java.lang.String)}.
 	 */
-	//@Ignore
+	@Ignore
 	@Test
 	public void testGetDetail() {
 		store = new StudentOtherDetailDAO(databaseName, Host, databaseUsername, databasePassword, databasePort);
@@ -110,10 +110,19 @@ public class TestStudentOtherDetailDAO {
 	/**
 	 * Test method for {@link com.gmail.mwendapeter72.server.persistence.student.StudentOtherDetailDAO#updateDetail(com.gmail.mwendapeter72.server.bean.student.StudentOtherDetail, java.lang.String)}.
 	 */
-	@Ignore
+	//@Ignore
 	@Test
 	public void testUpdateDetail() {
 		store = new StudentOtherDetailDAO(databaseName, Host, databaseUsername, databasePassword, databasePort);
+		StudentOtherDetail s = new StudentOtherDetail();
+		s.setStudentUuid(STUDENT_UUID_NEW);
+		s.setChristian(CHRISTIAN_UPDATE);
+		s.setDuration(DURATION_UPDATE);
+		s.setMinistry(MINISTRY_UPDATE);
+		s.setMinistryName(MINISTRY_NAME_UPDATE);
+		s.setDesiredMinistry(DESIRED_MINISTRY_UPDATE);
+		s.setMinistryVision(MINISTRY_VISION_UPDATE); 
+		assertTrue(store.updateDetail(s,STUDENT_UUID_NEW));
 	}
 
 	/**

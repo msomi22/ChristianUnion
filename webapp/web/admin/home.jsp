@@ -46,7 +46,7 @@
   studentList1 = studentDAO.getStudentList(0,10);
 
 
-  StudentOtherDetailDAO studentDetailsDAO = StudentOtherDetailDAO.getInstance();
+  /*StudentOtherDetailDAO studentDetailsDAO = StudentOtherDetailDAO.getInstance();
   List<StudentOtherDetail> studentDetailsList = new ArrayList(); 
   studentDetailsList = studentDetailsDAO.getAllDetailList(0,10);
 
@@ -62,7 +62,7 @@
              lastnameHash.put(ss.getUuid(), ss.getLastName() );
         
           }
-         
+         */
 
 
 
@@ -105,37 +105,6 @@
 
 
      
-     int ussdCount2 = 0;
-     StudentPaginator2 paginator2 = new StudentPaginator2();
-       StudentPage2 studentpage2;    
-       studentpage2 = (StudentPage2) session.getAttribute("currentPage2");
-        String referrer2 = request.getHeader("referer");
-        String pageParam2 = (String) request.getParameter("page2");
-
-        // We are to give the first page
-        if (studentpage2 == null
-                || !StringUtils.endsWith(referrer2, "home.jsp")
-                || StringUtils.equalsIgnoreCase(pageParam2, "first")) {
-              studentpage2 = paginator2.getFirstPage();
-
-            //We are to give the last page
-        } else if (StringUtils.equalsIgnoreCase(pageParam2, "last")) {
-             studentpage2 = paginator2.getLastPage();
-
-            // We are to give the previous page
-        } else if (StringUtils.equalsIgnoreCase(pageParam2, "previous")) {
-            studentpage2 = paginator2.getPrevPage(studentpage2);
-
-            // We are to give the next page 
-        } else if (StringUtils.equalsIgnoreCase(pageParam2, "next"))  {
-           studentpage2 = paginator2.getNextPage(studentpage2);
-        }
-
-        session.setAttribute("currentPage2", studentpage2);
-        studentDetailsList = studentpage2.getContents();
-        ussdCount2 = (studentpage2.getPageNum() - 1) * studentpage2.getPagesize() + 1;
-
-
  
    //date format
     SimpleDateFormat dateFormatter = new SimpleDateFormat("yyyy-dd-MM");
@@ -159,7 +128,37 @@
             </form>
         </div>
 
+                  
 
+                   <%
+
+                        
+
+                                String editErr = "";
+                                String editsuccess = "";
+                                session = request.getSession(false);
+                                     editErr = (String) session.getAttribute(SessionConstants.STUDENT_UPDATE_ERROR);
+                                     editsuccess = (String) session.getAttribute(SessionConstants.STUDENT_UPDATE_SUCCESS); 
+
+                                if(session != null) {
+                                    editErr = (String) session.getAttribute(SessionConstants.STUDENT_UPDATE_ERROR);
+                                    editsuccess = (String) session.getAttribute(SessionConstants.STUDENT_UPDATE_SUCCESS);
+                                }                        
+
+                                if (StringUtils.isNotEmpty(editErr)) {
+                                    out.println("<p style='color:red;'>");                 
+                                    out.println("error!!: " + editErr);
+                                    out.println("</p>");                                 
+                                    session.setAttribute(SessionConstants.STUDENT_UPDATE_ERROR, null);
+                                  } 
+                                   else if (StringUtils.isNotEmpty(editsuccess)) {
+                                    out.println("<p style='color:green;'>");                                 
+                                    out.println("success: " + editsuccess);
+                                    out.println("</p>");                                   
+                                    session.setAttribute(SessionConstants.STUDENT_UPDATE_SUCCESS, null);
+                                  } 
+
+                            %>
 
         <div id="container" class="clear"> 
 
@@ -171,7 +170,7 @@
                 <thead>
                     <tr>
                         <th>*</th>
-                         <th>Admission Number</th>
+                        <th>Admission Number</th>
                         <th>Firstname</th>                
                        <!-- <th>Surname</th>  -->
                         <th>Lastname</th>
@@ -180,11 +179,12 @@
                         <th>Age</th>
                         <th>Gender</th>
                        <!--  <th>Program/Major</th>  -->
-                      <!--   <th>Academic Year</th>    -->
+                       <!--   <th>Academic Year</th>  -->
                         <th>Year Of Study</th>   
                         <th>Home Town</th>
                         <th>County</th>
                         <th>Registration Date</th>
+                        <th>actions</th>
                     </tr>
                 </thead>   
                 <tbody class='tablebody'>
@@ -208,7 +208,7 @@
                       <tr class="tabledit">
                          
                          <td width="10%"><%=ussdCount%> </td>
-                         <td class="center" ><a class="Zlink" href="#" data-toggle="modal" data-target="#groupcheck" name='<%=s.getUuid()%>'><%=s.getAdmNo()%></a> </td>  
+                         <td class="center" ><a class="Zlink" href="#" data-toggle="modal" data-target="#groupcheck" value='<%=s.getAdmNo()%>' name='<%=s.getUuid()%>'onclick='tablesearch(this)'><%=s.getAdmNo()%></a> </td>
                          <td class="center"><%=s.getFirstName()%></td>
                        <!--  <td class="center"><%//=s.getSurName()%></td> -->
                          <td class="center"><%=s.getLastName()%></td>  
@@ -222,6 +222,40 @@
                          <td class="center"><%=s.getHomeTown()%></td>
                          <td class="center"><%=s.getCounty()%></td>  
                          <td class="center"><%=dateFormatter.format(s.getDateOfRegistration())%></td>  
+                         <td class="center">
+                            <form name="edit" method="post" action="editstudent.jsp"> 
+                                <input type="hidden" name="admno" value="<%=s.getAdmNo()%>">
+                                 <input type="hidden" name="firstname" value="<%=s.getFirstName()%>">
+                                <input type="hidden" name="surname" value="<%=s.getSurName()%>">
+                                <input type="hidden" name="lastname" value="<%=s.getLastName()%>">
+                                <input type="hidden" name="email" value="<%=s.getEmail()%>">
+                                <input type="hidden" name="mobile" value="<%=s.getMobile()%>">
+                                <input type="hidden" name="guardiancontact" value="<%=s.getGuardianContact()%>">
+                                <input type="hidden" name="dob" value="<%=s.getDOB()%>">
+                                <input type="hidden" name="gender" value="<%=s.getGender()%>">
+                                <input type="hidden" name="program" value="<%=s.getProgram()%>">
+                                <input type="hidden" name="academicyear" value="<%=s.getAcademicYear()%>">
+                                <input type="hidden" name="yearofstudy" value="<%=s.getYearOfStudy()%>">
+                                <input type="hidden" name="hometown" value="<%=s.getHomeTown()%>">
+                                <input type="hidden" name="county" value="<%=s.getCounty()%>">
+                                <input type="hidden" name="uuid" value="<%=s.getUuid()%>">
+
+                                <%
+                                  
+                     StudentOtherDetailDAO studentDetailsDAO = StudentOtherDetailDAO.getInstance();
+                     StudentOtherDetail ss;
+                     ss = studentDetailsDAO.getDetail(s.getUuid());   
+                                %>
+
+                                <input type="hidden" name="ischristian" value="<%=ss.getChristian()%>">
+                                <input type="hidden" name="duration" value="<%=ss.getDuration()%>">
+                                <input type="hidden" name="hasministry" value="<%=ss.getMinistry()%>">
+                                <input type="hidden" name="ministryname" value="<%=ss.getMinistryName()%>">
+                                <input type="hidden" name="desiredministry" value="<%=ss.getDesiredMinistry()%>">
+                                <input type="hidden" name="vision" value="<%=ss.getMinistryVision()%>">
+                                <input class="btn btn-success" type="submit" name="edit" id="submit" value="Edit" /> 
+                                </form>                          
+                        </td>  
                        </tr>
 
                     <%
@@ -268,6 +302,8 @@
                  <br> <br> <br> <br> <br> <br>
                  <br> <br> <br> <br> <br> <br>
                  <br> <br> <br> <br> <br> <br>
+                 <br> <br> <br> <br> <br> <br>
+                 <br> <br> <br> <br> <br> <br>
                 
 
 
@@ -285,6 +321,7 @@
     	
         <div class="cleaner"></div>
     </div> <!-- end of main -->
+
     
   <jsp:include page="footer.jsp" />
 
