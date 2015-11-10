@@ -56,11 +56,13 @@ public class Logout extends HttpServlet{
 
         HttpSession session = request.getSession(false);
 
-        response.sendRedirect("index.jsp");
+        response.sendRedirect("admin/index.jsp");
         
+        if (session != null) {
         //destroy the session
         session.invalidate();
         
+        }
         
         
     }
