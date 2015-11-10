@@ -64,7 +64,7 @@
    
     <div id="homepage" class="clear">  
      <h3><i class="icon-edit"></i> Student Registration Form: Basic Details</h3>            
-      <P> <b style=color:blue;>Please NOTE that fields marked with(*) are required/mandatory </b></P>
+      <P> <b style=color:red;>Please NOTE that fields marked with(*) are required/mandatory </b></P>
         
          <div class="box-content">
             <form  class="form-horizontal"   action="addStudent" method="POST" >
@@ -188,7 +188,7 @@
                     <div class="control-group">
                         <label class="control-label" for="name">Year Of Study*:</label>
                          <div class="controls">
-                            <select name="YearOfStudy" required="true">
+                            <select name="YearOfStudy" >
                                 <option value="">Please select one</option> 
                                 <option value="1">1</option>
                                 <option value="2">2</option>
@@ -236,7 +236,7 @@
                    <div class="control-group">
                         <label class="control-label" for="name">If Yes Approximately For How long Have You Been In Christianity:</label>
                         <div class="controls">
-                            <select name="Duration" required="true">
+                            <select name="Duration" >
                                 <option value="">Please select one</option> 
                                 <option value="Less Than 6 Months">Less Than 6 Months</option>
                                 <option value="Between 6-12 Months">Between 6-12 Months</option>
@@ -261,7 +261,7 @@
                    <div class="control-group">
                         <label class="control-label" for="name">If Yes which Ministry(s):</label>
                         <div class="controls">
-                            <select name="MinistryName" required="true">
+                            <select name="MinistryName" >
                                 <option value="">Please select one</option> 
                                 <option value="Bible Study">Bible Study</option>
                                 <option value="Praise And Worship">Praise And Worship</option>
@@ -277,7 +277,7 @@
                      <div class="control-group">
                         <label class="control-label" for="name">Which ministry would you like to serve in the Maasai Mara University Christian Union?:</label>
                        <div class="controls">
-                            <select name="DesiredMinistry" required="true">
+                            <select name="DesiredMinistry" >
                                 <option value="">Please select one</option> 
                                 <option value="Bible Study">Bible Study</option>
                                 <option value="Praise And Worship">Praise And Worship</option>

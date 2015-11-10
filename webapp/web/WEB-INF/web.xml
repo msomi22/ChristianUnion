@@ -60,7 +60,10 @@
      
     </servlet>
      
-
+    <servlet>
+        <servlet-name>AdminLogout</servlet-name>
+        <servlet-class>com.gmail.mwendapeter72.server.servlet.admin.Logout</servlet-class>
+    </servlet>
 
 
 
@@ -90,6 +93,10 @@
         <url-pattern>/adminLogin</url-pattern>      
      </servlet-mapping>
 
+ <servlet-mapping>
+        <servlet-name>AdminLogout</servlet-name>
+        <url-pattern>/logout</url-pattern>
+    </servlet-mapping>
 
 
 

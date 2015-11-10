@@ -27,7 +27,7 @@
   
  String admno = request.getParameter("admissNo");
   Student student;
- 
+ //out.println(admno);
   StudentDAO studentDAO = StudentDAO.getInstance();
   List<Student> studentList1 = new ArrayList(); 
   studentList1 = studentDAO.getStudentAdmNo(admno);
@@ -59,9 +59,10 @@
                          int age = a-y;
                       
                     %>
-                    <tr class="tabledit">
-                       <td width="10%"><%=count%></td>
-                         <td class="center" ><a class="Zlink" href="#" data-toggle="modal" data-target="#groupcheck" name='<%=s.getUuid()%>'><%=s.getAdmNo()%></a> </td>  
+
+                    <tr class="tabledit" >
+                        <td width="10%"><%=count%></td>
+                         <td class="center" ><a class="Zlink" href="#" data-toggle="modal" data-target="#groupcheck" value='<%=s.getAdmNo()%>' name='<%=s.getUuid()%>' onclick="TableGet(this)"><%=s.getAdmNo()%></a> </td>
                          <td class="center"><%=s.getFirstName()%></td>
                        <!--  <td class="center"><%//=s.getSurName()%></td> -->
                          <td class="center"><%=s.getLastName()%></td>  
@@ -69,8 +70,8 @@
                        <!--  <td class="center"><%//=s.getGuardianContact()%></td> -->
                          <td class="center"><%=age%></td>
                          <td class="center"><%=s.getGender()%></td>
-                         <td class="center"><%=s.getProgram()%></td>  
-                       <!--   <td class="center"><%//=s.getAcademicYear()%></td>     -->
+                       <!--   <td class="center"><%//=s.getProgram()%></td>  
+                           <td class="center"><%//=s.getAcademicYear()%></td>     -->
                          <td class="center"><%=s.getYearOfStudy()%></td>
                          <td class="center"><%=s.getHomeTown()%></td>
                          <td class="center"><%=s.getCounty()%></td>  

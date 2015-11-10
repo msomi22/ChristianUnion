@@ -46,27 +46,7 @@
   studentList1 = studentDAO.getStudentList(0,10);
 
 
-  /*StudentOtherDetailDAO studentDetailsDAO = StudentOtherDetailDAO.getInstance();
-  List<StudentOtherDetail> studentDetailsList = new ArrayList(); 
-  studentDetailsList = studentDetailsDAO.getAllDetailList(0,10);
-
-    HashMap<String, String> admnoHash = new HashMap<String, String>();
-    HashMap<String, String> firstnameHash = new HashMap<String, String>();
-    HashMap<String, String> lastnameHash = new HashMap<String, String>();
-
-
-   
-          for(Student ss : studentList1){
-             admnoHash.put(ss.getUuid(), ss.getAdmNo() );
-             firstnameHash.put(ss.getUuid(), ss.getFirstName() );
-             lastnameHash.put(ss.getUuid(), ss.getLastName() );
-        
-          }
-         */
-
-
-
-
+  
      int ussdCount = 0;
      StudentPaginator paginator = new StudentPaginator();
      StudentPage studentpage;
@@ -123,7 +103,7 @@
 
          <div id="search_box">
             <form action="#" method="get">
-                <input type="text" placeholder="Search By AdmNo" name="q" size="10" id="searchfield" title="searchfield" onkeyup="searchstudents(this.value)" />
+                <input type="text" placeholder="Search By AdmNo" name="q" size="10" id="searchfield" title="searchfield" onkeyup="displaystudents(this.value)" />
                 <!--<input type="submit" name="Search" value="" id="searchbutton" title="Search" />-->
             </form>
         </div>
@@ -208,7 +188,7 @@
                       <tr class="tabledit">
                          
                          <td width="10%"><%=ussdCount%> </td>
-                         <td class="center" ><a class="Zlink" href="#" data-toggle="modal" data-target="#groupcheck" value='<%=s.getAdmNo()%>' name='<%=s.getUuid()%>'onclick='tablesearch(this)'><%=s.getAdmNo()%></a> </td>
+                         <td class="center" ><a class="Zlink" href="#" data-toggle="modal" data-target="#groupcheck" value='<%=s.getAdmNo()%>' name='<%=s.getUuid()%>' onclick="TableGet(this)"><%=s.getAdmNo()%></a> </td>
                          <td class="center"><%=s.getFirstName()%></td>
                        <!--  <td class="center"><%//=s.getSurName()%></td> -->
                          <td class="center"><%=s.getLastName()%></td>  

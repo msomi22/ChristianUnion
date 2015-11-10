@@ -2,10 +2,10 @@
 /*
     Author: Migwi Ndung'u  <migwi@tawi.mobi>
 */
-	function searchstudents(AdmissNo){
-
+	function displaystudents(AdmissNo){
+  
     var data = "admissNo=" + escape(AdmissNo);
-    //console.log(data);
+   // console.log("Search:"+data);
 
      //depending on a users browser a request object is created
      function getRequestObject() {
@@ -25,21 +25,22 @@
              }
            }
     
-      var request=getRequestObject();
-      request.onreadystatechange =function() { handleResponse(request); };
-       request.open("get", "../admin/studentsearch.jsp?"+data, true);
-       request.send(); 
+      var Request=getRequestObject();
+      Request.onreadystatechange =function() { Response(Request);};
+       Request.open("get", "../admin/studentsearch.jsp?"+data, true);
+       Request.send(); 
   }
-//end of onKeyu/Up function
+//end of onKeyup function
 
 
 
-function handleResponse(request) {
+function Response(request) {
+	//alert(request.responseText);
         if((request.readyState == 4) && (request.status == 200)) {
              $('.tabledit').remove();
              $('#pagination').hide();   
                  response=request.responseText;
-                 console.log(response);
+                // console.log(response.length);
               $('.tablebody').append(response);                               
         }
 }

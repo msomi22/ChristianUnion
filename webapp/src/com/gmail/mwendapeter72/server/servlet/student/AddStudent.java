@@ -266,8 +266,9 @@ protected void doPost(HttpServletRequest request, HttpServletResponse response)
 
 private boolean ValidDob(String dOB) {
 	boolean success = true;
-	String regex ="\\d+";////"[0-9]+"
-	if(dOB.matches(regex)){
+	String regex ="\\d+";//     /^\d{4}$/
+	//String regex ="/^\\d{4}$/"; //     /^\d{4}$/
+	if(dOB.matches(regex) && dOB.length()==4){
 		success = true;
 	}else{
 		success = false;

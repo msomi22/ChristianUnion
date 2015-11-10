@@ -68,8 +68,8 @@ public class Login extends HttpServlet{
          String password = StringUtils.trimToEmpty(request.getParameter("Password"));
          
          
-         System.out.println(username);
-         System.out.println(password);
+         //System.out.println(username);
+         //System.out.println(password);
         
          if (!StringUtils.equals(password, PropertiesConfig.getConfigValue("ADMIN_PASSWORD"))) {
              //session.setAttribute(SessionConstants.ADMIN_SIGN_IN_ERROR_KEY, SessionConstants.ADMIN_SIGN_IN_ERROR_VALUE);

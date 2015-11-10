@@ -24,7 +24,7 @@
  <%
  String Uuid = request.getParameter("Uuid");
  String Adm = request.getParameter("Admiss");
-  
+  //out.println(Adm+"  *** "+Uuid);
   Student student;
   StudentOtherDetail studentDetails;
 

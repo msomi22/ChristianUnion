@@ -5,7 +5,7 @@
 
   Author: Migwi Ndung'u  <migwindungu0@gmail.com>
 */
-$(document).ready(function(){  
+//$(document).ready(function(){  
 
   var $image=$('<div id="loading"><img src="../images/loader.gif" alter="Loading Details.."></img></div>');
   var $table=$('.Zlinkk');
@@ -14,10 +14,11 @@ $(document).ready(function(){
 
 
        //responds if element 'a' in class 'alink' is clicked
-  $('a.Zlink').click(function(){ 
+  //$('a.Zlink').click(function(){ 
+    function TableGet(tableValue){
 
-   var uuid = $(this).attr('name');
-   var admiss = $(this).text();         
+   var uuid = $(tableValue).attr('name');
+   var admiss = $(tableValue).text();         
     
    //$scroll.hide();
     $scroll.append($image);   
@@ -25,7 +26,8 @@ $(document).ready(function(){
      
   var data = "Uuid=" + escape(uuid);
   var adm = "Admiss="+ escape(admiss);
-    //console.log(data);
+     //console.log(data+"  ******  "+adm);
+     //console.log(adm);
 
      //depending on a users browser a request object is created
      function getRequestObject() {
@@ -48,19 +50,19 @@ $(document).ready(function(){
     
       var request=getRequestObject();
       request.onreadystatechange =function() { handleResponse(request); };
-       request.open("get", "../admin/tablesearch.jsp?"+data+"&"+adm, true);
+       request.open("get", "../admin/displayOtherDetails.jsp?"+data+"&"+adm, true);
        request.send(); 
- 
-  });
+ }
+ // });
 //end of click function
 
 
 
 function handleResponse(request) {
       if ((request.readyState == 4) && (request.status == 200)) {    
-                        //gets responseText
+                //gets responseText
                  response=request.responseText;                
-                  console.log(response);
+               // console.log(response.length);
                  $('#Ztable').remove();
                 $image.remove();
                 $scroll.append(response);
@@ -77,4 +79,4 @@ function handleResponse(request) {
           }
        }
 
-});
+//});

@@ -93,8 +93,11 @@ protected void doPost(HttpServletRequest request, HttpServletResponse response)
 	   System.out.println(YearOfStudy);
 	   System.out.println(Vision);*/
 	   
-	   
-	  if(!emailValidator.isValid(Email)){		     
+	   /*if(studentDAO.getStudent(AdmNo) !=null){
+		   session.setAttribute(SessionConstants.STUDENT_UPDATE_ERROR, ERROR_ADMNO_EXIST); 
+    	
+	   } 
+	   else*/ if(!emailValidator.isValid(Email)){		     
 		   session.setAttribute(SessionConstants.STUDENT_UPDATE_ERROR, ERROR_INVALID_EMAIL);  
 		  	   
 	   }else if(!ValidDob(DOB)){
@@ -145,7 +148,7 @@ protected void doPost(HttpServletRequest request, HttpServletResponse response)
 private boolean ValidDob(String dOB) {
 	boolean success = true;
 	String regex ="\\d+";////"[0-9]+"
-	if(dOB.matches(regex)){
+	if(dOB.matches(regex) && dOB.length()==4){
 		success = true;
 	}else{
 		success = false;
