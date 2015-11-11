@@ -1,5 +1,5 @@
 
-
+<%@page import="com.gmail.mwendapeter72.server.session.admin.SessionConstants2"%>
 <%@page import="com.gmail.mwendapeter72.server.session.SessionConstants"%>
 <%@page import="org.apache.commons.lang3.StringUtils"%>
 <%@page import="java.util.ArrayList"%>
@@ -11,11 +11,16 @@
 
 <%
 if (session == null) {
-        response.sendRedirect("../index.jsp");
+        response.sendRedirect("index.jsp");
+    }
+
+    String username = (String) session.getAttribute(SessionConstants2.ADMIN_SESSION_KEY);
+    if (StringUtils.isEmpty(username)) {
+        response.sendRedirect("index.jsp");
     }
 
      session.setMaxInactiveInterval(SessionConstants.SESSION_TIMEOUT);
-    response.setHeader("Refresh", SessionConstants.SESSION_TIMEOUT + "; url=../logout");
+     response.setHeader("Refresh", SessionConstants2.SESSION_TIMEOUT + "; url=/ChristianUnion/admin");
 
 
 

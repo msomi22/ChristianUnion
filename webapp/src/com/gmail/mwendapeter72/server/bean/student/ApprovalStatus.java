@@ -18,7 +18,9 @@
  *COPYRIGHT REMAINS TO SOFTECH SOLUTIONS, A FAST GROWING IT COMPANY
  *CONTSCTS: WWW.FASTECCHSOLUTIONS.CO.KE
  *          WWW.FACEBOOK.COM/FASTECH.CO.KE
- *
+ *          
+ *          
+ * 
  * 
  */
 package com.gmail.mwendapeter72.server.bean.student;
@@ -26,6 +28,7 @@ package com.gmail.mwendapeter72.server.bean.student;
 import com.gmail.mwendapeter72.server.bean.AllBean;
 
 /**
+ * @author peter<a href="mailto:mwendapeter72@gmail.com">Peter mwenda</a>
  * @author betty
  *
  */

@@ -75,6 +75,7 @@ $(window).load(function() {
             <li><a href="home.jsp" class="current">Home</a></li>
              <li><a href="#">Manage </a></li>
             <li class="last"><a href="#">Sadaka</a></li>
+            <li class="last"><a href="index.jsp">Logout</a></li>
         </ul>    	
         
         <div class="cleaner"></div>

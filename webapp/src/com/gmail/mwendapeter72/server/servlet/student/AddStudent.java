@@ -102,7 +102,7 @@ protected void doPost(HttpServletRequest request, HttpServletResponse response)
            throws ServletException, IOException {
 	
 	   HttpSession session = request.getSession(true);
-      
+	  
 	   String AdmNo = StringUtils.trimToEmpty(request.getParameter("AdmNo"));
 	   String FirstName = StringUtils.trimToEmpty(request.getParameter("FirstName"));
 	   String SurName = StringUtils.trimToEmpty(request.getParameter("SurName"));

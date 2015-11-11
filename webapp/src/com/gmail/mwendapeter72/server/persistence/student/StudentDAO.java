@@ -106,7 +106,10 @@ public class StudentDAO extends DBConnectDAO  implements CuStudentDAO {
 	}
 	
 	
-	@Override
+	/**
+	 * @see com.gmail.mwendapeter72.server.persistence.student.CuStudentDAO#getStudentAdmNo(java.lang.String)
+	 */
+	
 	public List<Student> getStudentAdmNo( String admno) {
 		List<Student> list = new ArrayList<>();
 
@@ -132,10 +135,9 @@ public class StudentDAO extends DBConnectDAO  implements CuStudentDAO {
 	}
 
 
-	/* (non-Javadoc)
+	/**
 	 * @see com.gmail.mwendapeter72.server.persistence.student.CuStudentDAO#getStudentByUuid(java.lang.String)
 	 */
-	@Override
 	public Student getStudentByUuid(String Uuid) {
 		Student student = null;
         ResultSet rset = null;

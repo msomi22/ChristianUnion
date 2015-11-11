@@ -9,10 +9,16 @@
 
 <%@page import="com.gmail.mwendapeter72.server.persistence.student.StudentDAO"%>
 <%@page import="com.gmail.mwendapeter72.server.bean.student.Student"%>
+
 <%@page import="com.gmail.mwendapeter72.server.persistence.student.StudentOtherDetailDAO"%>
 <%@page import="com.gmail.mwendapeter72.server.bean.student.StudentOtherDetail"%>
 
+<%@page import="com.gmail.mwendapeter72.server.persistence.student.StatusDAO"%>
+<%@page import="com.gmail.mwendapeter72.server.bean.student.ApprovalStatus"%>
+
 <%@page import="com.gmail.mwendapeter72.server.session.SessionConstants"%>
+<%@page import="com.gmail.mwendapeter72.server.session.admin.SessionConstants2"%>
+
 <%@page import="org.apache.commons.lang3.StringUtils"%>
 <%@page import="java.util.ArrayList"%>
 <%@page import="java.util.HashMap"%>
@@ -32,18 +38,29 @@
 
  <%
   if (session == null) {
-        response.sendRedirect("../index.jsp");
+        response.sendRedirect("index.jsp");
     }
 
-     session.setMaxInactiveInterval(SessionConstants.SESSION_TIMEOUT);
-    response.setHeader("Refresh", SessionConstants.SESSION_TIMEOUT + "; url=../logout");
+    String username = (String) session.getAttribute(SessionConstants2.ADMIN_SESSION_KEY);
+    if (StringUtils.isEmpty(username)) {
+        response.sendRedirect("index.jsp");
+    }
+
+     session.setMaxInactiveInterval(SessionConstants2.SESSION_TIMEOUT);
+     response.setHeader("Refresh", SessionConstants2.SESSION_TIMEOUT + "; url=/ChristianUnion/admin");
 
   Student student;
   StudentOtherDetail studentDetal;
+  ApprovalStatus status;
 
-  StudentDAO studentDAO = StudentDAO.getInstance();
+   StatusDAO statusDAO = StatusDAO.getInstance();
+   List<ApprovalStatus> statustList = new ArrayList(); 
+   statustList = statusDAO.getAllStatus();
+  // out.println(statustList);
+
+   StudentDAO studentDAO = StudentDAO.getInstance();
   List<Student> studentList1 = new ArrayList(); 
-  studentList1 = studentDAO.getStudentList(0,10);
+  studentList1 = studentDAO.getStudentList(0,15);
 
 
   
@@ -84,7 +101,7 @@
 
 
 
-     
+
  
    //date format
     SimpleDateFormat dateFormatter = new SimpleDateFormat("yyyy-dd-MM");
@@ -99,7 +116,7 @@
 
         <jsp:include page="header.jsp" />
 
-
+                                   
 
          <div id="search_box">
             <form action="#" method="get">
@@ -164,6 +181,7 @@
                         <th>Home Town</th>
                         <th>County</th>
                         <th>Registration Date</th>
+                       
                         <th>actions</th>
                     </tr>
                 </thead>   
@@ -184,12 +202,17 @@
 
                          int age = a-y;
                        
+
+                        String active ="85C6F08E-902C-46C2-8746-8C50E7D11E2E";
+    
                     %>
                       <tr class="tabledit">
                          
                          <td width="10%"><%=ussdCount%> </td>
                          <td class="center" ><a class="Zlink" href="#" data-toggle="modal" data-target="#groupcheck" value='<%=s.getAdmNo()%>' name='<%=s.getUuid()%>' onclick="TableGet(this)"><%=s.getAdmNo()%></a> </td>
+
                          <td class="center"><%=s.getFirstName()%></td>
+
                        <!--  <td class="center"><%//=s.getSurName()%></td> -->
                          <td class="center"><%=s.getLastName()%></td>  
                          <td class="center"><%=s.getMobile()%></td>  
@@ -201,11 +224,12 @@
                          <td class="center"><%=s.getYearOfStudy()%></td>
                          <td class="center"><%=s.getHomeTown()%></td>
                          <td class="center"><%=s.getCounty()%></td>  
-                         <td class="center"><%=dateFormatter.format(s.getDateOfRegistration())%></td>  
+                         <td class="center"><%=dateFormatter.format(s.getDateOfRegistration())%></td> 
+                        
                          <td class="center">
                             <form name="edit" method="post" action="editstudent.jsp"> 
                                 <input type="hidden" name="admno" value="<%=s.getAdmNo()%>">
-                                 <input type="hidden" name="firstname" value="<%=s.getFirstName()%>">
+                                <input type="hidden" name="firstname" value="<%=s.getFirstName()%>">
                                 <input type="hidden" name="surname" value="<%=s.getSurName()%>">
                                 <input type="hidden" name="lastname" value="<%=s.getLastName()%>">
                                 <input type="hidden" name="email" value="<%=s.getEmail()%>">
@@ -240,7 +264,8 @@
 
                     <%
                            ussdCount++;
-                            } 
+                           
+                        }
                     %>
 
                 </tbody>
@@ -290,7 +315,7 @@
              
 
 <div class="modal fade" id="groupcheck" tabindex="-1" role="dialog" arialabelled="exampleModalLabeled" aria-hidden="true">
-<div id="scroll21" style="width:800px; margin:5%;">
+<div id="scroll21" style="width:800px; ">
  </div>
 </div>
 

@@ -8,6 +8,23 @@
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 
+<%
+ if (session == null) {
+        response.sendRedirect("index.jsp");
+    }
+
+    
+     response.setIntHeader("Refresh",200);
+%>
+
+
+
+
+
+
+
+
+
 
 <div id="tooplate_wrapper">
 

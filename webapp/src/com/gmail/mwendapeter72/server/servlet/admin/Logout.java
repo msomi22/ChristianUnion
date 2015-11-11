@@ -29,41 +29,37 @@ public class Logout extends HttpServlet{
 
     }
     
-    
-
-    /**
-     * @param request
-     * @param response
-     * @throws ServletException
-     * @throws IOException
-     */
-    protected void processRequest(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
-         HttpSession session = request.getSession(true);
-         
-         
-         
-         
-    }
-    
-    
     /**
      * @see javax.servlet.http.HttpServlet#doPost(javax.servlet.http.HttpServletRequest, javax.servlet.http.HttpServletResponse)
      */
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-
+        
+    	response.sendRedirect("admin/index.jsp");
         HttpSession session = request.getSession(false);
 
-        response.sendRedirect("admin/index.jsp");
+        
         
         if (session != null) {
         //destroy the session
         session.invalidate();
         
-        }
-        
-        
+        }  
     }
+
+    /**
+     * Handles the HTTP <code>GET</code> method.
+     *
+     * @param request servlet request
+     * @param response servlet response
+     * @throws ServletException if a servlet-specific error occurs
+     * @throws IOException if an I/O error occurs
+     */
+    @Override
+    protected void doGet(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+        doPost(request, response);
+    }
+
 }
