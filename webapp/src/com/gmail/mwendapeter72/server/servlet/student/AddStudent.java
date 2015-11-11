@@ -40,8 +40,10 @@ import org.apache.commons.validator.routines.EmailValidator;
 import com.gmail.mwendapeter72.server.bean.AllBean;
 import com.gmail.mwendapeter72.server.bean.student.Student;
 import com.gmail.mwendapeter72.server.bean.student.StudentOtherDetail;
+import com.gmail.mwendapeter72.server.bean.student.StudentStatus;
 import com.gmail.mwendapeter72.server.persistence.student.StudentDAO;
 import com.gmail.mwendapeter72.server.persistence.student.StudentOtherDetailDAO;
+import com.gmail.mwendapeter72.server.persistence.student.StudentStatusDAO;
 import com.gmail.mwendapeter72.server.session.SessionConstants;
 
 /**
@@ -51,6 +53,7 @@ import com.gmail.mwendapeter72.server.session.SessionConstants;
 public class AddStudent extends HttpServlet{
 	private static StudentDAO studentDAO;
 	private static StudentOtherDetailDAO studentOtherDetailDAO;
+	private static StudentStatusDAO studentStatusDAO;
 	private EmailValidator emailValidator;
 	
 	
@@ -90,7 +93,7 @@ public class AddStudent extends HttpServlet{
        super.init(config);
        studentDAO = StudentDAO.getInstance();
        studentOtherDetailDAO = StudentOtherDetailDAO.getInstance();
-    
+       studentStatusDAO = StudentStatusDAO.getInstance();
  
        emailValidator = EmailValidator.getInstance();
    }
@@ -216,10 +219,13 @@ protected void doPost(HttpServletRequest request, HttpServletResponse response)
     	 
 	   }else{
 		   
+		   
+		   
 		  session.setAttribute(SessionConstants.STUDENT_REGISTER_DETAILS, null);
 		  Student s = new Student();
 		  String  StudeUuid = s.getUuid();
 		 
+		  
 		  s.setUuid(StudeUuid);
 		  s.setAdmNo(AdmNo.toUpperCase());
 		  s.setFirstName(FirstName.toUpperCase());
@@ -238,7 +244,7 @@ protected void doPost(HttpServletRequest request, HttpServletResponse response)
 		  studentDAO.putStudent(s);
 		   
 		  
-		StudentOtherDetail d = new StudentOtherDetail();
+		  StudentOtherDetail d = new StudentOtherDetail();
 		  String Uuid = d.getUuid();
 		  d.setUuid(Uuid);
 		  d.setStudentUuid(StudeUuid);
@@ -249,9 +255,18 @@ protected void doPost(HttpServletRequest request, HttpServletResponse response)
 		  d.setDesiredMinistry(DesiredMinistry.toUpperCase());
 		  d.setMinistryVision(Vision);
 		  studentOtherDetailDAO.putDetail(d);
-		  session.setAttribute(SessionConstants.STUDENT_ADD_SUCCESS, STUDENT_ADD_SUCCESS); 
+		  
 		 
-		   
+		  StudentStatus ss = new StudentStatus();
+		  String statusactiveuuid ="85C6F08E-902C-46C2-8746-8C50E7D11E2E";
+		  String Uuidz = ss.getUuid();
+		  ss.setUuid(Uuidz); 
+		  ss.setStudentUuid(StudeUuid); 
+		  ss.setStudentStatusUuid(statusactiveuuid);
+		  studentStatusDAO.putStudentStatus(ss);
+		  
+		  
+		  session.setAttribute(SessionConstants.STUDENT_ADD_SUCCESS, STUDENT_ADD_SUCCESS); 
 		   
 	   }
 	   

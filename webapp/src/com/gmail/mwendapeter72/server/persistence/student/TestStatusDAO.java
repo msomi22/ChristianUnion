@@ -10,7 +10,7 @@ import java.util.List;
 import org.junit.Ignore;
 import org.junit.Test;
 
-import com.gmail.mwendapeter72.server.bean.student.ApprovalStatus;
+import com.gmail.mwendapeter72.server.bean.student.Status;
 
 
 /**
@@ -39,7 +39,7 @@ public class TestStatusDAO {
 	}
 
 	/**
-	 * Test method for {@link com.gmail.mwendapeter72.server.persistence.student.StatusDAO#putStatus(com.gmail.mwendapeter72.server.bean.student.ApprovalStatus)}.
+	 * Test method for {@link com.gmail.mwendapeter72.server.persistence.student.StatusDAO#putStatus(com.gmail.mwendapeter72.server.bean.student.Status)}.
 	 */
 	@Ignore
 	@Test
@@ -48,7 +48,7 @@ public class TestStatusDAO {
 	}
 
 	/**
-	 * Test method for {@link com.gmail.mwendapeter72.server.persistence.student.StatusDAO#updateStatus(com.gmail.mwendapeter72.server.bean.student.ApprovalStatus)}.
+	 * Test method for {@link com.gmail.mwendapeter72.server.persistence.student.StatusDAO#updateStatus(com.gmail.mwendapeter72.server.bean.student.Status)}.
 	 */
 	@Ignore
 	@Test
@@ -57,7 +57,7 @@ public class TestStatusDAO {
 	}
 
 	/**
-	 * Test method for {@link com.gmail.mwendapeter72.server.persistence.student.StatusDAO#deleteStatus(com.gmail.mwendapeter72.server.bean.student.ApprovalStatus)}.
+	 * Test method for {@link com.gmail.mwendapeter72.server.persistence.student.StatusDAO#deleteStatus(com.gmail.mwendapeter72.server.bean.student.Status)}.
 	 */
 	@Ignore
 	@Test
@@ -72,8 +72,8 @@ public class TestStatusDAO {
 	@Test
 	public void testGetAllStatus() {
 		store = new StatusDAO(databaseName, Host, databaseUsername, databasePassword, databasePort); 
-		List<ApprovalStatus> list = store.getAllStatus();	
-		for (ApprovalStatus ss : list) {
+		List<Status> list = store.getAllStatus();	
+		for (Status ss : list) {
 			System.out.println(ss);
 		}
 	}

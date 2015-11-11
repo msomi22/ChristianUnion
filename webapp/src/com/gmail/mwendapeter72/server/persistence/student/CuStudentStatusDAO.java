@@ -15,9 +15,10 @@
  *AT HIGH PERFORMANCE, SOME DATA ARE CACHED USING EHCHACE.
  **********************************************************************************************
  **********************************************************************************************
- *COPYRIGHT REMAINS TO SOFTECH SOLUTIONS, A FAST GROWING IT COMPANY
+ *COPYRIGHT REMAINS TO FASTECH SOLUTIONS, A FAST GROWING IT COMPANY IN KENYA
  *CONTSCTS: WWW.FASTECCHSOLUTIONS.CO.KE
  *          WWW.FACEBOOK.COM/FASTECH.CO.KE
+ *          PHONE:0718953974
  *          
  *          
  * 
@@ -27,45 +28,41 @@ package com.gmail.mwendapeter72.server.persistence.student;
 
 import java.util.List;
 
-import com.gmail.mwendapeter72.server.bean.student.Status;
+import com.gmail.mwendapeter72.server.bean.student.StudentStatus;
 
 /**
- * @author peter<a href="mailto:mwendapeter72@gmail.com">Peter mwenda</a>
- * @author betty
+ * @author peter
  *
  */
-public interface CuStatusDAO {
-	 /**
-	  * 
-	  * @param Uuid
-	  * @return
-	  */
-	public Status getStatus(String Uuid);
-	
+public interface CuStudentStatusDAO {
+    
 	/**
 	 * 
-	 * @param status
-	 * @return whether status was inserted successfully or not
+	 * @param StudentUuid
+	 * @return StudentStatus Object
 	 */
-	public boolean putStatus(Status status);
-	/**
-	 * 
-	 * @param status
-	 * @return whether status was updated successfully or not
-	 */
-	public boolean updateStatus(Status status);
-	 /**
-	  * 
-	  * @param status
-	  * @return whether status was deleted successfully or not
-	  */
-	public boolean deleteStatus(Status status);
-	
-	/**
-	 * 
-	 * @return {@link List} List of all status
-	 */
-	public List<Status> getAllStatus();
-	
-
+	public StudentStatus get(String StudentUuid);
+	  /**
+	   * 
+	   * @param studentStatus
+	   * @return Whether Student was inserted successfully or not
+	   */
+	public boolean putStudentStatus(StudentStatus studentStatus);
+	  /**
+	   * 
+	   * @param studentStatus
+	   * @return Whether Student was updated successfully or not
+	   */
+	public boolean updateStudentStatus(StudentStatus studentStatus);
+	  /**
+	   * 
+	   * @param studentStatus
+	   * @return Whether Student was deleted successfully or not
+	   */
+	public boolean deleteStudentStatus(StudentStatus studentStatus);
+	   /**
+	    * 
+	    * @return {@link List} List of all Student Status
+	    */
+	public List<StudentStatus> getAllStudentStatus();
 }

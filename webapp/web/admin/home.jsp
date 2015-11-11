@@ -13,8 +13,11 @@
 <%@page import="com.gmail.mwendapeter72.server.persistence.student.StudentOtherDetailDAO"%>
 <%@page import="com.gmail.mwendapeter72.server.bean.student.StudentOtherDetail"%>
 
+<%@page import="com.gmail.mwendapeter72.server.persistence.student.StudentStatusDAO"%>
+<%@page import="com.gmail.mwendapeter72.server.bean.student.StudentStatus"%>
+
 <%@page import="com.gmail.mwendapeter72.server.persistence.student.StatusDAO"%>
-<%@page import="com.gmail.mwendapeter72.server.bean.student.ApprovalStatus"%>
+<%@page import="com.gmail.mwendapeter72.server.bean.student.Status"%>
 
 <%@page import="com.gmail.mwendapeter72.server.session.SessionConstants"%>
 <%@page import="com.gmail.mwendapeter72.server.session.admin.SessionConstants2"%>
@@ -49,18 +52,37 @@
      session.setMaxInactiveInterval(SessionConstants2.SESSION_TIMEOUT);
      response.setHeader("Refresh", SessionConstants2.SESSION_TIMEOUT + "; url=/ChristianUnion/admin");
 
-  Student student;
-  StudentOtherDetail studentDetal;
-  ApprovalStatus status;
+    HashMap<String, String> stustatusHash = new HashMap<String, String>();
+      HashMap<String, String> statusHash = new HashMap<String, String>();
+
+   Student student;
+   StudentOtherDetail studentDetal;
+   StudentStatus status;
+   Status sstatus;
+
+   StudentStatusDAO stustatusDAO = StudentStatusDAO.getInstance();
+   List<StudentStatus> stustatustList = new ArrayList(); 
+   stustatustList = stustatusDAO.getAllStudentStatus();
 
    StatusDAO statusDAO = StatusDAO.getInstance();
-   List<ApprovalStatus> statustList = new ArrayList(); 
+   List<Status> statustList = new ArrayList(); 
    statustList = statusDAO.getAllStatus();
-  // out.println(statustList);
+
+      for(StudentStatus st : stustatustList){
+           stustatusHash.put(st.getStudentUuid(), st.getStudentStatusUuid());
+       }
+
+       for(Status stat : statustList){
+           statusHash.put(stat.getUuid(), stat.getStatus());
+       }
+    
+    
+
+  // out.println(stustatustList);
 
    StudentDAO studentDAO = StudentDAO.getInstance();
-  List<Student> studentList1 = new ArrayList(); 
-  studentList1 = studentDAO.getStudentList(0,15);
+   List<Student> studentList1 = new ArrayList(); 
+   studentList1 = studentDAO.getStudentList(0,15);
 
 
   
@@ -171,7 +193,7 @@
                         <th>Firstname</th>                
                        <!-- <th>Surname</th>  -->
                         <th>Lastname</th>
-                        <th>Phone</th>
+                       <!-- <th>Phone</th> -->
                        <!-- <th>Gurdian Contact</th>  -->
                         <th>Age</th>
                         <th>Gender</th>
@@ -180,6 +202,7 @@
                         <th>Year Of Study</th>   
                         <th>Home Town</th>
                         <th>County</th>
+                         <th>Status</th>
                         <th>Registration Date</th>
                        
                         <th>actions</th>
@@ -203,7 +226,7 @@
                          int age = a-y;
                        
 
-                        String active ="85C6F08E-902C-46C2-8746-8C50E7D11E2E";
+                       
     
                     %>
                       <tr class="tabledit">
@@ -215,7 +238,7 @@
 
                        <!--  <td class="center"><%//=s.getSurName()%></td> -->
                          <td class="center"><%=s.getLastName()%></td>  
-                         <td class="center"><%=s.getMobile()%></td>  
+                         <!-- <td class="center"><%//=s.getMobile()%></td>  -->
                        <!--  <td class="center"><%//=s.getGuardianContact()%></td> -->
                          <td class="center"><%=age%></td>
                          <td class="center"><%=s.getGender()%></td>
@@ -224,6 +247,7 @@
                          <td class="center"><%=s.getYearOfStudy()%></td>
                          <td class="center"><%=s.getHomeTown()%></td>
                          <td class="center"><%=s.getCounty()%></td>  
+                         <td class="center"><%=statusHash.get(stustatusHash.get(s.getUuid() ))%></td>  
                          <td class="center"><%=dateFormatter.format(s.getDateOfRegistration())%></td> 
                         
                          <td class="center">

@@ -56,8 +56,10 @@
                 %>
                 <tbody>                   
                          <tr>  <td width="30%" class="center">Surname</td>                <td class="center"><%=student.getSurName()%></td> </tr>
-                         <tr>  <td width="30%" class="center">Program/Major</td>         <td class="center"><%=student.getProgram()%></td> </tr>
+                         <tr>  <td width="30%" class="center">Phone No</td>                <td class="center"><%=student.getMobile()%></td> </tr>
                          <tr>  <td width="30%" class="center">Guardian Contact</td>         <td class="center"><%=student.getGuardianContact()%></td> </tr>
+                         <tr>  <td width="30%" class="center">Email</td>                <td class="center"><%=student.getEmail()%></td> </tr>
+                         <tr>  <td width="30%" class="center">Program/Major</td>         <td class="center"><%=student.getProgram()%></td> </tr>                     
                          <tr>  <td width="30%" class="center">Academic Year</td>             <td class="center"><%=student.getAcademicYear()%></td>  </tr> 
                          <tr>  <td width="30%" class="center">Is a Christian?</td>            <td class="center"><%=studentDetails.getChristian()%></td>    </tr>
                          <tr>  <td width="30%" class="center">For What Period?</td>            <td class="center"><%=studentDetails.getDuration()%></td>     </tr>

@@ -37,32 +37,31 @@ import org.apache.commons.dbutils.BeanProcessor;
 import org.apache.commons.lang3.exception.ExceptionUtils;
 import org.apache.log4j.Logger;
 
-import com.gmail.mwendapeter72.server.bean.student.Status;
+import com.gmail.mwendapeter72.server.bean.student.StudentStatus;
 import com.gmail.mwendapeter72.server.persistence.DBConnectDAO;
-
 
 /**
  * @author peter
  *
  */
-public class StatusDAO extends DBConnectDAO implements CuStatusDAO {
-
-	private static StatusDAO statusDAO;
+public class StudentStatusDAO extends DBConnectDAO implements CuStudentStatusDAO {
+	
+	private static StudentStatusDAO studentStatusDAO;
 	private Logger logger = Logger.getLogger(this.getClass());
 	private BeanProcessor beanProcessor = new BeanProcessor();
 	
-	public static StatusDAO getInstance(){
+	public static StudentStatusDAO getInstance(){
 		
-		if(statusDAO == null){
-			statusDAO = new StatusDAO();		
+		if(studentStatusDAO == null){
+			studentStatusDAO = new StudentStatusDAO();		
 		}
-		return statusDAO;
+		return studentStatusDAO;
 	}
 	
 	/**
 	 * 
 	 */
-	public StatusDAO() { 
+	public StudentStatusDAO() { 
 		super();
 			
 	}
@@ -70,63 +69,80 @@ public class StatusDAO extends DBConnectDAO implements CuStatusDAO {
 	/**
 	 * 
 	 */
-	public StatusDAO(String databaseName, String Host, String databaseUsername, String databasePassword, int databasePort) {
+	public StudentStatusDAO(String databaseName, String Host, String databaseUsername, String databasePassword, int databasePort) {
 		super(databaseName, Host, databaseUsername, databasePassword, databasePort);
 		
 	}
-
 	/* (non-Javadoc)
-	 * @see com.gmail.mwendapeter72.server.persistence.student.CuStatusDAO#getStatus(java.lang.String)
+	 * @see com.gmail.mwendapeter72.server.persistence.student.CuStudentStatusDAO#get(java.lang.String)
 	 */
 	@Override
-	public Status getStatus(String Uuid) {
+	public StudentStatus get(String StudentUuid) {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
+	/**
+	 * @see com.gmail.mwendapeter72.server.persistence.student.CuStudentStatusDAO#putStudentStatus(com.gmail.mwendapeter72.server.bean.student.StudentStatus)
+	 */
+	public boolean putStudentStatus(StudentStatus studentStatus) {
+		boolean success = true; 
+		
+		 try(   Connection conn = dbutils.getConnection();
+				PreparedStatement pstmt = conn.prepareStatement("INSERT INTO StudentStatus" 
+			        		+"(Uuid,StudentUuid,StudentStatusUuid) VALUES (?,?,?);");
+    		){
+			   
+	            pstmt.setString(1, studentStatus.getUuid());
+	            pstmt.setString(2, studentStatus.getStudentUuid());
+	            pstmt.setString(3, studentStatus.getStudentStatusUuid());
+	          
+	            pstmt.executeUpdate();
+	  
+		 }catch(SQLException e){
+			 logger.error("SQL Exception trying to put StudentStatus: "+studentStatus);
+            logger.error(ExceptionUtils.getStackTrace(e)); 
+            System.out.println(ExceptionUtils.getStackTrace(e));
+            success = false;
+		 }
+		
+		
+		return success;
+	}
+
 	/* (non-Javadoc)
-	 * @see com.gmail.mwendapeter72.server.persistence.student.CuStatusDAO#putStatus(com.gmail.mwendapeter72.server.bean.student.ApprovalStatus)
+	 * @see com.gmail.mwendapeter72.server.persistence.student.CuStudentStatusDAO#updateStudentStatus(com.gmail.mwendapeter72.server.bean.student.StudentStatus)
 	 */
 	@Override
-	public boolean putStatus(Status status) {
+	public boolean updateStudentStatus(StudentStatus studentStatus) {
 		// TODO Auto-generated method stub
 		return false;
 	}
 
 	/* (non-Javadoc)
-	 * @see com.gmail.mwendapeter72.server.persistence.student.CuStatusDAO#updateStatus(com.gmail.mwendapeter72.server.bean.student.ApprovalStatus)
+	 * @see com.gmail.mwendapeter72.server.persistence.student.CuStudentStatusDAO#deleteStudentStatus(com.gmail.mwendapeter72.server.bean.student.StudentStatus)
 	 */
 	@Override
-	public boolean updateStatus(Status status) {
+	public boolean deleteStudentStatus(StudentStatus studentStatus) {
 		// TODO Auto-generated method stub
 		return false;
 	}
 
-	/* (non-Javadoc)
-	 * @see com.gmail.mwendapeter72.server.persistence.student.CuStatusDAO#deleteStatus(com.gmail.mwendapeter72.server.bean.student.ApprovalStatus)
+	/**
+	 * @see com.gmail.mwendapeter72.server.persistence.student.CuStudentStatusDAO#getAllStudentStatus()
 	 */
-	@Override
-	public boolean deleteStatus(Status status) {
-		// TODO Auto-generated method stub
-		return false;
-	}
-
-	/* (non-Javadoc)
-	 * @see com.gmail.mwendapeter72.server.persistence.student.CuStatusDAO#getAllStatus()
-	 */
-	@Override
-	public List<Status> getAllStatus() {
-		List<Status> list =new  ArrayList<>(); 
+	public List<StudentStatus> getAllStudentStatus() {
+		List<StudentStatus> list =new  ArrayList<>(); 
 		  try(   
 	      		Connection conn = dbutils.getConnection();
-	      		PreparedStatement  pstmt = conn.prepareStatement("SELECT * FROM Status ;");   
+	      		PreparedStatement  pstmt = conn.prepareStatement("SELECT * FROM StudentStatus ;");   
 	      		ResultSet rset = pstmt.executeQuery();
 	  		) {
 	      	
-	          list = beanProcessor.toBeanList(rset, Status.class);
+	          list = beanProcessor.toBeanList(rset, StudentStatus.class);
 
 	      } catch(SQLException e){
-	      	  logger.error("SQL Exception when getting all Status");
+	      	  logger.error("SQL Exception when getting all StudentStatus");
 	          logger.error(ExceptionUtils.getStackTrace(e));
 	          System.out.println(ExceptionUtils.getStackTrace(e));
 	      }

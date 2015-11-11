@@ -29,36 +29,23 @@ package com.gmail.mwendapeter72.server.bean.student;
 import com.gmail.mwendapeter72.server.bean.AllBean;
 
 /**
- * @author Muriithi<a href="mailto:mattjohnmurii@gmail.com">Muriithi John</a>
- * @author peter<a href="mailto:mwendapeter72@gmail.com">Peter mwenda</a>
+ * @author peter
  *
  */
-public class StudentOtherDetail extends AllBean {
+public class StudentStatus  extends AllBean{
+	
+	private String StudentUuid;
+	private String StudentStatusUuid;
 
 	/**
 	 * 
 	 */
-	private String StudentUuid;
-	private String Christian;
-    private String Duration;
-    private String Ministry;
-    private String MinistryName;
-    private String DesiredMinistry;
-    private String MinistryVision;
-    
-	public StudentOtherDetail() {
-		super();
+	public StudentStatus() {
 		StudentUuid = "";
-		Christian = "";
-		Duration = "";
-		Ministry = "";
-		MinistryName = "";
-		DesiredMinistry = "";
-		MinistryVision ="";
-		
-				
+		StudentStatusUuid = "";
 	}
-			
+
+    
 	/**
 	 * @return the studentUuid
 	 */
@@ -66,90 +53,42 @@ public class StudentOtherDetail extends AllBean {
 		return StudentUuid;
 	}
 
+
 	/**
 	 * @param studentUuid the studentUuid to set
 	 */
 	public void setStudentUuid(String studentUuid) {
 		StudentUuid = studentUuid;
 	}
+    
 
-	public String getChristian() {
-		return Christian;
-	}
 
-	public void setChristian(String christian) {
-		Christian = christian;
-	}
-
-	public String getDuration() {
-		return Duration;
-	}
-
-	public void setDuration(String duration) {
-		Duration = duration;
-	}
-
-	public String getMinistry() {
-		return Ministry;
-	}
-
-	public void setMinistry(String ministry) {
-		Ministry = ministry;
-	}
-
-	public String getMinistryName() {
-		return MinistryName;
-	}
-
-	public void setMinistryName(String ministryName) {
-		MinistryName = ministryName;
-	}
-
-	public String getDesiredMinistry() {
-		return DesiredMinistry;
-	}
-
-	public void setDesiredMinistry(String desiredMinistry) {
-		DesiredMinistry = desiredMinistry;
+	/**
+	 * @return the studentStatusUuid
+	 */
+	public String getStudentStatusUuid() {
+		return StudentStatusUuid;
 	}
 
 
 	/**
-	 * @return the ministryVision
+	 * @param studentStatusUuid the studentStatusUuid to set
 	 */
-	public String getMinistryVision() {
-		return MinistryVision;
+	public void setStudentStatusUuid(String studentStatusUuid) {
+		StudentStatusUuid = studentStatusUuid;
 	}
 
-	/**
-	 * @param ministryVision the ministryVision to set
-	 */
-	public void setMinistryVision(String ministryVision) {
-		MinistryVision = ministryVision;
-	}
 
 	@Override
 	public String toString(){
 		StringBuilder builder = new StringBuilder();
-		builder.append("Student Other Details [ getUuid() =");
+		builder.append("Student Status [ getUuid() =");
 		builder.append(getUuid());
-		builder.append(", getStudentUuid() =");
-		builder.append(getStudentUuid());
-		builder.append(", Christian =");
-		builder.append(Christian);
-		builder.append(", Duration =");
-		builder.append(Duration);
-		builder.append(", Ministry =");
-		builder.append(Ministry);
-		builder.append(", MinistryName =");
-		builder.append(MinistryName);
-		builder.append(", DesiredMinistry =");
-		builder.append(DesiredMinistry);
-		builder.append(", MinistryVision =");
-		builder.append(MinistryVision);
+		builder.append(", StudentUuid =");
+		builder.append(StudentUuid);
+		builder.append(", StudentStatusUuid =");
+		builder.append(StudentStatusUuid);
 		builder.append("]");
 		return builder.toString(); 
 		}
-	
-
 }

@@ -109,6 +109,8 @@ protected void doPost(HttpServletRequest request, HttpServletResponse response)
 		   
 		   
 			  Student s = new Student();
+			  s = studentDAO.getStudentByUuid(Uuid);// Populate Student Object with the correct id
+			  
 			  s.setUuid(Uuid);
 			  s.setAdmNo(AdmNo.toUpperCase());
 			  s.setFirstName(FirstName.toUpperCase());
@@ -128,6 +130,8 @@ protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			   
 			  
 			  StudentOtherDetail d = new StudentOtherDetail();
+			  d = studentOtherDetailDAO.getDetail(Uuid);// Populate StudentOtherDetail Object with the correct id
+			  
 			  d.setStudentUuid(Uuid);
 			  d.setChristian(Christian.toUpperCase());
 			  d.setDuration(Duration.toUpperCase());

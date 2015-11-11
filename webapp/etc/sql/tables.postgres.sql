@@ -80,15 +80,15 @@ ALTER TABLE StudentOtherInfo OWNER TO cu;
 -- -------------------
 -- Table ApprovalStatus
 -- -------------------
-CREATE TABLE  ApprovalStatus (
+CREATE TABLE  Status (
     Id SERIAL PRIMARY KEY,
     Uuid text UNIQUE NOT NULL,
     Status text
     
 
 );
-\COPY ApprovalStatus(Uuid,Status) FROM '/tmp/ApprovalStatus.csv' WITH DELIMITER AS '|' CSV HEADER
-ALTER TABLE ApprovalStatus OWNER TO cu;
+\COPY Status(Uuid,Status) FROM '/tmp/Status.csv' WITH DELIMITER AS '|' CSV HEADER
+ALTER TABLE Status OWNER TO cu;
 
 
 
@@ -96,19 +96,17 @@ ALTER TABLE ApprovalStatus OWNER TO cu;
 -- -------------------
 -- Table StudentApproval
 -- -------------------
-CREATE TABLE  StudentApproval (
+CREATE TABLE  StudentStatus (
     Id SERIAL PRIMARY KEY,
     Uuid text UNIQUE NOT NULL,
     StudentUuid text REFERENCES Student(Uuid),
-    ApprovalStatusUuid text REFERENCES ApprovalStatus(Uuid),
-    SystemUser text,
-    ApprovalDate text
-    
+    StudentStatusUuid text REFERENCES Status(Uuid)
+   
     
 
 );
-\COPY StudentApproval(Uuid,StudentUuid,ApprovalStatusUuid,SystemUser,ApprovalDate) FROM '/tmp/StudentApproval.csv' WITH DELIMITER AS '|' CSV HEADER
-ALTER TABLE StudentApproval OWNER TO cu;
+\COPY StudentStatus(Uuid,StudentUuid,StudentStatusUuid) FROM '/tmp/StudentStatus.csv' WITH DELIMITER AS '|' CSV HEADER
+ALTER TABLE StudentStatus OWNER TO cu;
 
 
 

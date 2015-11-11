@@ -15,9 +15,10 @@
  *AT HIGH PERFORMANCE, SOME DATA ARE CACHED USING EHCHACE.
  **********************************************************************************************
  **********************************************************************************************
- *COPYRIGHT REMAINS TO SOFTECH SOLUTIONS, A FAST GROWING IT COMPANY
+ *COPYRIGHT REMAINS TO FASTECH SOLUTIONS, A FAST GROWING IT COMPANY IN KENYA
  *CONTSCTS: WWW.FASTECCHSOLUTIONS.CO.KE
  *          WWW.FACEBOOK.COM/FASTECH.CO.KE
+ *          PHONE:0718953974
  *          
  *          
  * 
@@ -32,7 +33,7 @@ import com.gmail.mwendapeter72.server.bean.AllBean;
  * @author betty
  *
  */
-public class ApprovalStatus extends AllBean{
+public class Status extends AllBean{
 	
 	//Status
 	private String Status;
@@ -40,7 +41,7 @@ public class ApprovalStatus extends AllBean{
 	/**
 	 * 
 	 */
-	public ApprovalStatus() {
+	public Status() {
 		Status = "";
 	}
 	
