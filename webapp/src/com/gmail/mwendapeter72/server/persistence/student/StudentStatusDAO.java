@@ -37,6 +37,7 @@ import org.apache.commons.dbutils.BeanProcessor;
 import org.apache.commons.lang3.exception.ExceptionUtils;
 import org.apache.log4j.Logger;
 
+import com.gmail.mwendapeter72.server.bean.student.Student;
 import com.gmail.mwendapeter72.server.bean.student.StudentStatus;
 import com.gmail.mwendapeter72.server.persistence.DBConnectDAO;
 
@@ -73,13 +74,35 @@ public class StudentStatusDAO extends DBConnectDAO implements CuStudentStatusDAO
 		super(databaseName, Host, databaseUsername, databasePassword, databasePort);
 		
 	}
-	/* (non-Javadoc)
+	/**
 	 * @see com.gmail.mwendapeter72.server.persistence.student.CuStudentStatusDAO#get(java.lang.String)
 	 */
 	@Override
 	public StudentStatus get(String StudentUuid) {
-		// TODO Auto-generated method stub
-		return null;
+		StudentStatus studentstatus = null;
+        ResultSet rset = null;
+        try(
+        		  Connection conn = dbutils.getConnection();
+           	      PreparedStatement pstmt = conn.prepareStatement("SELECT * FROM StudentStatus WHERE StudentUuid = ?;");       
+        		
+        		){
+        	
+        	 pstmt.setString(1, StudentUuid); 
+	         rset = pstmt.executeQuery();
+	          while(rset.next()){
+	
+	        	  studentstatus  = beanProcessor.toBean(rset,StudentStatus.class);
+	          }
+        	
+        	
+        	
+        }catch(SQLException e){
+        	 logger.error("SQL Exception when getting StudentStatus  with StudentUuid: " + StudentUuid);
+             logger.error(ExceptionUtils.getStackTrace(e));
+             System.out.println(ExceptionUtils.getStackTrace(e));
+        }
+        
+		return studentstatus; 
 	}
 
 	/**
@@ -110,13 +133,31 @@ public class StudentStatusDAO extends DBConnectDAO implements CuStudentStatusDAO
 		return success;
 	}
 
-	/* (non-Javadoc)
+	/**
 	 * @see com.gmail.mwendapeter72.server.persistence.student.CuStudentStatusDAO#updateStudentStatus(com.gmail.mwendapeter72.server.bean.student.StudentStatus)
 	 */
 	@Override
 	public boolean updateStudentStatus(StudentStatus studentStatus) {
-		// TODO Auto-generated method stub
-		return false;
+		boolean success = true; 
+		
+		 try(   Connection conn = dbutils.getConnection();
+				PreparedStatement pstmt = conn.prepareStatement("UPDATE StudentStatus SET StudentStatusUuid =? WHERE StudentUuid =?;");
+   		){
+			
+	            pstmt.setString(1, studentStatus.getStudentStatusUuid());
+	            pstmt.setString(2, studentStatus.getStudentUuid()); 
+	          
+	            pstmt.executeUpdate();
+	  
+		 }catch(SQLException e){
+			 logger.error("SQL Exception trying to put StudentStatus: "+studentStatus);
+             logger.error(ExceptionUtils.getStackTrace(e)); 
+             System.out.println(ExceptionUtils.getStackTrace(e));
+             success = false;
+		 }
+		
+		
+		return success;
 	}
 
 	/* (non-Javadoc)

@@ -37,7 +37,6 @@ import org.apache.commons.lang3.exception.ExceptionUtils;
 import org.apache.log4j.Logger;
 
 import com.gmail.mwendapeter72.server.bean.student.Student;
-import com.gmail.mwendapeter72.server.bean.student.StudentOtherDetail;
 import com.gmail.mwendapeter72.server.persistence.DBConnectDAO;
 
 /**
@@ -250,6 +249,47 @@ public class StudentDAO extends DBConnectDAO  implements CuStudentDAO {
 		 }
 		return success;
 	}
+  
+	
+	/**
+	 * @see com.gmail.mwendapeter72.server.persistence.student.CuStudentDAO#updateStudent(com.gmail.mwendapeter72.server.bean.student.Student)
+	 */
+	public boolean updateStudent(Student student) {
+		boolean success = true;
+		
+		  try(   Connection conn = dbutils.getConnection();
+				PreparedStatement pstmt = conn.prepareStatement("UPDATE Student SET AdmNo =?," 
+			        +"FirstName =?,SurName =?,LastName =?,Email =?,Mobile =?,"
+			        + "GuardianContact =?,DOB =?,Gender=?, Program =?,AcademicYear =?,YearOfStudy=?,"
+			        + " HomeTown =?,County =?,DateOfRegistration=? WHERE Uuid = ?;");
+		){
+			  
+	            pstmt.setString(1, student.getAdmNo());
+	            pstmt.setString(2, student.getFirstName());
+	            pstmt.setString(3, student.getSurName());	           
+	            pstmt.setString(4, student.getLastName());
+	            pstmt.setString(5, student.getEmail());
+	            pstmt.setString(6, student.getMobile());
+	            pstmt.setString(7, student.getGuardianContact());
+	            pstmt.setString(8, student.getDOB());
+	            pstmt.setString(9, student.getGender());                       
+	            pstmt.setString(10, student.getProgram());
+	            pstmt.setString(11, student.getAcademicYear());//
+	            pstmt.setString(12, student.getYearOfStudy());//
+	            pstmt.setString(13, student.getHomeTown());
+	            pstmt.setString(14, student.getCounty());
+	            pstmt.setTimestamp(15, new Timestamp(student.getDateOfRegistration().getTime()));//
+	            pstmt.setString(16, student.getUuid());
+	            pstmt.executeUpdate();
+			 
+		 }catch(SQLException e){
+			 logger.error("SQL Exception trying to update Student: "+student);
+             logger.error(ExceptionUtils.getStackTrace(e));  
+             System.out.println(ExceptionUtils.getStackTrace(e));
+             success = false;
+		 }
+		return success;
+	}
 
 	/* (non-Javadoc)
 	 * @see com.gmail.mwendapeter72.server.persistence.student.CuStudentDAO#deleteStudent(com.gmail.mwendapeter72.server.bean.student.Student, java.lang.String)
@@ -287,5 +327,29 @@ public class StudentDAO extends DBConnectDAO  implements CuStudentDAO {
 		return studentList;		
 	}
 
+	/**
+	 * @see com.gmail.mwendapeter72.server.persistence.student.CuStudentDAO#getStudentList()
+	 */
+	public List<Student> getStudentList() {
+		List<Student> list =new  ArrayList<>(); 
+		  try(   
+	      		Connection conn = dbutils.getConnection();
+	      		PreparedStatement  pstmt = conn.prepareStatement("SELECT * FROM Student ;");   
+	      		ResultSet rset = pstmt.executeQuery();
+	  		) {
+	      	
+	          list = beanProcessor.toBeanList(rset, Student.class);
+	          
+
+	      } catch(SQLException e){
+	      	  logger.error("SQL Exception when getting all Student");
+	          logger.error(ExceptionUtils.getStackTrace(e));
+	          System.out.println(ExceptionUtils.getStackTrace(e));
+	      }
+	   
+		return list;
+	}
+
+	
 	
 }

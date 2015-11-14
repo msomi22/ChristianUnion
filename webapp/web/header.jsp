@@ -70,7 +70,7 @@ $(window).load(function() {
     <div id="tooplate_menu">
         <ul>
             <li><a href="index.jsp" class="current">Home</a></li>
-            <li><a href="#">Update Details</a></li>
+            <li><a href="studentupdate.jsp">Update Details</a></li>
             
           
         

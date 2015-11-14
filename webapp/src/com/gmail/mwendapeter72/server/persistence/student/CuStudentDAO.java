@@ -73,6 +73,14 @@ public interface CuStudentDAO {
 	  */
 	public boolean updateStudent(Student student,String Uuid);
 	
+	
+	
+	/**
+	 * @param student
+	 * @return whether student was updated successfully
+	 */
+	public boolean updateStudent(Student student);
+	
 	  /**
 	   * 
 	   * @param student
@@ -84,8 +92,17 @@ public interface CuStudentDAO {
 	
 	   /**
 	    * 
+	    * @param startIndex
+	    * @param endIndex
 	    * @return List of all Students
 	    */
+	   
 	public List<Student> getStudentList(int startIndex , int endIndex);
+	
+	  /**
+	    * 
+	    * @return List of all Students
+	    */
+	public List<Student> getStudentList();
 
 }

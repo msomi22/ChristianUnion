@@ -51,7 +51,7 @@ public class TestStudentDAO {
 	
 	private String ADM_NO = "BS02/030/2012",
 			       ADM_NO_NEW = "BS02/033/2012",
-			       ADM_NO_UPDATE = "BHR/053/2013";
+			       ADM_NO_UPDATE = "BHR/053/2013x";
 	
 	private String FIRST_NAME = "Joram",
 			       FIRST_NAME_NEW = "Joyce",
@@ -79,7 +79,7 @@ public class TestStudentDAO {
 	
 	private String DOB = "1991",
 			       DOB_NEW = "1994",
-			       DOB_UPDATE = "1994x";
+			       DOB_UPDATE = "1994";
 	
 	private String GENDER = "Male",
 			       GENDER_NEW = "Female",
@@ -180,7 +180,7 @@ public class TestStudentDAO {
 	/**
 	 * Test method for {@link com.gmail.mwendapeter72.server.persistence.student.StudentDAO#updateStudent(com.gmail.mwendapeter72.server.bean.student.Student, java.lang.String)}.
 	 */
-	//@Ignore
+	@Ignore
 	@Test
 	public void testUpdateStudent() {
 		 store = new StudentDAO(databaseName, Host, databaseUsername, databasePassword, databasePort);
@@ -204,6 +204,36 @@ public class TestStudentDAO {
 	
 	}
 
+	
+	
+	/**
+	 * Test method for {@link com.gmail.mwendapeter72.server.persistence.student.StudentDAO#updateStudent(com.gmail.mwendapeter72.server.bean.student.Student, java.lang.String)}.
+	 */
+	@Ignore
+	@Test
+	public void testUpdateStudent2() {
+		 store = new StudentDAO(databaseName, Host, databaseUsername, databasePassword, databasePort);
+		 Student s = new Student();
+		 s.setUuid(UUID_NEW);
+		 s.setAdmNo(ADM_NO_NEW);
+		 s.setFirstName(FIRST_NAME_UPDATE);
+		 s.setSurName(SURNAME_UPDATE);
+		 s.setLastName(LAST_NAME_UPDATE);
+		 s.setEmail(EMAIL_UPDATE);
+		 s.setMobile(PHONE_UPDATE);
+		 s.setGuardianContact(GURDIAN_CONTACT_UPDATE); 
+		 s.setDOB(DOB_UPDATE);
+		 s.setGender(GENDER_UPDATE);
+		 s.setProgram(PROGRAM_UPDATE);
+		 s.setAcademicYear(ACADEMIC_YEAR_UPDATE);
+		 s.setYearOfStudy(YEAR_STUDY_UPDATE);
+		 s.setHomeTown(HOME_TOWN_UPDATE);
+		 s.setCounty(COUNTY_UPDATE);
+		 s.setDateOfRegistration(DATE_REG_UPDATE); 
+		 assertTrue(store.updateStudent(s));  
+	
+	}
+
 	/**
 	 * Test method for {@link com.gmail.mwendapeter72.server.persistence.student.StudentDAO#deleteStudent(com.gmail.mwendapeter72.server.bean.student.Student, java.lang.String)}.
 	 */
@@ -224,6 +254,23 @@ public class TestStudentDAO {
 		 //assertEquals(studentList.size() , 15);
 		 for(Student ss : studentList){
 			System.out.println(ss);
+		}
+	}
+	
+	/**
+	 * Test method for {@link com.gmail.mwendapeter72.server.persistence.student.StudentDAO#getAllStdeunt()}.
+	 */
+	@Ignore
+	@Test
+	public void testGetStudentList() {
+		 store = new StudentDAO(databaseName, Host, databaseUsername, databasePassword, databasePort);
+		 List<Student> studentList = store.getStudentList();
+		 //assertEquals(studentList.size() , 15);
+		 for(Student ss : studentList){
+			//System.out.println(ss);
+			System.out.println("StudentUuid=="+ss.getUuid()+"Reg Date=="+ss.getDateOfRegistration());
+			//System.out.println("Reg Date"+ss.getDateOfRegistration());
+			
 		}
 	}
 

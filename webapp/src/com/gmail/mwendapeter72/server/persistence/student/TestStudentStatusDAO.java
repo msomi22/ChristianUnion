@@ -53,6 +53,8 @@ public class TestStudentStatusDAO {
 	private String STUDENT_UUID = "5C5724AF-B8C6-4322-ACE9-C340C6DB8D13";
 	private String STUDENT_STATUS_UUID = "85C6F08E-902C-46C2-8746-8C50E7D11E2E";
 	
+	private String STATUS_INACTIVE = "6C03705B-E05E-420B-B5B8-C7EE36643E60";
+	
 	
 	private StudentStatusDAO store;
 	
@@ -69,7 +71,7 @@ public class TestStudentStatusDAO {
 	/**
 	 * Test method for {@link com.gmail.mwendapeter72.server.persistence.student.StudentStatusDAO#putStudentStatus(com.gmail.mwendapeter72.server.bean.student.StudentStatus)}.
 	 */
-	//@Ignore
+	@Ignore
 	@Test
 	public void testPutStudentStatus() {
 		store = new StudentStatusDAO(databaseName, Host, databaseUsername, databasePassword, databasePort); 
@@ -87,6 +89,10 @@ public class TestStudentStatusDAO {
 	@Test
 	public void testUpdateStudentStatus() {
 		store = new StudentStatusDAO(databaseName, Host, databaseUsername, databasePassword, databasePort);
+		StudentStatus s = new StudentStatus();
+		s.setStudentUuid(STUDENT_UUID);
+		s.setStudentStatusUuid(STATUS_INACTIVE);
+		assertTrue(store.updateStudentStatus(s));
 	}
 
 	/**
@@ -101,7 +107,7 @@ public class TestStudentStatusDAO {
 	/**
 	 * Test method for {@link com.gmail.mwendapeter72.server.persistence.student.StudentStatusDAO#getAllStudentStatus()}.
 	 */
-	@Ignore
+	//@Ignore
 	@Test
 	public void testGetAllStudentStatus() {
 		store = new StudentStatusDAO(databaseName, Host, databaseUsername, databasePassword, databasePort);

@@ -29,7 +29,10 @@
         <load-on-startup>3</load-on-startup>
     </servlet>
  
-
+    
+<listener>
+  <listener-class>com.gmail.mwendapeter72.server.servlet.quartz.QuartzListener</listener-class>
+</listener>
 
 
 
@@ -40,6 +43,21 @@
         <servlet-class>com.gmail.mwendapeter72.server.servlet.student.AddStudent</servlet-class>
      
     </servlet>
+
+      <servlet>
+        <servlet-name>CheckStudentStatus</servlet-name>
+        <servlet-class>com.gmail.mwendapeter72.server.servlet.student.CheckStudentStatus</servlet-class>
+     
+    </servlet>
+
+      <servlet>
+        <servlet-name>ActivateStudent</servlet-name>
+        <servlet-class>com.gmail.mwendapeter72.server.servlet.student.ActivateStudent</servlet-class>
+     
+    </servlet>
+
+
+
 
      <servlet>
         <servlet-name>EditStudent</servlet-name>
@@ -76,6 +94,17 @@
         <url-pattern>/addStudent</url-pattern>      
     </servlet-mapping>
     
+     <servlet-mapping>
+        <servlet-name>CheckStudentStatus</servlet-name>
+        <url-pattern>/studentUpdate</url-pattern>      
+    </servlet-mapping>
+
+     <servlet-mapping>
+        <servlet-name>ActivateStudent</servlet-name>
+        <url-pattern>/activateStudent</url-pattern>      
+    </servlet-mapping>
+
+
      <servlet-mapping>
         <servlet-name>EditStudent</servlet-name>
         <url-pattern>/editStudent</url-pattern>      
