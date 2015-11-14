@@ -203,7 +203,7 @@
                         <th>Home Town</th>
                         <th>County</th>
                          <th>Status</th>
-                        <th>Registration Date</th>
+                        <th>Activated On</th>
                        
                         <th>actions</th>
                     </tr>
