@@ -51,6 +51,10 @@ import com.gmail.mwendapeter72.server.session.SessionConstants;
  *
  */
 public class AddStudent extends HttpServlet{
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -2648186311562388253L;
 	private static StudentDAO studentDAO;
 	private static StudentOtherDetailDAO studentOtherDetailDAO;
 	private static StudentStatusDAO studentStatusDAO;

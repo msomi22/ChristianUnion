@@ -1,0 +1,286 @@
+﻿Maasai Mara University ChristianUnion Management System
+
+The system uses the following Programming techniques and libraries. 
+1) The System is based on Java Enterprise Edition (JavaEE), employing the widely used and the most professional and secure design/model, The MVC model . This means the system comprises some jsp files, java classes, Servlets ,xml files etc.
+2) The database used is postgres, the server is JBOSS or what is  commonly known as Wildfly . For deployment, apache ant is used.
+3) Other techniques and special libraries used include :
+
+a) Log4j, this keeps the log of all the exceptions that may arises in the system. 
+
+b) Then some connection pooling libraries,the Hikaricp; to ensure that the database works normally, effectively and efficiently. 
+
+c) Some data will also require to be chaced in future , in this case, ehchace has been integrated within the system. This enhances performance. 
+
+d) Some scheduling libraries are also integrated within the system, these keeps checking whether there are some students who need to be auto-deactivated
+
+
+
+
+
+
+
+The System has two parts
+1) Student part
+2) Administrator part 
+
+The STUDENT PART included 
+
+1) Registration form
+2) Activation form 
+
+
+Registration form
+The form captures some relevant data which are then stored in a database.
+
+After a student registers with the system, his/her information will remain Active for a period of one year, after which, the information will be automatically in-activated by the system itself, some Scheduling libraries are used here.
+If the information is inactive , the student is expected to activate his/her Details through the activation module found in the student part of the System.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+Activation form 
+Here, the student is expected to supply his/her Admission number, the System will do the following:
+
+1) Check whether the admission number supplied exist in the system.
+2) Check whether the student (who belongs to the supplied admission number) is Active or Inactive, 
+3) if the student is Active, A Message will be displayed with the Student first name and the number of days remaining for his/her information to remain active. No other Information will be displayed.
+4) If the student is inactive, that is, he/she has been active for 365 days( 1 year) and therefor been deactivated automatically,  then the message displayed will include his/her first name, and the number of days he/she has been inactive. Then the information which requires to be updated will be displayed in a different form, the student is expected to update these information. The information in question include his/her year of study and academic year only. Other information will remain untouched since they don't change (NB:Student will not be able view such informations).The informations include admission number, student's name, phone number etc .
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                    END OF STUDENT PART
+
+
+
+
+                     ADMIN PART
+Administrator part can have as many functionality as possible, but as at now, it has two parts: 
+1) The landing page which displays the Registered student informations, this part is paginated to display a maximum of only 15 student per page, 
+On top of the page is a search box, this searches student using admission number, the search  quite effective as it uses some Jquery.
+On clicking a particular admission number, some more information will be displayed.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+2) The second part enables the Administrator to edit/update student information.
+    
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+ END OF ADMIN PART.
+
+NB: Features/Functionality  can be added/modified/removed depending on the mmu cu directive. 

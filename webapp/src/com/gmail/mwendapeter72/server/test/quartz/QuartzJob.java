@@ -1,11 +1,29 @@
-/**
+/******************************************************************************
+ * ****************************************************************************
+ ************* MAASAI MARA UNIVERITY CHRISTIAN UNION MANAGEMENT SYSTEM*********
+ *************THIS SYSTEM IS BASED ON JAVAEE, USING MVC MODEL******************
+ *************THE SYSTEM IS USED FOR STUDEN REGISTRATION TO THE UNION**********
+ *************STUDENT REGISTRATION MODULE WILL BE ACCESSIBLE REMOTELY**********
+ *************VIA USE OF PUBLIC IP ADDRESS OR A DOMAIN NAME********************
+ *THE STUDENT WILL ALSO BE ABLE TO CHECK THEIR REGISTERD DETAILS FOR VERIFICATION
+ *WHEREBY, THEY ARE ALLOWED TO MODIGY THEIR DETAILS WITHIN ONE WEEK AFTER REGISTRATION DATE
+ *****************************************************************************************
+ *****************************************************************************************
+ *THE OTHER MODULES OR ONLY FOR ADMIN, THE ADMIN WILL APPROVE STUDEDNTS AFTER THEY REGISTER
+ *THE REGISTRATION WILL REQURED RE-ACTIVATION AFTER A PERIOD OF ONE YEAR(12 MONTHS) THIS WILL
+ *HAPPEN AUTOMATICALLY WITH THE HELP OF QUARTZ SCHEDULAR, FOR EFFICIENCY AND KEEPING THE SYSTEM
+ *AT HIGH PERFORMANCE, SOME DATA ARE CACHED USING EHCHACE.
+ **********************************************************************************************
+ **********************************************************************************************
+ *COPYRIGHT REMAINS TO SOFTECH SOLUTIONS, A FAST GROWING IT COMPANY
+ *CONTSCTS: WWW.FASTECCHSOLUTIONS.CO.KE
+ *          WWW.FACEBOOK.COM/FASTECH.CO.KE
+ *
  * 
  */
 package com.gmail.mwendapeter72.server.test.quartz;
 
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
@@ -20,8 +38,9 @@ import com.gmail.mwendapeter72.server.bean.student.StudentStatus;
 import com.gmail.mwendapeter72.server.persistence.student.StudentDAO;
 import com.gmail.mwendapeter72.server.persistence.student.StudentStatusDAO;
 
+
 /**
- * @author peter
+ * @author peter<a href="mailto:mwendapeter72@gmail.com">Peter mwenda</a>
  *
  */
 public class QuartzJob implements Job {
@@ -33,6 +52,11 @@ public class QuartzJob implements Job {
 	 List<StudentStatus> studenstatustList = new ArrayList<>();
 	
 	HashMap<String,String> statusHash = new HashMap<String,String>(); 
+	
+	 Long diffhours;
+	 Long diffmin;
+	 Long diffsec;
+	 final int HOURS_IN_A__YEAR = 24*365; 
 
 	/**
 	 * 
@@ -48,7 +72,7 @@ public class QuartzJob implements Job {
 	 * @see org.quartz.Job#execute(org.quartz.JobExecutionContext)
 	 */
 	public void execute(JobExecutionContext arg0) throws JobExecutionException {
-		System.out.println("*### MMUCU Quartz Running @TestBy-PeterMwenda###");
+		//System.out.println("*### MMUCU Quartz Running @TestBy-PeterMwenda###");
 		 ChangeStatus();
     }
 
@@ -62,28 +86,24 @@ public class QuartzJob implements Job {
 		 studenstatustList = studentStatusDAO.getAllStudentStatus();
 		
 		if(studentList !=null && studenstatustList !=null){	
-			//System.out.println("Lists Not Null");
 		for(Student st : studentList){
-		     Date regDate =	st.getDateOfRegistration();
+			 //SimpleDateFormat dateFormatter = new SimpleDateFormat("yyyy");
+			 //SimpleDateFormat dateFormatter = new SimpleDateFormat("yy/MM/dd HH:mm:ss");
+			 //Calendar now = Calendar.getInstance();   
 		     String studentUuid = st.getUuid();
-		     
-			 SimpleDateFormat dateFormatter = new SimpleDateFormat("yyyy");
-             Calendar now = Calendar.getInstance();   
-             
-             String current_year = dateFormatter.format(now.getTime());   
-		     String regYear = dateFormatter.format(regDate.getTime()); 
-		     
-			 //System.out.println("Current Year ="+current_year);
-			// System.out.println("Reg year ="+regYear);
-			 
-			 int crrnt_year = Integer.parseInt(current_year);
-			 int reg_year = Integer.parseInt(regYear);
-			 
-			 int duration = crrnt_year - reg_year;
-			// System.out.println("Duration ="+duration); 
-			  
+		     Date regDate =	st.getDateOfRegistration();
+			 Date nows = new Date();		 
+			
+				 Long diff =  nows.getTime() - regDate.getTime();
+				 diffsec =  Math.abs(diff / 1000 % 60);
+				 diffmin =  Math.abs(diff / (60*1000) % 60);
+				 diffhours = diff / (60*60*1000);
+				 //System.out.println("diff in days btwn now and regdate = " +Math.floor(diffhours/24)+ " For "+st.getFirstName()); 
+				 //System.out.println("days in a year = " +Math.floor(HOURS_IN_A__YEAR/24)); 
+			     
+			
 				 for(StudentStatus status : studenstatustList){
-					 if(duration>=1 && StringUtils.equals(status.getStudentUuid(), studentUuid)){
+					 if(diffhours/24 > HOURS_IN_A__YEAR/24 && StringUtils.equals(status.getStudentUuid(), studentUuid)){
 						 String StatusUuid = "6C03705B-E05E-420B-B5B8-C7EE36643E60";
 						 sts.setStudentStatusUuid(StatusUuid);
 						 sts.setStudentUuid(studentUuid); 

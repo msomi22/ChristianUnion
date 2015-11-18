@@ -1,4 +1,29 @@
-
+<!--
+/******************************************************************************
+ * ****************************************************************************
+ ************* MAASAI MARA UNIVERITY CHRISTIAN UNION MANAGEMENT SYSTEM*********
+ *************THIS SYSTEM IS BASED ON JAVAEE, USING MVC MODEL******************
+ *************THE SYSTEM IS USED FOR STUDEN REGISTRATION TO THE UNION**********
+ *************STUDENT REGISTRATION MODULE WILL BE ACCESSIBLE REMOTELY**********
+ *************VIA USE OF PUBLIC IP ADDRESS OR A DOMAIN NAME********************
+ *THE STUDENT WILL ALSO BE ABLE TO CHECK THEIR REGISTERD DETAILS FOR VERIFICATION
+ *WHEREBY, THEY ARE ALLOWED TO MODIGY THEIR DETAILS WITHIN ONE WEEK AFTER REGISTRATION DATE
+ *****************************************************************************************
+ *****************************************************************************************
+ *THE OTHER MODULES OR ONLY FOR ADMIN, THE ADMIN WILL APPROVE STUDEDNTS AFTER THEY REGISTER
+ *THE REGISTRATION WILL REQURED RE-ACTIVATION AFTER A PERIOD OF ONE YEAR(12 MONTHS) THIS WILL
+ *HAPPEN AUTOMATICALLY WITH THE HELP OF QUARTZ SCHEDULAR, FOR EFFICIENCY AND KEEPING THE SYSTEM
+ *AT HIGH PERFORMANCE, SOME DATA ARE CACHED USING EHCHACE.
+ **********************************************************************************************
+ **********************************************************************************************
+ *COPYRIGHT REMAINS TO SOFTECH SOLUTIONS, A FAST GROWING IT COMPANY
+ *CONTSCTS: WWW.FASTECCHSOLUTIONS.CO.KE
+ *          WWW.FACEBOOK.COM/FASTECH.CO.KE
+ *
+ * @author peter<a href="mailto:mwendapeter72@gmail.com">Peter mwenda</a>
+ */
+  
+-->
 
 
 <%@page import="com.gmail.mwendapeter72.server.persistence.student.StudentDAO"%>
@@ -136,10 +161,10 @@
 
                             %>
 
-        <div id="container" class="clear"> 
+                      <div id="container" class="clear"> 
 
-                 <div id="tooplate_middle">     
-                 <div id="middle_left">
+                      <div id="tooplate_middle">     
+                      <div id="middle_left">
 
 
 
@@ -150,7 +175,7 @@
                         <label class="control-label" for="AdmNo">Admission Number:</label>
                         <div class="controls">
                             <input class="input-xlarge focused"  placeholder="Search By AdmNo" id="receiver" type="text" name="AdmNo" 
-                             value=""  >                                    
+                             value="<%=StringUtils.trimToEmpty(paramHash.get("AdmNumber"))%>"  >                                    
                          </div>
                          </div> 
                          <div class="form-actions">
@@ -161,12 +186,19 @@
                      </form>
                     </div>
 
-	                  </div>
 
 
 
-                 <div id="tooplate_middle">    
-               <div id="middle_left">
+
+
+
+                       <br> <br> <br> <br> <br> <br>
+                       <br> <br> <br> <br> <br> <br>
+
+
+
+
+                      <div id="middle_left">
                <form action="activateStudent" method="POST">
                  <fieldset>
 
@@ -195,9 +227,10 @@
                  </form>
 
               </div>
-               </div>
 
-              
+	                  </div>
+
+
              
                  <br> <br> <br> <br> <br> <br>
                  <br> <br> <br> <br> <br> <br>

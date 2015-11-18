@@ -1,10 +1,31 @@
-/**
+/******************************************************************************
+ * ****************************************************************************
+ ************* MAASAI MARA UNIVERITY CHRISTIAN UNION MANAGEMENT SYSTEM*********
+ *************THIS SYSTEM IS BASED ON JAVAEE, USING MVC MODEL******************
+ *************THE SYSTEM IS USED FOR STUDEN REGISTRATION TO THE UNION**********
+ *************STUDENT REGISTRATION MODULE WILL BE ACCESSIBLE REMOTELY**********
+ *************VIA USE OF PUBLIC IP ADDRESS OR A DOMAIN NAME********************
+ *THE STUDENT WILL ALSO BE ABLE TO CHECK THEIR REGISTERD DETAILS FOR VERIFICATION
+ *WHEREBY, THEY ARE ALLOWED TO MODIGY THEIR DETAILS WITHIN ONE WEEK AFTER REGISTRATION DATE
+ *****************************************************************************************
+ *****************************************************************************************
+ *THE OTHER MODULES OR ONLY FOR ADMIN, THE ADMIN WILL APPROVE STUDEDNTS AFTER THEY REGISTER
+ *THE REGISTRATION WILL REQURED RE-ACTIVATION AFTER A PERIOD OF ONE YEAR(12 MONTHS) THIS WILL
+ *HAPPEN AUTOMATICALLY WITH THE HELP OF QUARTZ SCHEDULAR, FOR EFFICIENCY AND KEEPING THE SYSTEM
+ *AT HIGH PERFORMANCE, SOME DATA ARE CACHED USING EHCHACE.
+ **********************************************************************************************
+ **********************************************************************************************
+ *COPYRIGHT REMAINS TO SOFTECH SOLUTIONS, A FAST GROWING IT COMPANY
+ *CONTSCTS: WWW.FASTECCHSOLUTIONS.CO.KE
+ *          WWW.FACEBOOK.COM/FASTECH.CO.KE
+ *
  * 
  */
 package com.gmail.mwendapeter72.server.servlet.student;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -25,8 +46,9 @@ import com.gmail.mwendapeter72.server.persistence.student.StudentDAO;
 import com.gmail.mwendapeter72.server.persistence.student.StudentStatusDAO;
 import com.gmail.mwendapeter72.server.session.SessionConstants;
 
+
 /**
- * @author peter
+ * @author peter<a href="mailto:mwendapeter72@gmail.com">Peter mwenda</a>
  *
  */
 public class CheckStudentStatus extends HttpServlet{
@@ -47,9 +69,20 @@ public class CheckStudentStatus extends HttpServlet{
 	final String ERROR_NO_ADMNO = "Please provide Your Admission Number.";
 	final String ERROR_ADMNO_NOT_FOUND = "Your Admission Number Was Not Found in the system.";
 	final String STUDENT_UPDATE_SUCCESS = "Student Information  Successfully Updated.";
-	final String STUDENT_DETAILS_ACTIVE = "Your Information  Is Still Active. Good bye";
+	final String STUDENT_DETAILS_ACTIVE = "Your Information  Is Still Active.";
 	final String STUDENT_DETAILS_INACTIVE = "Your Information  Is 'NOT' Active,Please acivate In the Form Below.";
-
+    
+	
+	 Long diffhours;
+	 Long diffmin;
+	 Long diffsec;
+	 Long diff;
+	 Long remaininghrs;
+	 Long deactivationdateHOURS;
+	 int days_after_deactivation;
+	 int daysb4_deactivation;
+	 
+	 final int HOURS_IN_A__YEAR = 24*365; 
 	/**
     *
     * @param config
@@ -75,7 +108,7 @@ public class CheckStudentStatus extends HttpServlet{
      }
      session = request.getSession(true);
  	   
- 	   String AdmNo = StringUtils.trimToEmpty(request.getParameter("AdmNo"));
+ 	   String AdmNo = StringUtils.trimToEmpty(request.getParameter("AdmNo").toUpperCase());
  	   
  	  // String AcademicYear = StringUtils.trimToEmpty(request.getParameter("AcademicYear"));
  	  // String YearOfStudy = StringUtils.trimToEmpty(request.getParameter("YearOfStudy"));
@@ -96,6 +129,36 @@ public class CheckStudentStatus extends HttpServlet{
 		   String studentUuid = s.getUuid();
 		   stustatustList = studentStatusDAO.getAllStudentStatus();
 		   //statustList = statusDAO.getAllStatus();
+		   Date nows = new Date();
+		   Date regDate =	s.getDateOfRegistration();
+		  // System.out.println("now="+nows);
+		  // System.out.println("regDate="+regDate);
+
+			 
+				 diff =  nows.getTime() - regDate.getTime();
+				 diffsec =  Math.abs(diff / 1000 % 60);
+				 diffmin =  Math.abs(diff / (60*1000) % 60);
+				 diffhours = diff / (60*60*1000);
+				 
+				 deactivationdateHOURS = diffhours-HOURS_IN_A__YEAR;
+				 
+				 //System.out.println("diff in hours btwn now and regDate = "+diffhours);
+				 //System.out.println("deactivation= " + Math.floor(deactivationdateHOURS/24) +" days ago");
+				 
+				 //meaning the student should be deactivated
+				 if(diffhours>HOURS_IN_A__YEAR){
+					   days_after_deactivation = (int)Math.floor(((diffhours/24)-(HOURS_IN_A__YEAR/24))); 					  
+					  // System.out.println("days elapsed after deactivation = "+days_after_deactivation);
+					   
+					   //student still active
+				   }else{
+					   daysb4_deactivation = (int)Math.floor((HOURS_IN_A__YEAR/24)-(diffhours/24)); 					 
+					  // System.out.println("days remaining b4_deactivation   = "+daysb4_deactivation);
+				   }
+				 
+				
+		   //System.out.println(days);
+		   
 		   
 		   for(StudentStatus status : stustatustList){
 			   studentStatusHash.put(status.getStudentUuid(), status.getStudentStatusUuid());  
@@ -111,6 +174,7 @@ public class CheckStudentStatus extends HttpServlet{
 			   	paramHash.put("academic_year", s.getAcademicYear());
 			   	paramHash.put("year_of_study",  s.getYearOfStudy());
 				paramHash.put("student_uuid",  studentUuid); 
+				paramHash.put("AdmNumber",  s.getAdmNo());  
 			   	
 			  // request.getSession().setAttribute("academic_year", s.getAcademicYear()); 
 	          // request.getSession().setAttribute("year_of_study", s.getYearOfStudy());  
@@ -120,14 +184,14 @@ public class CheckStudentStatus extends HttpServlet{
 	           //System.out.println(s.getYearOfStudy());  STUDENT_DETAILS_INACTIVE
 	           
 	           session.setAttribute(SessionConstants.STUDENT_REGISTER_DETAILS, paramHash);
-	           session.setAttribute(SessionConstants.STUDENT_UPDATE_SUCCESS, STUDENT_DETAILS_INACTIVE);  
+	           session.setAttribute(SessionConstants.STUDENT_UPDATE_SUCCESS, "Hi " + s.getFirstName() + ", \t " +STUDENT_DETAILS_INACTIVE+" \n " + days_after_deactivation + " Days has elapsed since we deactivated the Information.");  
 	           response.sendRedirect("studentupdate.jsp");  
-			   
+			    
 		   }else{
 			   
 			  
 			 //  System.out.println("Student Is Active"); 
-			   session.setAttribute(SessionConstants.STUDENT_UPDATE_SUCCESS, STUDENT_DETAILS_ACTIVE);  
+			   session.setAttribute(SessionConstants.STUDENT_UPDATE_SUCCESS, "Hi " + s.getFirstName() + ", \t " + STUDENT_DETAILS_ACTIVE +" \n " + daysb4_deactivation + " Days Remaining after which we will Deactivated the Information .");  
 			  
 			   response.sendRedirect("studentupdate.jsp");  
 		   }
