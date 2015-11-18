@@ -78,7 +78,7 @@
      response.setHeader("Refresh", SessionConstants2.SESSION_TIMEOUT + "; url=/ChristianUnion/admin");
 
     HashMap<String, String> stustatusHash = new HashMap<String, String>();
-      HashMap<String, String> statusHash = new HashMap<String, String>();
+    HashMap<String, String> statusHash = new HashMap<String, String>();
 
    Student student;
    StudentOtherDetail studentDetal;

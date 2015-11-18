@@ -1,6 +1,11 @@
 
 
 
+<%@page import="com.gmail.mwendapeter72.server.persistence.student.StudentStatusDAO"%>
+<%@page import="com.gmail.mwendapeter72.server.bean.student.StudentStatus"%>
+
+<%@page import="com.gmail.mwendapeter72.server.persistence.student.StatusDAO"%>
+<%@page import="com.gmail.mwendapeter72.server.bean.student.Status"%>
 <%@page import="com.gmail.mwendapeter72.server.persistence.student.StudentDAO"%>
 <%@page import="com.gmail.mwendapeter72.server.bean.student.Student"%>
 <%@page import="com.gmail.mwendapeter72.server.persistence.student.StudentOtherDetailDAO"%>
@@ -24,15 +29,36 @@
 
 
  <%
-  
- String admno = request.getParameter("admissNo");
-  Student student;
+    
+    HashMap<String, String> stustatusHash = new HashMap<String, String>();
+    HashMap<String, String> statusHash = new HashMap<String, String>();
+
+
+   String admno = request.getParameter("admissNo");
+   Student student;
+   StudentStatus status;
+   Status sstatus;
  //out.println(admno);
   StudentDAO studentDAO = StudentDAO.getInstance();
   List<Student> studentList1 = new ArrayList(); 
   studentList1 = studentDAO.getStudentAdmNo(admno);
 
 
+   StudentStatusDAO stustatusDAO = StudentStatusDAO.getInstance();
+   List<StudentStatus> stustatustList = new ArrayList(); 
+   stustatustList = stustatusDAO.getAllStudentStatus();
+
+   StatusDAO statusDAO = StatusDAO.getInstance();
+   List<Status> statustList = new ArrayList(); 
+   statustList = statusDAO.getAllStatus();
+
+      for(StudentStatus st : stustatustList){
+           stustatusHash.put(st.getStudentUuid(), st.getStudentStatusUuid());
+       }
+
+       for(Status stat : statustList){
+           statusHash.put(stat.getUuid(), stat.getStatus());
+       }
  
    //date format
     SimpleDateFormat dateFormatter = new SimpleDateFormat("yyyy-dd-MM");
@@ -66,7 +92,7 @@
                          <td class="center"><%=s.getFirstName()%></td>
                        <!--  <td class="center"><%//=s.getSurName()%></td> -->
                          <td class="center"><%=s.getLastName()%></td>  
-                         <td class="center"><%=s.getMobile()%></td>  
+                       <!--  <td class="center"><%//=s.getMobile()%></td>  -->
                        <!--  <td class="center"><%//=s.getGuardianContact()%></td> -->
                          <td class="center"><%=age%></td>
                          <td class="center"><%=s.getGender()%></td>
@@ -75,6 +101,7 @@
                          <td class="center"><%=s.getYearOfStudy()%></td>
                          <td class="center"><%=s.getHomeTown()%></td>
                          <td class="center"><%=s.getCounty()%></td>  
+                         <td class="center"><%=statusHash.get(stustatusHash.get(s.getUuid() ))%></td>  
                          <td class="center"><%=dateFormatter.format(s.getDateOfRegistration())%></td>  
 
                          <td class="center">
