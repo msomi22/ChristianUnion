@@ -1,0 +1,148 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app version="3.1" xmlns="http://xmlns.jcp.org/xml/ns/javaee"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+  xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-app_3_1.xsd">
+
+<servlet>
+        <servlet-name>Log4jInit</servlet-name>
+        <servlet-class>com.gmail.mwendapeter72.server.servlet.init.Log4jInit</servlet-class>
+        <init-param>
+            <param-name>log4j-init-file</param-name>
+            <param-value>/WEB-INF/log/log4j.properties</param-value>
+        </init-param>
+        <load-on-startup>1</load-on-startup>
+    </servlet>
+    
+    <servlet>
+        <servlet-name>PropertiesConfig</servlet-name>
+        <servlet-class>com.gmail.mwendapeter72.server.servlet.util.PropertiesConfig</servlet-class>
+        <init-param>
+            <param-name>config-file</param-name>
+            <param-value>/WEB-INF/config.properties</param-value>
+        </init-param>
+        <load-on-startup>2</load-on-startup>
+    </servlet>  
+ 
+    <servlet>
+        <servlet-name>DbPoolUtil</servlet-name>
+        <servlet-class>com.gmail.mwendapeter72.server.servlet.util.DbPoolUtil</servlet-class>
+        <load-on-startup>3</load-on-startup>
+    </servlet>
+ 
+    
+<listener>
+  <listener-class>com.gmail.mwendapeter72.server.servlet.quartz.QuartzListener</listener-class>
+</listener>
+
+
+
+
+    <!-- Start - Student registration servlets -->
+     <servlet>
+        <servlet-name>AddStudent</servlet-name>
+        <servlet-class>com.gmail.mwendapeter72.server.servlet.student.AddStudent</servlet-class>
+     
+    </servlet>
+
+      <servlet>
+        <servlet-name>CheckStudentStatus</servlet-name>
+        <servlet-class>com.gmail.mwendapeter72.server.servlet.student.CheckStudentStatus</servlet-class>
+     
+    </servlet>
+
+      <servlet>
+        <servlet-name>ActivateStudent</servlet-name>
+        <servlet-class>com.gmail.mwendapeter72.server.servlet.student.ActivateStudent</servlet-class>
+     
+    </servlet>
+
+
+
+
+     <servlet>
+        <servlet-name>EditStudent</servlet-name>
+        <servlet-class>com.gmail.mwendapeter72.server.servlet.student.EditStudent</servlet-class>
+     
+    </servlet>
+     
+
+
+
+
+
+
+    <!-- Start - Administrator servlets -->
+    <servlet>
+        <servlet-name>AdminLogin</servlet-name>
+        <servlet-class>com.gmail.mwendapeter72.server.servlet.admin.Login</servlet-class>
+     
+    </servlet>
+     
+    <servlet>
+        <servlet-name>AdminLogout</servlet-name>
+        <servlet-class>com.gmail.mwendapeter72.server.servlet.admin.Logout</servlet-class>
+    </servlet>
+
+
+
+
+
+    <!-- Servlet mapping start -->
+   
+      <servlet-mapping>
+        <servlet-name>AddStudent</servlet-name>
+        <url-pattern>/addStudent</url-pattern>      
+    </servlet-mapping>
+    
+     <servlet-mapping>
+        <servlet-name>CheckStudentStatus</servlet-name>
+        <url-pattern>/studentUpdate</url-pattern>      
+    </servlet-mapping>
+
+     <servlet-mapping>
+        <servlet-name>ActivateStudent</servlet-name>
+        <url-pattern>/activateStudent</url-pattern>      
+    </servlet-mapping>
+
+
+     <servlet-mapping>
+        <servlet-name>EditStudent</servlet-name>
+        <url-pattern>/editStudent</url-pattern>      
+    </servlet-mapping>
+
+
+
+
+
+
+    <!-- Start - Administrator servlet mapping -->
+   
+      <servlet-mapping>
+        <servlet-name>AdminLogin</servlet-name>
+        <url-pattern>/adminLogin</url-pattern>      
+     </servlet-mapping>
+
+ <servlet-mapping>
+        <servlet-name>AdminLogout</servlet-name>
+        <url-pattern>/logout</url-pattern>
+    </servlet-mapping>
+
+
+
+
+
+
+
+
+
+
+     
+    <session-config>
+        <session-timeout>8</session-timeout>
+    </session-config>
+
+
+
+
+    
+</web-app>

@@ -1,0 +1,77 @@
+
+ 
++++++++++++++++++++++++++++++++++++++++
++ Christian Union System Database Layout.
++++++++++++++++++++++++++++++++++++++++
+
+The tables are divided into the following sections:
+1. Student Management
+
+
+
+'UUID' stands for a universally unique identifier.
+
+======================
+======================
+1. Student Management
+======================
+======================
+
+-- -------------------
+-- Table Student
+-- -------------------
+
+    -Id  (primary key)
+    -Uuid 
+    -AdmNo
+    -FirstName 
+    -SurName
+    -LastName
+    -Email 
+    -Mobile
+    -GuardianContact
+    -DOB
+    -Gender
+    -Program
+    -AcademicYear
+    -YearOfStudy 
+    -HomeTown
+    -County
+    -DateOfRegistration
+
+
+-- -------------------
+-- Table StudentOtherInfo
+-- -------------------
+      -Id
+      -Uuid
+      -StudentUuid References Student(Uuid) 
+      -Christian
+      -Duration
+      -Ministry
+      -MinistryName
+      -DesiredMinistry
+      -MinistryVision
+
+
+-- -------------------
+-- Table ApprovalStatus
+-- -------------------
+      -Id
+      -Uuid
+      -Status
+
+
+-- -------------------
+-- Table StudentApproval.
+-- -------------------
+      -Id
+      -Uuid
+      -StudentUuid References Student(Uuid) 
+      -ApprovalStatusUuid References ApprovalStatus(Uuid) 
+      -SystemUser
+      -ApprovalDate
+
+
+
+
