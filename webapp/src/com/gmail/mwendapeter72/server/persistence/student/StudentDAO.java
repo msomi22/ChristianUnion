@@ -1,26 +1,12 @@
-/******************************************************************************
- * ****************************************************************************
- ************* MAASAI MARA UNIVERITY CHRISTIAN UNION MANAGEMENT SYSTEM*********
- *************THIS SYSTEM IS BASED ON JAVAEE, USING MVC MODEL******************
- *************THE SYSTEM IS USED FOR STUDEN REGISTRATION TO THE UNION**********
- *************STUDENT REGISTRATION MODULE WILL BE ACCESSIBLE REMOTELY**********
- *************VIA USE OF PUBLIC IP ADDRESS OR A DOMAIN NAME********************
- *THE STUDENT WILL ALSO BE ABLE TO CHECK THEIR REGISTERD DETAILS FOR VERIFICATION
- *WHEREBY, THEY ARE ALLOWED TO MODIGY THEIR DETAILS WITHIN ONE WEEK AFTER REGISTRATION DATE
- *****************************************************************************************
- *****************************************************************************************
- *THE OTHER MODULES OR ONLY FOR ADMIN, THE ADMIN WILL APPROVE STUDEDNTS AFTER THEY REGISTER
- *THE REGISTRATION WILL REQURED RE-ACTIVATION AFTER A PERIOD OF ONE YEAR(12 MONTHS) THIS WILL
- *HAPPEN AUTOMATICALLY WITH THE HELP OF QUARTZ SCHEDULAR, FOR EFFICIENCY AND KEEPING THE SYSTEM
- *AT HIGH PERFORMANCE, SOME DATA ARE CACHED USING EHCHACE.
- **********************************************************************************************
- **********************************************************************************************
- *COPYRIGHT REMAINS TO SOFTECH SOLUTIONS, A FAST GROWING IT COMPANY
- *CONTSCTS: WWW.FASTECCHSOLUTIONS.CO.KE
- *          WWW.FACEBOOK.COM/FASTECH.CO.KE
- *
+/**
  * 
- */
+*Maasai Mara University Christian Union Online Management System.
+*Copyright 2015 Fastech Solutions Ltd
+*Licensed under the Open Software License, Version 3.0 
+*The codes herein AND/OR this file should NOT, under any circumstances whatsoever, be copied without the author's approval.
+*Contacts author the: +254718953974
+*
+**/
 package com.gmail.mwendapeter72.server.persistence.student;
 
 import java.sql.Connection;
@@ -133,7 +119,40 @@ public class StudentDAO extends DBConnectDAO  implements CuStudentDAO {
         return list;
 	}
 
+   
+	/**
+	 * @see com.gmail.mwendapeter72.server.persistence.student.CuStudentDAO#getStudentByEmail(java.lang.String)
+	 */
+	public Student getStudentByEmail(String Email) {
+		Student student = null;
+        ResultSet rset = null;
+        try(
+        		  Connection conn = dbutils.getConnection();
+           	      PreparedStatement pstmt = conn.prepareStatement("SELECT * FROM Student WHERE Email = ?;");       
+        		
+        		){
+        	
+        	 pstmt.setString(1, Email); 
+	         rset = pstmt.executeQuery();
+	          while(rset.next()){
+	
+	    	 student  = beanProcessor.toBean(rset,Student.class);
+	          }
+        	
+        	
+        	
+        }catch(SQLException e){
+        	 logger.error("SQL Exception when getting Student  with Email: " + Email);
+             logger.error(ExceptionUtils.getStackTrace(e));
+             System.out.println(ExceptionUtils.getStackTrace(e));
+        }
+        
+		return student; 
+	}
 
+	
+	
+	
 	/**
 	 * @see com.gmail.mwendapeter72.server.persistence.student.CuStudentDAO#getStudentByUuid(java.lang.String)
 	 */
@@ -350,6 +369,7 @@ public class StudentDAO extends DBConnectDAO  implements CuStudentDAO {
 		return list;
 	}
 
+	
 	
 	
 }

@@ -1,26 +1,12 @@
-/******************************************************************************
- * ****************************************************************************
- ************* MAASAI MARA UNIVERITY CHRISTIAN UNION MANAGEMENT SYSTEM*********
- *************THIS SYSTEM IS BASED ON JAVAEE, USING MVC MODEL******************
- *************THE SYSTEM IS USED FOR STUDEN REGISTRATION TO THE UNION**********
- *************STUDENT REGISTRATION MODULE WILL BE ACCESSIBLE REMOTELY**********
- *************VIA USE OF PUBLIC IP ADDRESS OR A DOMAIN NAME********************
- *THE STUDENT WILL ALSO BE ABLE TO CHECK THEIR REGISTERD DETAILS FOR VERIFICATION
- *WHEREBY, THEY ARE ALLOWED TO MODIGY THEIR DETAILS WITHIN ONE WEEK AFTER REGISTRATION DATE
- *****************************************************************************************
- *****************************************************************************************
- *THE OTHER MODULES OR ONLY FOR ADMIN, THE ADMIN WILL APPROVE STUDEDNTS AFTER THEY REGISTER
- *THE REGISTRATION WILL REQURED RE-ACTIVATION AFTER A PERIOD OF ONE YEAR(12 MONTHS) THIS WILL
- *HAPPEN AUTOMATICALLY WITH THE HELP OF QUARTZ SCHEDULAR, FOR EFFICIENCY AND KEEPING THE SYSTEM
- *AT HIGH PERFORMANCE, SOME DATA ARE CACHED USING EHCHACE.
- **********************************************************************************************
- **********************************************************************************************
- *COPYRIGHT REMAINS TO SOFTECH SOLUTIONS, A FAST GROWING IT COMPANY
- *CONTSCTS: WWW.FASTECCHSOLUTIONS.CO.KE
- *          WWW.FACEBOOK.COM/FASTECH.CO.KE
- *
+/**
  * 
- */
+*Maasai Mara University Christian Union Online Management System.
+*Copyright 2015 Fastech Solutions Ltd
+*Licensed under the Open Software License, Version 3.0 
+*The codes herein AND/OR this file should NOT, under any circumstances whatsoever, be copied without the author's approval.
+*Contacts author the: +254718953974
+*
+**/
 package com.gmail.mwendapeter72.server.servlet.student;
 
 import java.io.IOException;
@@ -57,11 +43,14 @@ public class ActivateStudent extends HttpServlet{
 	private static StudentStatusDAO studentStatusDAO;
 	
 	final String ERROR_BLANK_ACADEMIC_YEAR = "Please provide Your Academic Year.";
+	final String ERROR_EMAIN_NOT_FOUND = "Email Not found, You Must provide the email you provided during registration.";
 	final String ERROR_BLANK_YEAR_STUDY = "Please provide Your Year of Study.";
 	final String ERROR_YEAR_STUDY_INVALID = "Sorry! Year of Study is Invalid,It Must Be a Digit And can't Be Greater tahn 4 Not Unless Your Program takes Five years.";
 	final String ERROR_BLANK_STUDENT_UUID = "Operation Not Allowed.";
 	final String STUDENT_ACTIVATE_SUCCESS = "Student Information  Successfully Activated.";
 
+	 String theEmail;
+	 Student s;
 	/**
     *
     * @param config
@@ -76,42 +65,41 @@ public class ActivateStudent extends HttpServlet{
    /**
     * @see javax.servlet.http.HttpServlet#doPost(javax.servlet.http.HttpServletRequest, javax.servlet.http.HttpServletResponse)
     */
- protected void doPost(HttpServletRequest request, HttpServletResponse response)
+
+protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
    HttpSession session = request.getSession(true);
 	  
    String year_of_study = StringUtils.trimToEmpty(request.getParameter("year_of_study"));
    String academic_year = StringUtils.trimToEmpty(request.getParameter("academic_year"));
    String student_uuid = StringUtils.trimToEmpty(request.getParameter("student_uuid"));
+   String email = StringUtils.trimToEmpty(request.getParameter("email"));
    
+   s = studentDAO.getStudentByUuid(student_uuid);
+   theEmail = s.getEmail();
+   System.out.println(theEmail);
    
-  /* System.out.println("year_of_study"+year_of_study); 
-   System.out.println("academic_year"+academic_year); 
-   System.out.println("student_uuid"+student_uuid); 
-   */
-
    if(StringUtils.isBlank(academic_year)){
-	  // response.sendRedirect("studentupdate.jsp");  
 	   session.setAttribute(SessionConstants.STUDENT_UPDATE_ERROR, ERROR_BLANK_ACADEMIC_YEAR); 
-
+	   
+   }else if(!emailFound(email)){
+	   session.setAttribute(SessionConstants.STUDENT_UPDATE_ERROR, ERROR_EMAIN_NOT_FOUND); 
+	   
    }else if(StringUtils.isBlank(year_of_study)){
-	    // response.sendRedirect("studentupdate.jsp");  
 	   session.setAttribute(SessionConstants.STUDENT_UPDATE_ERROR, ERROR_BLANK_YEAR_STUDY); 
-	
+	   
     }else if(!ValidYear(year_of_study)){
-	    // response.sendRedirect("studentupdate.jsp");  
 	   session.setAttribute(SessionConstants.STUDENT_UPDATE_ERROR, ERROR_YEAR_STUDY_INVALID); 
-	
+	   
     }else if(StringUtils.isBlank(student_uuid)){
-	    // response.sendRedirect("studentupdate.jsp");  
 	   session.setAttribute(SessionConstants.STUDENT_UPDATE_ERROR, ERROR_BLANK_STUDENT_UUID); 
-	
+	   
     }else{
 	  
-	      Student s = studentDAO.getStudentByUuid(student_uuid);
+	     // s = studentDAO.getStudentByUuid(student_uuid);
+	      //System.out.println(theEmail);
 	      String status_active = "85C6F08E-902C-46C2-8746-8C50E7D11E2E"; 
-	      //System.currentTimeMillis();
-	      
+	     
 	      Date now = new Date();
 	      s.setAcademicYear(academic_year);
 	      s.setYearOfStudy(year_of_study); 
@@ -132,6 +120,20 @@ public class ActivateStudent extends HttpServlet{
  
  
  /**
+ * @param email
+ * @return true or false
+ */
+private boolean emailFound(String email) {
+	 boolean success = true;
+	 if(StringUtils.equals(email, theEmail)){
+		 success = true;
+	 }else{
+		 success = false;
+	 }
+	 return success;
+}
+
+/**
  * @param Year
  * @return
  */

@@ -1,35 +1,30 @@
-<!--
-/******************************************************************************
- * ****************************************************************************
- ************* MAASAI MARA UNIVERITY CHRISTIAN UNION MANAGEMENT SYSTEM*********
- *************THIS SYSTEM IS BASED ON JAVAEE, USING MVC MODEL******************
- *************THE SYSTEM IS USED FOR STUDEN REGISTRATION TO THE UNION**********
- *************STUDENT REGISTRATION MODULE WILL BE ACCESSIBLE REMOTELY**********
- *************VIA USE OF PUBLIC IP ADDRESS OR A DOMAIN NAME********************
- *THE STUDENT WILL ALSO BE ABLE TO CHECK THEIR REGISTERD DETAILS FOR VERIFICATION
- *WHEREBY, THEY ARE ALLOWED TO MODIGY THEIR DETAILS WITHIN ONE WEEK AFTER REGISTRATION DATE
- *****************************************************************************************
- *****************************************************************************************
- *THE OTHER MODULES OR ONLY FOR ADMIN, THE ADMIN WILL APPROVE STUDEDNTS AFTER THEY REGISTER
- *THE REGISTRATION WILL REQURED RE-ACTIVATION AFTER A PERIOD OF ONE YEAR(12 MONTHS) THIS WILL
- *HAPPEN AUTOMATICALLY WITH THE HELP OF QUARTZ SCHEDULAR, FOR EFFICIENCY AND KEEPING THE SYSTEM
- *AT HIGH PERFORMANCE, SOME DATA ARE CACHED USING EHCHACE.
- **********************************************************************************************
- **********************************************************************************************
- *COPYRIGHT REMAINS TO SOFTECH SOLUTIONS, A FAST GROWING IT COMPANY
- *CONTSCTS: WWW.FASTECCHSOLUTIONS.CO.KE
- *          WWW.FACEBOOK.COM/FASTECH.CO.KE
- *
- * @author peter<a href="mailto:mwendapeter72@gmail.com">Peter mwenda</a>
- */
-  
--->
+<%
+/**
+Maasai Mara University Christian Union Online Management System.
 
+
+Copyright 2015 Fastech Solutions Ltd
+Licensed under the Open Software License, Version 3.0 
+The codes herein AND/OR this file should NOT, under any circumstances whatsoever, be copied without the author's approval.
+
+Contacts author the: +254718953974
+
+@author peter<a href="mailto:mwendapeter72@gmail.com">Peter mwenda</a>
+ */
+%>
+
+
+<%@page import="com.gmail.mwendapeter72.server.util.FontImageGenerator"%>
 <%@page import="com.gmail.mwendapeter72.server.session.SessionConstants"%>
 <%@page import="org.apache.commons.lang3.StringUtils"%>
+<%@page import="org.apache.commons.lang3.RandomStringUtils"%>
+<%@page import="org.jasypt.util.text.BasicTextEncryptor"%>
+
 <%@page import="java.util.ArrayList"%>
 <%@page import="java.util.HashMap"%>
 <%@page import="java.util.List"%>
+<%@page import="java.net.URLEncoder"%>
+<%@page import="java.util.Calendar" %>
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 
@@ -40,13 +35,14 @@
 
     
      response.setIntHeader("Refresh",200);
+
+       BasicTextEncryptor textEncryptor = new BasicTextEncryptor();    
+       textEncryptor.setPassword(FontImageGenerator.SECRET_KEY);   
+
+
+      String captcha = RandomStringUtils.randomAlphabetic(4); 
+      String encryptedCaptcha = textEncryptor.encrypt(captcha.toLowerCase());
 %>
-
-
-
-
-
-
 
 
 
@@ -54,7 +50,26 @@
 <div id="tooplate_wrapper">
 
   <jsp:include page="header.jsp" />
-    
+  <script>
+	
+	function hideDiv(){
+		$('#divid').hide();
+	}
+
+	function showDiv(){
+    $('#divid').show();
+
+	 }
+
+	 function hideDivm(){
+		$('#dividm').hide();
+	}
+
+	function showDivm(){
+      $('#dividm').show();
+
+	 }
+</script>  
  <div id="container" class="clear"> 
   
 
@@ -84,7 +99,7 @@
 
                                 if (StringUtils.isNotEmpty(addErrStr)) {
                                     out.println("<p style='color:red;'>");                 
-                                    out.println("error!!: " + addErrStr);
+                                    out.println("error: " + addErrStr);
                                     out.println("</p>");                                 
                                     session.setAttribute(SessionConstants.STUDENT_ADD_ERROR, null);
                                   } 
@@ -105,7 +120,7 @@
 
    
     <div id="homepage" class="clear">  
-     <h3><i class="icon-edit"></i> Student Registration Form: Basic Details</h3>            
+     <h3><i class="icon-edit"></i>Membership Registration Form: Personl Information</h3>            
       <P> <b style=color:red;>Please NOTE that fields marked with(*) are required/mandatory </b></P>
         
          <div class="box-content">
@@ -265,18 +280,18 @@
                       <h3><i class="icon-edit"></i> Your Christian Life:</h3> 
 
                     
-                   <div class="control-group">
+                   <div class="control-group" >
                         <label class="control-label" for="name"> Area You A Christian?*:</label>
                         <div class="controls">
-                             <input class="input-xlarge focused" id="receiver" type="radio" name="Christian" value="YES" checked>Yes 
-                             <input class="input-xlarge focused" id="receiver" type="radio" name="Christian" value="NO">No 
+                             <input class="input-xlarge focused" id="receiver" type="radio" onchange ="showDiv()" name="Christian" value="YES" checked>Yes 
+                             <input class="input-xlarge focused" id="receiver" type="radio" onchange ="hideDiv()"name="Christian" value="NO">No 
                         </div>
 
                     </div> 
                       
 
-                   <div class="control-group">
-                        <label class="control-label" for="name">If Yes Approximately For How long Have You Been In Christianity:</label>
+                   <div class="control-group" id="divid">
+                        <label class="control-label" for="name">For How long have you been in Christianity?:</label>
                         <div class="controls">
                             <select name="Duration" >
                                 <option value="">Please select one</option> 
@@ -292,24 +307,25 @@
 
 
                      <div class="control-group">
-                        <label class="control-label" for="name"> Have you ever served in any ministry?:</label>
+                        <label class="control-label" for="name">Ever served in any ministry?:</label>
                         <div class="controls">
-                             <input class="input-xlarge focused" id="receiver" type="radio" name="Ministry" value="YES"checked >Yes
-                             <input class="input-xlarge focused" id="receiver" type="radio" name="Ministry" value="NO">No 
+                             <input class="input-xlarge focused" id="receiver" type="radio" onchange ="showDivm()" name="Ministry" value="YES"checked >Yes
+                             <input class="input-xlarge focused" id="receiver" type="radio" onchange ="hideDivm()" name="Ministry" value="NO">No 
                         </div>
                     </div> 
 
 
-                   <div class="control-group">
-                        <label class="control-label" for="name">If Yes which Ministry(s):</label>
+                   <div class="control-group" id="dividm">
+                        <label class="control-label" for="name">Which Ministry(ies)/Current Ministry(ies):</label>
                         <div class="controls">
-                            <select name="MinistryName" >
-                                <option value="">Please select one</option> 
-                                <option value="Bible Study">Bible Study</option>
+                            <select name="MinistryNames"  multiple>
+                                <option value="Bible Study" selected>Bible Study</option>
                                 <option value="Praise And Worship">Praise And Worship</option>
                                 <option value="Intercessory">Intercessory</option>
                                 <option value="Evangelism">Evangelism</option>
-                                
+                                <option value="Evangelism">Techinical</option>
+                                <option value="Evangelism">Ushering</option>
+
                             </select>                           
                           
                         </div>
@@ -317,14 +333,15 @@
 
 
                      <div class="control-group">
-                        <label class="control-label" for="name">Which ministry would you like to serve in the Maasai Mara University Christian Union?:</label>
+                        <label class="control-label" for="name">Which Ministry(ies) would you like to serve in the MMUCU?:</label>
                        <div class="controls">
-                            <select name="DesiredMinistry" >
-                                <option value="">Please select one</option> 
-                                <option value="Bible Study">Bible Study</option>
+                            <select name="DesiredMinistries" multiple>
+                                <option value="Bible Study" selected>Bible Study</option>
                                 <option value="Praise And Worship">Praise And Worship</option>
                                 <option value="Intercessory">Intercessory</option>
                                 <option value="Evangelism">Evangelism</option>
+                                <option value="Evangelism">Techinical</option>
+                                <option value="Evangelism">Ushering</option>
                                 
                             </select>                           
                           
@@ -334,7 +351,7 @@
 
 
                      <div class="control-group">
-                        <label class="control-label" for="name">What is your vision for the Ministry you desire Serve in?:</label>
+                        <label class="control-label" for="name">What's your vision for the Ministry(ies)?:</label>
                         <div class="controls">
                             <textarea  type="textarea" name="Vision" rows="5" cols ="90"     value="<%= StringUtils.trimToEmpty(paramHash.get("Vision")) %>">
                             </textarea>
@@ -345,26 +362,52 @@
 
 
                      <h3><i class="icon-edit"></i> Student Declaration:</h3>        
-                    <p>According to <b>MMCU(MU)</b> Constitution <i>Article 6(A) (1)</i>.Full membership shall be open to all bonafide 
+                    <p>According to <b>MMUCU</b> Constitution <i>Article 6(A) (1)</i>.Full membership shall be open to all bonafide 
                        registered undergeaduate students of <u>Maasai Mara University</u> Christan Union(Main campus) 
                        who ascribe to the doctrinal basis in <i>article (5)</i> and soberly sign/accept the following declaration.</p>
-                    <p>"In Joining <b>MMUCU(MU),</b> <strong>I declare</strong> my Faith in Jesus as my Savior and Lord, and it is my desire by the Grace of God to
-                    live a life consistent with this Declaration.I am also determined to give active support to the <b>MMUCU(MU)</b> as it seeks
+                    <p>"In Joining <b>MMUCU,</b> <strong>I declare</strong> my Faith in Jesus as my Savior and Lord, and it is my desire by the Grace of God to
+                    live a life consistent with this Declaration.I am also determined to give active support to the <b>MMUCU</b> as it seeks
                     to fullfill it aims"</p>   
                     <input type="checkbox" name="Declaration" id="Declaration" >
-                    I Declare  <a href=#">
+                    I Declare  <a href=#"></a>
+
+                      
+                      
+
+
+                     <h3><i class="icon-edit"></i> Are You a robot?</h3>  
+                      <div class="formalign">
+                      <span class="_nb-checkbox-label"><i>Type the characters you see in the image below.(Letters are not case-sensitive)</i></span>
+                      </div>
+                      <% String fontImageUrl = "fontImageGenerator?text=" + URLEncoder.encode(encryptedCaptcha, "UTF-8"); %>
+                        
+                         <div id="spam-check">
+
+                      <img id="captcha" src=<% out.println("\"" + fontImageUrl + "\"");%> width="68" height="29" />
+                      <input type="text" name="captchaAnswer" id="captchaAnswer" size="5" class="input_normal" />
+                      <input type="hidden" name="captchaHidden" id="captchaHidden"
+                      value=<% out.println("\"" + URLEncoder.encode(encryptedCaptcha, "UTF-8") + "\"");%> />
+                      </div> 
+
+                      
+               <i class="icon-edit"></i><p> COLOSSIANS 3:10 "Let the word of christ dwell in you richly in all
+               wisdom:teaching and admonishing one another in psalms and hymns and spiritual songs,singing
+               with grace in your heart to the lord:</P> 
+
+                   </div><!--/span-->
 
                
                     <div class="form-actions">
                         <button type="submit" name="Send" value="Send"   class="btn btn-primary">Submit</button>
                     </div>
-                            
+                          
+              
+
+
                    </fieldset>
                    </form>
 
                   
-       
-                   </div><!--/span-->
 
 
 

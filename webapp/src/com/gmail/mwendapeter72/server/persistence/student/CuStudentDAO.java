@@ -1,26 +1,12 @@
-/******************************************************************************
- * ****************************************************************************
- ************* MAASAI MARA UNIVERITY CHRISTIAN UNION MANAGEMENT SYSTEM*********
- *************THIS SYSTEM IS BASED ON JAVAEE, USING MVC MODEL******************
- *************THE SYSTEM IS USED FOR STUDEN REGISTRATION TO THE UNION**********
- *************STUDENT REGISTRATION MODULE WILL BE ACCESSIBLE REMOTELY**********
- *************VIA USE OF PUBLIC IP ADDRESS OR A DOMAIN NAME********************
- *THE STUDENT WILL ALSO BE ABLE TO CHECK THEIR REGISTERD DETAILS FOR VERIFICATION
- *WHEREBY, THEY ARE ALLOWED TO MODIGY THEIR DETAILS WITHIN ONE WEEK AFTER REGISTRATION DATE
- *****************************************************************************************
- *****************************************************************************************
- *THE OTHER MODULES OR ONLY FOR ADMIN, THE ADMIN WILL APPROVE STUDEDNTS AFTER THEY REGISTER
- *THE REGISTRATION WILL REQURED RE-ACTIVATION AFTER A PERIOD OF ONE YEAR(12 MONTHS) THIS WILL
- *HAPPEN AUTOMATICALLY WITH THE HELP OF QUARTZ SCHEDULAR, FOR EFFICIENCY AND KEEPING THE SYSTEM
- *AT HIGH PERFORMANCE, SOME DATA ARE CACHED USING EHCHACE.
- **********************************************************************************************
- **********************************************************************************************
- *COPYRIGHT REMAINS TO SOFTECH SOLUTIONS, A FAST GROWING IT COMPANY
- *CONTSCTS: WWW.FASTECCHSOLUTIONS.CO.KE
- *          WWW.FACEBOOK.COM/FASTECH.CO.KE
- *
+/**
  * 
- */
+*Maasai Mara University Christian Union Online Management System.
+*Copyright 2015 Fastech Solutions Ltd
+*Licensed under the Open Software License, Version 3.0 
+*The codes herein AND/OR this file should NOT, under any circumstances whatsoever, be copied without the author's approval.
+*Contacts author the: +254718953974
+*
+**/
 package com.gmail.mwendapeter72.server.persistence.student;
 
 
@@ -37,31 +23,36 @@ public interface CuStudentDAO {
 	/**
 	 * 
 	 * @param AdmNo
-	 * @return student object
+	 * @return student object of {@link Student} for the given admission number
 	 */
 	public Student getStudent(String AdmNo);
+	
+	/**
+	 * 
+	 * @param Email
+	 * @return student object of {@link Student} for the given Email address
+	 */
+	public Student getStudentByEmail(String Email);
 	/**
 	 * 
 	 * @param Uuid
-	 * @return student object
+	 * @return student object of {@link Student} for the given StudentUuid
 	 */
 	public Student getStudentByUuid(String Uuid);
 	
 	
 	/**
-	    * 
-	    * @param schoolaccount
-	    * @param admno
-	    * @return	a {@link List} of {@link Student}s whose admno partly or wholly
-	    * matches the admno and belongs to a particular school account. Matching is case 
-	    * insensitive. An empty list is returned if no Student matches the admno.
-	    */
+	 * 
+	 * @param admno
+	 * @return	a {@link List} of {@link Student}s for the given admission number
+	 */
+
 	  public List<Student> getStudentAdmNo(String admno);
 	
         /**
          * 
          * @param student
-         * @return whether student was inserted successfully
+         * @return whether student {@link Student} was inserted successfully
          */
 	public boolean putStudent(Student student);
 	
@@ -69,7 +60,7 @@ public interface CuStudentDAO {
 	  * 
 	  * @param student
 	  * @param Uuid
-	  * @return whether student was updated successfully
+	  * @return whether student {@link Student} was updated successfully
 	  */
 	public boolean updateStudent(Student student,String Uuid);
 	
@@ -77,7 +68,7 @@ public interface CuStudentDAO {
 	
 	/**
 	 * @param student
-	 * @return whether student was updated successfully
+	 * @return whether student {@link Student} was updated successfully
 	 */
 	public boolean updateStudent(Student student);
 	
@@ -85,7 +76,7 @@ public interface CuStudentDAO {
 	   * 
 	   * @param student
 	   * @param Uuid
-	   * @return whether student was deleted successfully
+	   * @return whether student {@link Student} was deleted successfully
 	   */
 	public boolean deleteStudent(Student student,String Uuid);
 	
@@ -94,14 +85,14 @@ public interface CuStudentDAO {
 	    * 
 	    * @param startIndex
 	    * @param endIndex
-	    * @return List of all Students
+	    * @return List a {@link List} of 15  {@link Student}s 
 	    */
 	   
 	public List<Student> getStudentList(int startIndex , int endIndex);
 	
 	  /**
 	    * 
-	    * @return List of all Students
+	    * @return List a {@link List} of all  {@link Student}s 
 	    */
 	public List<Student> getStudentList();
 

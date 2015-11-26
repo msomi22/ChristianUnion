@@ -1,4 +1,17 @@
+<%
+/**
+Maasai Mara University Christian Union Online Management System.
 
+
+Copyright 2015 Fastech Solutions Ltd
+Licensed under the Open Software License, Version 3.0 
+The codes herein AND/OR this file should NOT, under any circumstances whatsoever, be copied without the author's approval.
+
+Contacts author the: +254718953974
+
+@author peter<a href="mailto:mwendapeter72@gmail.com">Peter mwenda</a>
+ */
+%>
 
 
 <%@page import="com.gmail.mwendapeter72.server.persistence.student.StudentStatusDAO"%>
@@ -136,7 +149,12 @@
                                 <input type="hidden" name="desiredministry" value="<%=ss.getDesiredMinistry()%>">
                                 <input type="hidden" name="vision" value="<%=ss.getMinistryVision()%>">
                                 <input class="btn btn-success" type="submit" name="edit" id="submit" value="Edit" /> 
-                                </form>                          
+                                </form>    
+
+                                <form name="print" method="post" action="../studentReport">
+                                <input type="hidden" name="AdmNo" value="<%=s.getAdmNo()%>">
+                                <input class="btn btn-success" type="submit" name="printstudent" id="submit" value="Download" />
+                                </form>                       
                         </td>  
 
 

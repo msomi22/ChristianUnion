@@ -36,6 +36,23 @@
 
 
 
+   <servlet>
+        <servlet-name>FontImageGenerator</servlet-name>
+        <servlet-class>com.gmail.mwendapeter72.server.util.FontImageGenerator</servlet-class>
+    </servlet>
+
+
+
+   <servlet>
+        <servlet-name>StudentReport</servlet-name>
+        <servlet-class>com.gmail.mwendapeter72.server.servlet.reports.StudentReport</servlet-class>
+    </servlet>
+
+
+
+
+
+
 
     <!-- Start - Student registration servlets -->
      <servlet>
@@ -129,7 +146,15 @@
 
 
 
+   <servlet-mapping>
+        <servlet-name>FontImageGenerator</servlet-name>
+        <url-pattern>/fontImageGenerator</url-pattern>
+    </servlet-mapping>
 
+   <servlet-mapping>
+        <servlet-name>StudentReport</servlet-name>
+        <url-pattern>/studentReport</url-pattern>
+    </servlet-mapping>
 
 
 

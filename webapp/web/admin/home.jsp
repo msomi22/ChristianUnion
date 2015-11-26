@@ -1,29 +1,17 @@
-<!--
-/******************************************************************************
- * ****************************************************************************
- ************* MAASAI MARA UNIVERITY CHRISTIAN UNION MANAGEMENT SYSTEM*********
- *************THIS SYSTEM IS BASED ON JAVAEE, USING MVC MODEL******************
- *************THE SYSTEM IS USED FOR STUDEN REGISTRATION TO THE UNION**********
- *************STUDENT REGISTRATION MODULE WILL BE ACCESSIBLE REMOTELY**********
- *************VIA USE OF PUBLIC IP ADDRESS OR A DOMAIN NAME********************
- *THE STUDENT WILL ALSO BE ABLE TO CHECK THEIR REGISTERD DETAILS FOR VERIFICATION
- *WHEREBY, THEY ARE ALLOWED TO MODIGY THEIR DETAILS WITHIN ONE WEEK AFTER REGISTRATION DATE
- *****************************************************************************************
- *****************************************************************************************
- *THE OTHER MODULES OR ONLY FOR ADMIN, THE ADMIN WILL APPROVE STUDEDNTS AFTER THEY REGISTER
- *THE REGISTRATION WILL REQURED RE-ACTIVATION AFTER A PERIOD OF ONE YEAR(12 MONTHS) THIS WILL
- *HAPPEN AUTOMATICALLY WITH THE HELP OF QUARTZ SCHEDULAR, FOR EFFICIENCY AND KEEPING THE SYSTEM
- *AT HIGH PERFORMANCE, SOME DATA ARE CACHED USING EHCHACE.
- **********************************************************************************************
- **********************************************************************************************
- *COPYRIGHT REMAINS TO SOFTECH SOLUTIONS, A FAST GROWING IT COMPANY
- *CONTSCTS: WWW.FASTECCHSOLUTIONS.CO.KE
- *          WWW.FACEBOOK.COM/FASTECH.CO.KE
- *
- * @author peter<a href="mailto:mwendapeter72@gmail.com">Peter mwenda</a>
+<%
+/**
+Maasai Mara University Christian Union Online Management System.
+
+
+Copyright 2015 Fastech Solutions Ltd
+Licensed under the Open Software License, Version 3.0 
+The codes herein AND/OR this file should NOT, under any circumstances whatsoever, be copied without the author's approval.
+
+Contacts author the: +254718953974
+
+@author peter<a href="mailto:mwendapeter72@gmail.com">Peter mwenda</a>
  */
-  
--->
+%>
 
 
 <%@page import="com.gmail.mwendapeter72.server.pagination.student.StudentPaginator"%>
@@ -307,7 +295,15 @@
                                 <input type="hidden" name="desiredministry" value="<%=ss.getDesiredMinistry()%>">
                                 <input type="hidden" name="vision" value="<%=ss.getMinistryVision()%>">
                                 <input class="btn btn-success" type="submit" name="edit" id="submit" value="Edit" /> 
-                                </form>                          
+                                </form>   
+
+
+
+
+                                <form name="print" method="post" action="../studentReport">
+                                <input type="hidden" name="AdmNo" value="<%=s.getAdmNo()%>">
+                                <input class="btn btn-success" type="submit" name="printstudent" id="submit" value="Download" />
+                                </form>                       
                         </td>  
                        </tr>
 
@@ -351,6 +347,14 @@
 
 
               
+                 <br> <br> <br> <br> <br> <br>
+                 <br> <br> <br> <br> <br> <br>
+                 <br> <br> <br> <br> <br> <br>
+                 <br> <br> <br> <br> <br> <br>
+                 <br> <br> <br> <br> <br> <br>
+                 <br> <br> <br> <br> <br> <br>
+                 <br> <br> <br> <br> <br> <br>
+                 <br> <br> <br> <br> <br> <br>
                  <br> <br> <br> <br> <br> <br>
                  <br> <br> <br> <br> <br> <br>
                  <br> <br> <br> <br> <br> <br>

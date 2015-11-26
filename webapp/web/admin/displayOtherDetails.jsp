@@ -1,29 +1,17 @@
-<!--
-/******************************************************************************
- * ****************************************************************************
- ************* MAASAI MARA UNIVERITY CHRISTIAN UNION MANAGEMENT SYSTEM*********
- *************THIS SYSTEM IS BASED ON JAVAEE, USING MVC MODEL******************
- *************THE SYSTEM IS USED FOR STUDEN REGISTRATION TO THE UNION**********
- *************STUDENT REGISTRATION MODULE WILL BE ACCESSIBLE REMOTELY**********
- *************VIA USE OF PUBLIC IP ADDRESS OR A DOMAIN NAME********************
- *THE STUDENT WILL ALSO BE ABLE TO CHECK THEIR REGISTERD DETAILS FOR VERIFICATION
- *WHEREBY, THEY ARE ALLOWED TO MODIGY THEIR DETAILS WITHIN ONE WEEK AFTER REGISTRATION DATE
- *****************************************************************************************
- *****************************************************************************************
- *THE OTHER MODULES OR ONLY FOR ADMIN, THE ADMIN WILL APPROVE STUDEDNTS AFTER THEY REGISTER
- *THE REGISTRATION WILL REQURED RE-ACTIVATION AFTER A PERIOD OF ONE YEAR(12 MONTHS) THIS WILL
- *HAPPEN AUTOMATICALLY WITH THE HELP OF QUARTZ SCHEDULAR, FOR EFFICIENCY AND KEEPING THE SYSTEM
- *AT HIGH PERFORMANCE, SOME DATA ARE CACHED USING EHCHACE.
- **********************************************************************************************
- **********************************************************************************************
- *COPYRIGHT REMAINS TO SOFTECH SOLUTIONS, A FAST GROWING IT COMPANY
- *CONTSCTS: WWW.FASTECCHSOLUTIONS.CO.KE
- *          WWW.FACEBOOK.COM/FASTECH.CO.KE
- *
- * @author peter<a href="mailto:mwendapeter72@gmail.com">Peter mwenda</a>
+<%
+/**
+Maasai Mara University Christian Union Online Management System.
+
+
+Copyright 2015 Fastech Solutions Ltd
+Licensed under the Open Software License, Version 3.0 
+The codes herein AND/OR this file should NOT, under any circumstances whatsoever, be copied without the author's approval.
+
+Contacts author the: +254718953974
+
+@author peter<a href="mailto:mwendapeter72@gmail.com">Peter mwenda</a>
  */
-  
--->
+%>
 
 
 <%@page import="com.gmail.mwendapeter72.server.persistence.student.StudentDAO"%>
@@ -91,10 +79,10 @@
                          <tr>  <td width="30%" class="center">Academic Year</td>             <td class="center"><%=student.getAcademicYear()%></td>  </tr> 
                          <tr>  <td width="30%" class="center">Is a Christian?</td>            <td class="center"><%=studentDetails.getChristian()%></td>    </tr>
                          <tr>  <td width="30%" class="center">For What Period?</td>            <td class="center"><%=studentDetails.getDuration()%></td>     </tr>
-                         <tr>  <td width="30%" class="center">Ever Served in a Ministry?</td>  <td class="center"><%=studentDetails.getMinistry()%></td>  </tr>
-                         <tr>  <td width="30%" class="center">Which Ministry?</td>             <td class="center"><%=studentDetails.getMinistryName()%></td>    </tr>  
-                         <tr>  <td width="30%" class="center">Desired Ministry</td>           <td class="center"><%=studentDetails.getDesiredMinistry()%></td> </tr>
-                         <tr>  <td width="30%" class="center">Ministry Vision</td>             <td class="center"><%=studentDetails.getMinistryVision()%></td>   </tr>                    
+                         <tr>  <td width="30%" class="center">Ever Served/Serving in a Ministry(ies)?</td>  <td class="center"><%=studentDetails.getMinistry()%></td>  </tr>
+                         <tr>  <td width="30%" class="center">Which Ministry(ies)?</td>             <td class="center"><%=studentDetails.getMinistryName()%></td>    </tr>  
+                         <tr>  <td width="30%" class="center">Desired Ministry(ies)</td>           <td class="center"><%=studentDetails.getDesiredMinistry()%></td> </tr>
+                         <tr>  <td width="30%" class="center">Ministry(ies) Vision</td>             <td class="center"><%=studentDetails.getMinistryVision()%></td>   </tr>                    
                 
                  <% } else 
                             {%>

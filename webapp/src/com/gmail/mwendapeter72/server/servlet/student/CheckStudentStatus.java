@@ -1,26 +1,12 @@
-/******************************************************************************
- * ****************************************************************************
- ************* MAASAI MARA UNIVERITY CHRISTIAN UNION MANAGEMENT SYSTEM*********
- *************THIS SYSTEM IS BASED ON JAVAEE, USING MVC MODEL******************
- *************THE SYSTEM IS USED FOR STUDEN REGISTRATION TO THE UNION**********
- *************STUDENT REGISTRATION MODULE WILL BE ACCESSIBLE REMOTELY**********
- *************VIA USE OF PUBLIC IP ADDRESS OR A DOMAIN NAME********************
- *THE STUDENT WILL ALSO BE ABLE TO CHECK THEIR REGISTERD DETAILS FOR VERIFICATION
- *WHEREBY, THEY ARE ALLOWED TO MODIGY THEIR DETAILS WITHIN ONE WEEK AFTER REGISTRATION DATE
- *****************************************************************************************
- *****************************************************************************************
- *THE OTHER MODULES OR ONLY FOR ADMIN, THE ADMIN WILL APPROVE STUDEDNTS AFTER THEY REGISTER
- *THE REGISTRATION WILL REQURED RE-ACTIVATION AFTER A PERIOD OF ONE YEAR(12 MONTHS) THIS WILL
- *HAPPEN AUTOMATICALLY WITH THE HELP OF QUARTZ SCHEDULAR, FOR EFFICIENCY AND KEEPING THE SYSTEM
- *AT HIGH PERFORMANCE, SOME DATA ARE CACHED USING EHCHACE.
- **********************************************************************************************
- **********************************************************************************************
- *COPYRIGHT REMAINS TO SOFTECH SOLUTIONS, A FAST GROWING IT COMPANY
- *CONTSCTS: WWW.FASTECCHSOLUTIONS.CO.KE
- *          WWW.FACEBOOK.COM/FASTECH.CO.KE
- *
+/**
  * 
- */
+*Maasai Mara University Christian Union Online Management System.
+*Copyright 2015 Fastech Solutions Ltd
+*Licensed under the Open Software License, Version 3.0 
+*The codes herein AND/OR this file should NOT, under any circumstances whatsoever, be copied without the author's approval.
+*Contacts author the: +254718953974
+*
+**/
 package com.gmail.mwendapeter72.server.servlet.student;
 
 import java.io.IOException;
@@ -70,7 +56,7 @@ public class CheckStudentStatus extends HttpServlet{
 	final String ERROR_ADMNO_NOT_FOUND = "Your Admission Number Was Not Found in the system.";
 	final String STUDENT_UPDATE_SUCCESS = "Student Information  Successfully Updated.";
 	final String STUDENT_DETAILS_ACTIVE = "Your Information  Is Still Active.";
-	final String STUDENT_DETAILS_INACTIVE = "Your Information  Is 'NOT' Active,Please acivate In the Form Below.";
+	final String STUDENT_DETAILS_INACTIVE = "Your Information  Is 'NOT' Active,Please activate In the Form Below.";
     
 	
 	 Long diffhours;

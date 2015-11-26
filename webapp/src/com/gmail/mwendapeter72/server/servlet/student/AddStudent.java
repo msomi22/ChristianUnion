@@ -1,29 +1,17 @@
-/******************************************************************************
- * ****************************************************************************
- ************* MAASAI MARA UNIVERITY CHRISTIAN UNION MANAGEMENT SYSTEM*********
- *************THIS SYSTEM IS BASED ON JAVAEE, USING MVC MODEL******************
- *************THE SYSTEM IS USED FOR STUDEN REGISTRATION TO THE UNION**********
- *************STUDENT REGISTRATION MODULE WILL BE ACCESSIBLE REMOTELY**********
- *************VIA USE OF PUBLIC IP ADDRESS OR A DOMAIN NAME********************
- *THE STUDENT WILL ALSO BE ABLE TO CHECK THEIR REGISTERD DETAILS FOR VERIFICATION
- *WHEREBY, THEY ARE ALLOWED TO MODIGY THEIR DETAILS WITHIN ONE WEEK AFTER REGISTRATION DATE
- *****************************************************************************************
- *****************************************************************************************
- *THE OTHER MODULES OR ONLY FOR ADMIN, THE ADMIN WILL APPROVE STUDEDNTS AFTER THEY REGISTER
- *THE REGISTRATION WILL REQURED RE-ACTIVATION AFTER A PERIOD OF ONE YEAR(12 MONTHS) THIS WILL
- *HAPPEN AUTOMATICALLY WITH THE HELP OF QUARTZ SCHEDULAR, FOR EFFICIENCY AND KEEPING THE SYSTEM
- *AT HIGH PERFORMANCE, SOME DATA ARE CACHED USING EHCHACE.
- **********************************************************************************************
- **********************************************************************************************
- *COPYRIGHT REMAINS TO SOFTECH SOLUTIONS, A FAST GROWING IT COMPANY
- *CONTSCTS: WWW.FASTECCHSOLUTIONS.CO.KE
- *          WWW.FACEBOOK.COM/FASTECH.CO.KE
- *
+/**
  * 
- */
+*Maasai Mara University Christian Union Online Management System.
+*Copyright 2015 Fastech Solutions Ltd
+*Licensed under the Open Software License, Version 3.0 
+*The codes herein AND/OR this file should NOT, under any circumstances whatsoever, be copied without the author's approval.
+*Contacts author the: +254718953974
+*
+**/
 package com.gmail.mwendapeter72.server.servlet.student;
 
 import java.io.IOException;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -37,7 +25,6 @@ import javax.servlet.http.HttpSession;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.validator.routines.EmailValidator;
 
-import com.gmail.mwendapeter72.server.bean.AllBean;
 import com.gmail.mwendapeter72.server.bean.student.Student;
 import com.gmail.mwendapeter72.server.bean.student.StudentOtherDetail;
 import com.gmail.mwendapeter72.server.bean.student.StudentStatus;
@@ -63,7 +50,7 @@ public class AddStudent extends HttpServlet{
 	
 	final String ERROR_NO_ADMNO = "Please provide Your Admission Number.";
 	final String ERROR_ADMNO_EXIST = "Admission Number Alraedy exist.";
-	
+	final String ERROR_DOB_TOO_YOUNG = "Sorry! Your age is below 18.";
 	final String ERROR_NO_STUDENT_FIRTSTNAME = "Please provide Your First Name.";
 	final String ERROR_NO_STUDENT_SURNAME = "Please provide Your SurName.";
 	final String ERROR_NO_STUDENT_LASTNAME = "Please provide Your Last Name.";
@@ -81,6 +68,9 @@ public class AddStudent extends HttpServlet{
 	final String ERROR_NO_STUDENT_HOME_TOWN = "Please Provide Your Home Town.";
 	final String ERROR_NO_STUDENT_COUNTY = "Please Provide Your County.";
 	
+	final String ERROR_NO_MINISTRY = "Please Select atleast one Ministry.";
+	final String ERROR_NO_DESIRED_MINISTRY = "Please Select atleast one Desired Ministry.";
+	double age;
 	
 	
 	final String ERROR_DECLARATION_NOTCHECKED = "Please Accept the Declaration.";
@@ -105,6 +95,7 @@ public class AddStudent extends HttpServlet{
    /**
    * @see javax.servlet.http.HttpServlet#doPost(javax.servlet.http.HttpServletRequest, javax.servlet.http.HttpServletResponse)
    */
+
 protected void doPost(HttpServletRequest request, HttpServletResponse response)
            throws ServletException, IOException {
 	
@@ -130,16 +121,21 @@ protected void doPost(HttpServletRequest request, HttpServletResponse response)
 	   String Christian = StringUtils.trimToEmpty(request.getParameter("Christian"));
 	   String Duration = StringUtils.trimToEmpty(request.getParameter("Duration"));
 	   String Ministry = StringUtils.trimToEmpty(request.getParameter("Ministry"));
-	   String MinistryName = StringUtils.trimToEmpty(request.getParameter("MinistryName"));
-	   String DesiredMinistry = StringUtils.trimToEmpty(request.getParameter("DesiredMinistry"));
+	   String [] MinistryNameArray = request.getParameterValues("MinistryNames");
+	   String [] DesiredMinistryArray = request.getParameterValues("DesiredMinistries"); 
 	   String Vision = StringUtils.trimToEmpty(request.getParameter("Vision"));
 	   String Declaration = StringUtils.trimToEmpty(request.getParameter("Declaration"));
 	   
-	  // System.out.println(Gender);
-	  /* System.out.println(YearOfStudy);
-	   System.out.println(Duration);
-	   System.out.println(MinistryName);*/
 	   
+	  
+	  
+	   SimpleDateFormat dateFormatter = new SimpleDateFormat("yyyy");
+       Calendar now = Calendar.getInstance();   
+       String current_year = dateFormatter.format(now.getTime()); 
+       double currentYear = Double.parseDouble(current_year);
+       double YearOfBirth = Double.parseDouble(DOB);
+       age = Math.floor(currentYear-YearOfBirth);
+	 
 		// This is used to store parameter names and values from the form.
 	   	Map<String, String> paramHash = new HashMap<>();    	
 	   	paramHash.put("AdmNo", AdmNo);
@@ -160,8 +156,8 @@ protected void doPost(HttpServletRequest request, HttpServletResponse response)
 	   //	paramHash.put("Christian", Christian);
 	   	paramHash.put("Duration", Duration);
 	   //	paramHash.put("Ministry", Ministry);
-	   	paramHash.put("MinistryName", MinistryName);
-	   	paramHash.put("DesiredMinistry", DesiredMinistry);
+	   	//paramHash.put("MinistryName", MinistryName);
+	   	//paramHash.put("DesiredMinistry", DesiredMinistry);
 		paramHash.put("Vision", Vision);
 	  
 	    if(StringUtils.isBlank(AdmNo)){
@@ -197,6 +193,9 @@ protected void doPost(HttpServletRequest request, HttpServletResponse response)
 	   }else if(!ValidDob(DOB)){
 		   session.setAttribute(SessionConstants.STUDENT_ADD_ERROR, ERROR_INVALID_DOB); 
     	   
+	   }else if(age<18){
+		   session.setAttribute(SessionConstants.STUDENT_ADD_ERROR, ERROR_DOB_TOO_YOUNG); 
+		  
 	   }else if(StringUtils.isBlank(Gender)){
 		   session.setAttribute(SessionConstants.STUDENT_ADD_ERROR, ERROR_NO_GENDER_SELECTED); 
     	 
@@ -217,57 +216,59 @@ protected void doPost(HttpServletRequest request, HttpServletResponse response)
 	   }else if(StringUtils.isBlank(County)){
 		   session.setAttribute(SessionConstants.STUDENT_ADD_ERROR, ERROR_NO_STUDENT_COUNTY); 
     	  
-	   }
+	   } else if(MinistryNameArray.length < 1  && StringUtils.isNotBlank(MinistryNameArray[0])) {
+			session.setAttribute(SessionConstants.STUDENT_ADD_ERROR, ERROR_NO_MINISTRY);
+			
+	   } else if(DesiredMinistryArray.length < 1 && StringUtils.isNotBlank(DesiredMinistryArray[0])) {
+			session.setAttribute(SessionConstants.STUDENT_ADD_ERROR, ERROR_NO_DESIRED_MINISTRY);	
+	  }
 	   else if(!StringUtils.equals(Declaration, StringUtils.trimToEmpty("on"))){
 		   session.setAttribute(SessionConstants.STUDENT_ADD_ERROR, ERROR_DECLARATION_NOTCHECKED); 
     	 
 	   }else{
 		   
-		   
+		   String ministries = String.join(",", MinistryNameArray);
+		   String Desiredministries = String.join(",", DesiredMinistryArray);
 		   
 		  session.setAttribute(SessionConstants.STUDENT_REGISTER_DETAILS, null);
 		  Student s = new Student();
-		  String  StudeUuid = s.getUuid();
-		 
-		  
-		  s.setUuid(StudeUuid);
-		  s.setAdmNo(AdmNo.toUpperCase());
-		  s.setFirstName(FirstName.toUpperCase());
-		  s.setSurName(SurName.toUpperCase());
-		  s.setLastName(LastName.toUpperCase());
-		  s.setEmail(Email);
-		  s.setMobile(Phone);
-		  s.setGuardianContact(GuardianContact);
-		  s.setDOB(DOB);
-		  s.setGender(Gender.toUpperCase());
-		  s.setProgram(Program.toUpperCase());
-		  s.setAcademicYear(AcademicYear.toUpperCase());
-		  s.setYearOfStudy(YearOfStudy);
-		  s.setHomeTown(HomeTown.toUpperCase());
-		  s.setCounty(County.toUpperCase());
-		  studentDAO.putStudent(s);
+			 
+			  s.setUuid(s.getUuid());
+			  s.setAdmNo(AdmNo.toUpperCase());
+			  s.setFirstName(FirstName.toUpperCase());
+			  s.setSurName(SurName.toUpperCase());
+			  s.setLastName(LastName.toUpperCase());
+			  s.setEmail(Email);
+			  s.setMobile(Phone);
+			  s.setGuardianContact(GuardianContact);
+			  s.setDOB(DOB);
+			  s.setGender(Gender.toUpperCase());
+			  s.setProgram(Program.toUpperCase());
+			  s.setAcademicYear(AcademicYear.toUpperCase());
+			  s.setYearOfStudy(YearOfStudy);
+			  s.setHomeTown(HomeTown.toUpperCase());
+			  s.setCounty(County.toUpperCase());
+			  studentDAO.putStudent(s);
 		   
 		  
-		  StudentOtherDetail d = new StudentOtherDetail();
-		  String Uuid = d.getUuid();
-		  d.setUuid(Uuid);
-		  d.setStudentUuid(StudeUuid);
-		  d.setChristian(Christian.toUpperCase());
-		  d.setDuration(Duration.toUpperCase());
-		  d.setMinistry(Ministry.toUpperCase());
-		  d.setMinistryName(MinistryName.toUpperCase());
-		  d.setDesiredMinistry(DesiredMinistry.toUpperCase());
-		  d.setMinistryVision(Vision);
-		  studentOtherDetailDAO.putDetail(d);
 		  
+		   StudentOtherDetail   d = new StudentOtherDetail();
+			  d = new StudentOtherDetail();
+			  d.setMinistryName(ministries.toUpperCase()); 
+			  d.setDesiredMinistry(Desiredministries.toUpperCase());	
+			  d.setStudentUuid(s.getUuid());
+			  d.setChristian(Christian.toUpperCase());
+			  d.setDuration(Duration.toUpperCase());
+			  d.setMinistry(Ministry.toUpperCase());
+			  d.setMinistryVision(Vision);
+			  studentOtherDetailDAO.putDetail(d);
+			
 		 
 		  StudentStatus ss = new StudentStatus();
 		  String statusactiveuuid ="85C6F08E-902C-46C2-8746-8C50E7D11E2E";
-		  String Uuidz = ss.getUuid();
-		  ss.setUuid(Uuidz); 
-		  ss.setStudentUuid(StudeUuid); 
-		  ss.setStudentStatusUuid(statusactiveuuid);
-		  studentStatusDAO.putStudentStatus(ss);
+		    ss.setStudentUuid(s.getUuid()); 
+		    ss.setStudentStatusUuid(statusactiveuuid);
+		    studentStatusDAO.putStudentStatus(ss);
 		  
 		  
 		  session.setAttribute(SessionConstants.STUDENT_ADD_SUCCESS, STUDENT_ADD_SUCCESS); 
