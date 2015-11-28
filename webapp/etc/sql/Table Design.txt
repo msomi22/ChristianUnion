@@ -26,12 +26,24 @@ The tables are divided into the following sections:
 ======================
 ======================
 
+
+
+-- -------------------
+-- Table Status
+-- -------------------
+      -Id
+      -Uuid
+      -Status
+
+      
+
 -- -------------------
 -- Table Student
 -- -------------------
 
     -Id  (primary key)
     -Uuid 
+    -StatusUuid References Status(Uuid) 
     -AdmNo
     -FirstName 
     -SurName
@@ -47,7 +59,8 @@ The tables are divided into the following sections:
     -HomeTown
     -County
     -DateOfRegistration
-
+    -ActivationDate
+    
 
 -- -------------------
 -- Table StudentOtherInfo
@@ -63,24 +76,18 @@ The tables are divided into the following sections:
       -MinistryVision
 
 
--- -------------------
--- Table ApprovalStatus
--- -------------------
-      -Id
-      -Uuid
-      -Status
-
 
 -- -------------------
--- Table StudentApproval.
+-- Table StudentPosition.
 -- -------------------
       -Id
       -Uuid
       -StudentUuid References Student(Uuid) 
-      -ApprovalStatusUuid References ApprovalStatus(Uuid) 
-      -SystemUser
-      -ApprovalDate
-
+      -StatusUuid References Status(Uuid) 
+      -Position
+      -StartDate
+      -EndDate
+    
 
 
 

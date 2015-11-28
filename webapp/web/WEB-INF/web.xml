@@ -104,6 +104,61 @@
 
 
 
+     <!-- Start -jsp 
+      <servlet>
+      <servlet-name>jsp</servlet-name>
+      <servlet-class>org.apache.jasper.servlet.JspServlet</servlet-class>
+       <init-param>
+      	<param-name>development</param-name>
+      	<param-value>true</param-value>
+      	</init-param>
+      	<init-param>
+      	<param-name>CheckInterval</param-name>
+      	<param-value>0</param-value>
+      </init-param>
+
+      </servlet>
+-->
+       
+
+      <servlet>
+      <servlet-name>Update</servlet-name>
+      <jsp-file>/studentupdate.jsp</jsp-file>
+      </servlet>
+
+       <servlet-mapping>
+    	<servlet-name>Update</servlet-name>
+    	<url-pattern>/update</url-pattern>
+      </servlet-mapping>
+
+      <servlet>
+      <servlet-name>RegForm</servlet-name>
+      <jsp-file>/index.jsp</jsp-file>
+       </servlet>
+
+       <servlet-mapping>
+    	<servlet-name>RegForm</servlet-name>
+    	<url-pattern>/register</url-pattern>
+      </servlet-mapping>
+
+
+     
+      <!-- End -jsp -->
+
+     
+
+
+
+
+
+
+
+
+
+
+
+
+
     <!-- Servlet mapping start -->
    
       <servlet-mapping>
@@ -157,9 +212,23 @@
     </servlet-mapping>
 
 
+     <!-- Start -jsp mapping -->
+   
 
 
+    <!-- End -jsp mapping -->
 
+    <error-page>
+        <error-code>404</error-code>
+        <location>/404.jsp</location>
+      </error-page>
+
+       <error-page>
+        <error-code>500</error-code>
+        <location>/500.jsp</location>
+      </error-page>
+
+ 
 
      
     <session-config>

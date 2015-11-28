@@ -35,6 +35,25 @@ CREATE DATABASE cudb;
 --======================
 --======================
 
+
+-- -------------------
+-- Table Status
+-- -------------------
+CREATE TABLE  Status (
+    Id SERIAL PRIMARY KEY,
+    Uuid text UNIQUE NOT NULL,
+    Status text
+    
+
+);
+\COPY Status(Uuid,Status) FROM '/tmp/Status.csv' WITH DELIMITER AS '|' CSV HEADER
+ALTER TABLE Status OWNER TO cu;
+
+
+
+
+
+
 -- -------------------
 -- Table Student
 -- -------------------
@@ -43,6 +62,7 @@ CREATE DATABASE cudb;
 CREATE TABLE  Student (
     Id SERIAL PRIMARY KEY,
     Uuid text UNIQUE NOT NULL,
+    StatusUuid text REFERENCES Status(Uuid),
     AdmNo text,
     FirstName text,
     SurName text,
@@ -57,10 +77,11 @@ CREATE TABLE  Student (
     YearOfStudy text,
     HomeTown text,
     County text,
-    DateOfRegistration timestamp with time zone DEFAULT now()
+    DateOfRegistration timestamp with time zone DEFAULT now(),
+    ActivationDate timestamp with time zone DEFAULT now()
 
 );
-\COPY Student(Uuid,AdmNo,FirstName,SurName,LastName,Email,Mobile,GuardianContact,DOB,Gender,Program,AcademicYear,YearOfStudy,HomeTown,County,DateOfRegistration) FROM '/tmp/Student.csv' WITH DELIMITER AS '|' CSV HEADER
+\COPY Student(Uuid,StatusUuid,AdmNo,FirstName,SurName,LastName,Email,Mobile,GuardianContact,DOB,Gender,Program,AcademicYear,YearOfStudy,HomeTown,County,DateOfRegistration,ActivationDate) FROM '/tmp/Student.csv' WITH DELIMITER AS '|' CSV HEADER
 ALTER TABLE Student OWNER TO cu;
 
 
@@ -85,35 +106,22 @@ ALTER TABLE StudentOtherInfo OWNER TO cu;
 
 
 -- -------------------
--- Table ApprovalStatus
--- -------------------
-CREATE TABLE  Status (
-    Id SERIAL PRIMARY KEY,
-    Uuid text UNIQUE NOT NULL,
-    Status text
-    
-
-);
-\COPY Status(Uuid,Status) FROM '/tmp/Status.csv' WITH DELIMITER AS '|' CSV HEADER
-ALTER TABLE Status OWNER TO cu;
-
-
-
-
--- -------------------
 -- Table StudentApproval
 -- -------------------
-CREATE TABLE  StudentStatus (
+CREATE TABLE  StudentPosition (
     Id SERIAL PRIMARY KEY,
     Uuid text UNIQUE NOT NULL,
     StudentUuid text REFERENCES Student(Uuid),
-    StudentStatusUuid text REFERENCES Status(Uuid)
+    StatusUuid text REFERENCES Status(Uuid),
+    Position text,
+    StartDate  timestamp with time zone DEFAULT now(),
+    EndDate  timestamp with time zone DEFAULT now()
    
     
 
 );
-\COPY StudentStatus(Uuid,StudentUuid,StudentStatusUuid) FROM '/tmp/StudentStatus.csv' WITH DELIMITER AS '|' CSV HEADER
-ALTER TABLE StudentStatus OWNER TO cu;
+\COPY StudentPosition(Uuid,StudentUuid,StatusUuid,Position,StartDate,EndDate) FROM '/tmp/StudentPosition.csv' WITH DELIMITER AS '|' CSV HEADER
+ALTER TABLE StudentPosition OWNER TO cu;
 
 
 

@@ -20,9 +20,6 @@ Contacts author the: +254718953974
 <%@page import="com.gmail.mwendapeter72.server.persistence.student.StudentOtherDetailDAO"%>
 <%@page import="com.gmail.mwendapeter72.server.bean.student.StudentOtherDetail"%>
 
-<%@page import="com.gmail.mwendapeter72.server.persistence.student.StudentStatusDAO"%>
-<%@page import="com.gmail.mwendapeter72.server.bean.student.StudentStatus"%>
-
 <%@page import="com.gmail.mwendapeter72.server.persistence.student.StatusDAO"%>
 <%@page import="com.gmail.mwendapeter72.server.bean.student.Status"%>
 
@@ -51,29 +48,19 @@ Contacts author the: +254718953974
     }
 
     
-     response.setIntHeader("Refresh",200);
+    // response.setIntHeader("Refresh",200);
 
 
-
-    HashMap<String, String> stustatusHash = new HashMap<String, String>();
     HashMap<String, String> statusHash = new HashMap<String, String>();
 
    Student student;
    StudentOtherDetail studentDetal;
-   StudentStatus status;
    Status sstatus;
 
-   StudentStatusDAO stustatusDAO = StudentStatusDAO.getInstance();
-   List<StudentStatus> stustatustList = new ArrayList(); 
-   stustatustList = stustatusDAO.getAllStudentStatus();
 
    StatusDAO statusDAO = StatusDAO.getInstance();
    List<Status> statustList = new ArrayList(); 
    statustList = statusDAO.getAllStatus();
-
-      for(StudentStatus st : stustatustList){
-           stustatusHash.put(st.getStudentUuid(), st.getStudentStatusUuid());
-       }
 
        for(Status stat : statustList){
            statusHash.put(stat.getUuid(), stat.getStatus());
@@ -136,7 +123,7 @@ Contacts author the: +254718953974
 
                                 if (StringUtils.isNotEmpty(editErr)) {
                                     out.println("<p style='color:red;'>");                 
-                                    out.println("error!!: " + editErr);
+                                    out.println("error: " + editErr);
                                     out.println("</p>");                                 
                                     session.setAttribute(SessionConstants.STUDENT_UPDATE_ERROR, null);
                                   } 
@@ -149,7 +136,13 @@ Contacts author the: +254718953974
 
                             %>
 
-                      <div id="container" class="clear"> 
+            <div id="container" class="clear"> 
+                      
+
+            <div id="tooplate_main_top"></div>        
+            <div id="tooplate_main" >
+
+
 
                       <div id="tooplate_middle">     
                       <div id="middle_left">
@@ -243,7 +236,7 @@ Contacts author the: +254718953974
 
              
 
-
+    </div>
     <div id="tooplate_main_top"></div>        
     <div id="tooplate_main">
         

@@ -14,9 +14,6 @@ Contacts author the: +254718953974
 %>
 
 
-<%@page import="com.gmail.mwendapeter72.server.persistence.student.StudentStatusDAO"%>
-<%@page import="com.gmail.mwendapeter72.server.bean.student.StudentStatus"%>
-
 <%@page import="com.gmail.mwendapeter72.server.persistence.student.StatusDAO"%>
 <%@page import="com.gmail.mwendapeter72.server.bean.student.Status"%>
 <%@page import="com.gmail.mwendapeter72.server.persistence.student.StudentDAO"%>
@@ -43,13 +40,11 @@ Contacts author the: +254718953974
 
  <%
     
-    HashMap<String, String> stustatusHash = new HashMap<String, String>();
     HashMap<String, String> statusHash = new HashMap<String, String>();
 
 
    String admno = request.getParameter("admissNo");
    Student student;
-   StudentStatus status;
    Status sstatus;
  //out.println(admno);
   StudentDAO studentDAO = StudentDAO.getInstance();
@@ -57,17 +52,9 @@ Contacts author the: +254718953974
   studentList1 = studentDAO.getStudentAdmNo(admno);
 
 
-   StudentStatusDAO stustatusDAO = StudentStatusDAO.getInstance();
-   List<StudentStatus> stustatustList = new ArrayList(); 
-   stustatustList = stustatusDAO.getAllStudentStatus();
-
    StatusDAO statusDAO = StatusDAO.getInstance();
    List<Status> statustList = new ArrayList(); 
    statustList = statusDAO.getAllStatus();
-
-      for(StudentStatus st : stustatustList){
-           stustatusHash.put(st.getStudentUuid(), st.getStudentStatusUuid());
-       }
 
        for(Status stat : statustList){
            statusHash.put(stat.getUuid(), stat.getStatus());
@@ -100,22 +87,17 @@ Contacts author the: +254718953974
                     %>
 
                     <tr class="tabledit" >
-                        <td width="10%"><%=count%></td>
+                        <td width="3%"><%=count%></td>
                          <td class="center" ><a class="Zlink" href="#" data-toggle="modal" data-target="#groupcheck" value='<%=s.getAdmNo()%>' name='<%=s.getUuid()%>' onclick="TableGet(this)"><%=s.getAdmNo()%></a> </td>
                          <td class="center"><%=s.getFirstName()%></td>
-                       <!--  <td class="center"><%//=s.getSurName()%></td> -->
                          <td class="center"><%=s.getLastName()%></td>  
-                       <!--  <td class="center"><%//=s.getMobile()%></td>  -->
-                       <!--  <td class="center"><%//=s.getGuardianContact()%></td> -->
                          <td class="center"><%=age%></td>
                          <td class="center"><%=s.getGender()%></td>
-                       <!--   <td class="center"><%//=s.getProgram()%></td>  
-                           <td class="center"><%//=s.getAcademicYear()%></td>     -->
-                         <td class="center"><%=s.getYearOfStudy()%></td>
-                         <td class="center"><%=s.getHomeTown()%></td>
+                         <td class="center" width="5%"><%=s.getYearOfStudy()%></td>
+                        <!-- <td class="center"><%=s.getHomeTown()%></td> -->
                          <td class="center"><%=s.getCounty()%></td>  
-                         <td class="center"><%=statusHash.get(stustatusHash.get(s.getUuid() ))%></td>  
-                         <td class="center"><%=dateFormatter.format(s.getDateOfRegistration())%></td>  
+                         <td class="center"><%=statusHash.get(s.getStatusUuid())%></td>  
+                         <td class="center"><%=dateFormatter.format(s.getActivationDate())%></td>  
 
                          <td class="center">
                             <form name="edit" method="post" action="editstudent.jsp"> 
@@ -149,13 +131,15 @@ Contacts author the: +254718953974
                                 <input type="hidden" name="desiredministry" value="<%=ss.getDesiredMinistry()%>">
                                 <input type="hidden" name="vision" value="<%=ss.getMinistryVision()%>">
                                 <input class="btn btn-success" type="submit" name="edit" id="submit" value="Edit" /> 
-                                </form>    
+                                </form> 
+                                </td> 
 
+                                <td class="center">
                                 <form name="print" method="post" action="../studentReport">
                                 <input type="hidden" name="AdmNo" value="<%=s.getAdmNo()%>">
-                                <input class="btn btn-success" type="submit" name="printstudent" id="submit" value="Download" />
+                                <input class="btn btn-success" type="submit" name="printstudent" id="submit" value="PDF" />
                                 </form>                       
-                        </td>  
+                                </td>  
 
 
 

@@ -72,6 +72,8 @@ Contacts author the: +254718953974
                 %>
                 <tbody>                   
                          <tr>  <td width="30%" class="center">Surname</td>                <td class="center"><%=student.getSurName()%></td> </tr>
+                         <tr>  <td width="30%" class="center">Registration date</td>                <td class="center"><%=student.getDateOfRegistration()%></td> </tr>
+                         <tr>  <td width="30%" class="center">Home Town</td>                <td class="center"><%=student.getHomeTown()%></td> </tr>
                          <tr>  <td width="30%" class="center">Phone No</td>                <td class="center"><%=student.getMobile()%></td> </tr>
                          <tr>  <td width="30%" class="center">Guardian Contact</td>         <td class="center"><%=student.getGuardianContact()%></td> </tr>
                          <tr>  <td width="30%" class="center">Email</td>                <td class="center"><%=student.getEmail()%></td> </tr>

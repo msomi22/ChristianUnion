@@ -117,7 +117,8 @@ Contacts author the: +254718953974
 
 
 
-
+<div id="tooplate_main_top"></div>        
+    <div id="tooplate_main" >
    
     <div id="homepage" class="clear">  
      <h3><i class="icon-edit"></i>Membership Registration Form: Personl Information</h3>            
@@ -417,7 +418,7 @@ Contacts author the: +254718953974
 
 
     
-             
+             </div>
          
     </div>
         <div class="cleaner"></div>

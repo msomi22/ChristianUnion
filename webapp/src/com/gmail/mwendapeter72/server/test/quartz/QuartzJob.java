@@ -14,15 +14,12 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 
-import org.apache.commons.lang3.StringUtils;
 import org.quartz.Job;
 import org.quartz.JobExecutionContext;
 import org.quartz.JobExecutionException;
 
 import com.gmail.mwendapeter72.server.bean.student.Student;
-import com.gmail.mwendapeter72.server.bean.student.StudentStatus;
 import com.gmail.mwendapeter72.server.persistence.student.StudentDAO;
-import com.gmail.mwendapeter72.server.persistence.student.StudentStatusDAO;
 
 
 /**
@@ -32,12 +29,10 @@ import com.gmail.mwendapeter72.server.persistence.student.StudentStatusDAO;
 public class QuartzJob implements Job {
 	
 	private static  StudentDAO studentDAO;
-	private static  StudentStatusDAO studentStatusDAO; 
 	
 	 List<Student> studentList = new ArrayList<>();
-	 List<StudentStatus> studenstatustList = new ArrayList<>();
 	
-	HashMap<String,String> statusHash = new HashMap<String,String>(); 
+	 HashMap<String,String> statusHash = new HashMap<String,String>(); 
 	
 	 Long diffhours;
 	 Long diffmin;
@@ -49,7 +44,6 @@ public class QuartzJob implements Job {
 	 */
 	public QuartzJob() {
 		studentDAO = StudentDAO.getInstance();
-		studentStatusDAO = StudentStatusDAO.getInstance();
 	   
 	}
 
@@ -58,51 +52,35 @@ public class QuartzJob implements Job {
 	 * @see org.quartz.Job#execute(org.quartz.JobExecutionContext)
 	 */
 	public void execute(JobExecutionContext arg0) throws JobExecutionException {
-		//System.out.println("*### MMUCU Quartz Running @TestBy-PeterMwenda###");
 		 ChangeStatus();
     }
 
 	private  void ChangeStatus() {
-		 //System.out.println("Helloooooo!!!! MMUCU Quartz Running :::TestByPeterMwenda###");
-		 //StudentStatus s = new StudentStatus();
-		 StudentStatus sts = new StudentStatus();
-		
-		
 		 studentList = studentDAO.getStudentList(); 		
-		 studenstatustList = studentStatusDAO.getAllStudentStatus();
-		
-		if(studentList !=null && studenstatustList !=null){	
+		if(studentList !=null){	
 		for(Student st : studentList){
-			 //SimpleDateFormat dateFormatter = new SimpleDateFormat("yyyy");
-			 //SimpleDateFormat dateFormatter = new SimpleDateFormat("yy/MM/dd HH:mm:ss");
-			 //Calendar now = Calendar.getInstance();   
-		     String studentUuid = st.getUuid();
-		     Date regDate =	st.getDateOfRegistration();
+		     Date regDate =	st.getActivationDate();
 			 Date nows = new Date();		 
 			
 				 Long diff =  nows.getTime() - regDate.getTime();
 				 diffsec =  Math.abs(diff / 1000 % 60);
 				 diffmin =  Math.abs(diff / (60*1000) % 60);
 				 diffhours = diff / (60*60*1000);
-				 //System.out.println("diff in days btwn now and regdate = " +Math.floor(diffhours/24)+ " For "+st.getFirstName()); 
-				 //System.out.println("days in a year = " +Math.floor(HOURS_IN_A__YEAR/24)); 
-			     
-			
-				 for(StudentStatus status : studenstatustList){
-					 if(diffhours/24 > HOURS_IN_A__YEAR/24 && StringUtils.equals(status.getStudentUuid(), studentUuid)){
-						 String StatusUuid = "6C03705B-E05E-420B-B5B8-C7EE36643E60";
-						 sts.setStudentStatusUuid(StatusUuid);
-						 sts.setStudentUuid(studentUuid); 
-						 studentStatusDAO.updateStudentStatus(sts);
+				
+					 if(diffhours/24 > HOURS_IN_A__YEAR/24){
+						 final String STATUS_INACTIVE_UUID = "6C03705B-E05E-420B-B5B8-C7EE36643E60";
+						 Student s = new Student();
+						 s.setUuid(st.getUuid()); 
+						 s.setStatusUuid(STATUS_INACTIVE_UUID);
+						 studentDAO.deActivateStudent(s); 
 				           }
-				 }
-			
+				 
 			
 			
 		}
 			
-		} //end of if(studentList !=null){		
+		} 
 	
-	}//end private void ChangeStatus() {
+	}
 	
 }

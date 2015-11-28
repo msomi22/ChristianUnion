@@ -29,16 +29,6 @@ public interface CuStudentOtherDetailDAO {
 	
 	
 	/**
-	    * 
-	    * @param schoolaccount
-	    * @param admno
-	    * @return	a {@link List} of {@link Student}s whose admno partly or wholly
-	    * matches the admno and belongs to a particular school account. Matching is case 
-	    * insensitive. An empty list is returned if no Student matches the admno.
-	    */
-	  public List<StudentOtherDetail> getStudentAdmNo(String schoolaccountUuid, String StudentUuid);
-	
-	/**
 	 * 
 	 * @param studentDetail
 	 * @param StudentUuid

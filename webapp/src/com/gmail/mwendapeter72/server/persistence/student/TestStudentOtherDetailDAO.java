@@ -30,7 +30,7 @@ public class TestStudentOtherDetailDAO {
 	final int databasePort = 5432;
 	
 	private String UUID ="A95EA158-6D2E-4316-AC15-358E26C0CFA0",
-			       UUID_NEW="DD08D8CE-59E6-41AF-824F-4C6538771094";
+			       UUID_NEW="3E3B7D20-42A5-47DE-A17C-8F685D91883F";
 	
 	private String STUDENT_UUID = "5C5724AF-B8C6-4322-ACE9-C340C6DB8D13",
 			       STUDENT_UUID_NEW ="2E3B7D20-42A5-47DE-A17C-8F685D91883F";
@@ -96,7 +96,7 @@ public class TestStudentOtherDetailDAO {
 	/**
 	 * Test method for {@link com.gmail.mwendapeter72.server.persistence.student.StudentOtherDetailDAO#updateDetail(com.gmail.mwendapeter72.server.bean.student.StudentOtherDetail, java.lang.String)}.
 	 */
-	//@Ignore
+	@Ignore
 	@Test
 	public void testUpdateDetail() {
 		store = new StudentOtherDetailDAO(databaseName, Host, databaseUsername, databasePassword, databasePort);
@@ -114,10 +114,13 @@ public class TestStudentOtherDetailDAO {
 	/**
 	 * Test method for {@link com.gmail.mwendapeter72.server.persistence.student.StudentOtherDetailDAO#deleteDetail(com.gmail.mwendapeter72.server.bean.student.StudentOtherDetail)}.
 	 */
-	@Ignore
+	//@Ignore
 	@Test
 	public void testDeleteDetail() {
 		store = new StudentOtherDetailDAO(databaseName, Host, databaseUsername, databasePassword, databasePort);
+		StudentOtherDetail s = new StudentOtherDetail();
+		s.setStudentUuid(STUDENT_UUID_NEW);
+		assertTrue(store.deleteDetail(s));
 	}
 
 	/**

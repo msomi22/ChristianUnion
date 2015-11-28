@@ -20,7 +20,6 @@ import org.apache.commons.dbutils.BeanProcessor;
 import org.apache.commons.lang3.exception.ExceptionUtils;
 import org.apache.log4j.Logger;
 
-import com.gmail.mwendapeter72.server.bean.student.Student;
 import com.gmail.mwendapeter72.server.bean.student.StudentOtherDetail;
 import com.gmail.mwendapeter72.server.persistence.DBConnectDAO;
 
@@ -90,11 +89,7 @@ public class StudentOtherDetailDAO extends DBConnectDAO implements CuStudentOthe
 		return studentDetail; 
 	}
 
-	@Override
-	public List<StudentOtherDetail> getStudentAdmNo(String schoolaccountUuid, String StudentUuid) {
-		// TODO Auto-generated method stub
-		return null;
-	}
+	
 
 	
 	
@@ -167,13 +162,30 @@ public class StudentOtherDetailDAO extends DBConnectDAO implements CuStudentOthe
 		return success;
 	}
 
-	/* (non-Javadoc)
+	/**
 	 * @see com.gmail.mwendapeter72.server.persistence.student.CuStudentOtherDetailDAO#deleteDetail(com.gmail.mwendapeter72.server.bean.student.StudentOtherDetail)
 	 */
-	@Override
 	public boolean deleteDetail(StudentOtherDetail studentDetail) {
-		// TODO Auto-generated method stub
-		return false;
+		  boolean success = true; 
+          try(
+    		  Connection conn = dbutils.getConnection();
+       	      PreparedStatement pstmt = conn.prepareStatement("DELETE FROM StudentOtherInfo"
+       	      		+ " WHERE StudentUuid = ?;");       
+    		
+    		){
+    	
+    	      pstmt.setString(1, studentDetail.getStudentUuid());
+	          pstmt.executeUpdate();
+	     
+          }catch(SQLException e){
+    	 logger.error("SQL Exception when deletting studentDetail : " +studentDetail);
+         logger.error(ExceptionUtils.getStackTrace(e));
+         System.out.println(ExceptionUtils.getStackTrace(e));
+         success = false;
+         
+    }
+    
+		return success;
 	}
 
 	/**

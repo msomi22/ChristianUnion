@@ -55,8 +55,9 @@ if (session == null) {
 
   <jsp:include page="header.jsp" />
     
- <div id="container" class="clear"> 
-
+  <div id="container" class="clear"> 
+   <div id="tooplate_main_top"></div>        
+            <div id="tooplate_main" >
                  
 
  <div class="box-content">
@@ -228,7 +229,7 @@ if (session == null) {
            </div>
 
 
-
+          </div>
 
 
                  <br> <br> <br> <br> <br> <br>

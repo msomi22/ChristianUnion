@@ -27,10 +27,8 @@ import org.apache.commons.validator.routines.EmailValidator;
 
 import com.gmail.mwendapeter72.server.bean.student.Student;
 import com.gmail.mwendapeter72.server.bean.student.StudentOtherDetail;
-import com.gmail.mwendapeter72.server.bean.student.StudentStatus;
 import com.gmail.mwendapeter72.server.persistence.student.StudentDAO;
 import com.gmail.mwendapeter72.server.persistence.student.StudentOtherDetailDAO;
-import com.gmail.mwendapeter72.server.persistence.student.StudentStatusDAO;
 import com.gmail.mwendapeter72.server.session.SessionConstants;
 
 /**
@@ -44,8 +42,8 @@ public class AddStudent extends HttpServlet{
 	private static final long serialVersionUID = -2648186311562388253L;
 	private static StudentDAO studentDAO;
 	private static StudentOtherDetailDAO studentOtherDetailDAO;
-	private static StudentStatusDAO studentStatusDAO;
 	private EmailValidator emailValidator;
+	final String STATUS_ACTIVE_UUID ="85C6F08E-902C-46C2-8746-8C50E7D11E2E";
 	
 	
 	final String ERROR_NO_ADMNO = "Please provide Your Admission Number.";
@@ -87,8 +85,6 @@ public class AddStudent extends HttpServlet{
        super.init(config);
        studentDAO = StudentDAO.getInstance();
        studentOtherDetailDAO = StudentOtherDetailDAO.getInstance();
-       studentStatusDAO = StudentStatusDAO.getInstance();
- 
        emailValidator = EmailValidator.getInstance();
    }
    
@@ -248,6 +244,7 @@ protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			  s.setYearOfStudy(YearOfStudy);
 			  s.setHomeTown(HomeTown.toUpperCase());
 			  s.setCounty(County.toUpperCase());
+			  s.setStatusUuid(STATUS_ACTIVE_UUID);
 			  studentDAO.putStudent(s);
 		   
 		  
@@ -263,14 +260,6 @@ protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			  d.setMinistryVision(Vision);
 			  studentOtherDetailDAO.putDetail(d);
 			
-		 
-		  StudentStatus ss = new StudentStatus();
-		  String statusactiveuuid ="85C6F08E-902C-46C2-8746-8C50E7D11E2E";
-		    ss.setStudentUuid(s.getUuid()); 
-		    ss.setStudentStatusUuid(statusactiveuuid);
-		    studentStatusDAO.putStudentStatus(ss);
-		  
-		  
 		  session.setAttribute(SessionConstants.STUDENT_ADD_SUCCESS, STUDENT_ADD_SUCCESS); 
 		   
 	   }

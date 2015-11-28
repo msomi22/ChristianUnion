@@ -26,8 +26,6 @@ Contacts author the: +254718953974
 <%@page import="com.gmail.mwendapeter72.server.persistence.student.StudentOtherDetailDAO"%>
 <%@page import="com.gmail.mwendapeter72.server.bean.student.StudentOtherDetail"%>
 
-<%@page import="com.gmail.mwendapeter72.server.persistence.student.StudentStatusDAO"%>
-<%@page import="com.gmail.mwendapeter72.server.bean.student.StudentStatus"%>
 
 <%@page import="com.gmail.mwendapeter72.server.persistence.student.StatusDAO"%>
 <%@page import="com.gmail.mwendapeter72.server.bean.student.Status"%>
@@ -65,26 +63,17 @@ Contacts author the: +254718953974
      session.setMaxInactiveInterval(SessionConstants2.SESSION_TIMEOUT);
      response.setHeader("Refresh", SessionConstants2.SESSION_TIMEOUT + "; url=/ChristianUnion/admin");
 
-    HashMap<String, String> stustatusHash = new HashMap<String, String>();
-    HashMap<String, String> statusHash = new HashMap<String, String>();
+   HashMap<String, String> statusHash = new HashMap<String, String>();
 
    Student student;
    StudentOtherDetail studentDetal;
-   StudentStatus status;
-   Status sstatus;
+   Status status;
 
-   StudentStatusDAO stustatusDAO = StudentStatusDAO.getInstance();
-   List<StudentStatus> stustatustList = new ArrayList(); 
-   stustatustList = stustatusDAO.getAllStudentStatus();
 
    StatusDAO statusDAO = StatusDAO.getInstance();
    List<Status> statustList = new ArrayList(); 
    statustList = statusDAO.getAllStatus();
-
-      for(StudentStatus st : stustatustList){
-           stustatusHash.put(st.getStudentUuid(), st.getStudentStatusUuid());
-       }
-
+  // out.println(statustList);
        for(Status stat : statustList){
            statusHash.put(stat.getUuid(), stat.getStatus());
        }
@@ -151,18 +140,8 @@ Contacts author the: +254718953974
 
         <jsp:include page="header.jsp" />
 
-                                   
 
-         <div id="search_box">
-            <form action="#" method="get">
-                <input type="text" placeholder="Search By AdmNo" name="q" size="10" id="searchfield" title="searchfield" onkeyup="displaystudents(this.value)" />
-                <!--<input type="submit" name="Search" value="" id="searchbutton" title="Search" />-->
-            </form>
-        </div>
-
-                  
-
-                   <%
+                             <%
 
                         
 
@@ -194,6 +173,19 @@ Contacts author the: +254718953974
 
         <div id="container" class="clear"> 
 
+          <div id="tooplate_main_top"></div>        
+            <div id="tooplate_main" >
+
+         <div id="search_box">
+            <form action="#" method="get">
+                <input type="text" placeholder="Search By AdmNo" name="q" size="10" id="searchfield" title="searchfield" onkeyup="displaystudents(this.value)" />
+            </form>
+        </div>
+
+
+
+
+
         <div id="tooplate_middle">     
          <div id="middle_left">
             <p>MMU CU Student Basic Details</p>
@@ -204,21 +196,16 @@ Contacts author the: +254718953974
                         <th>*</th>
                         <th>Admission Number</th>
                         <th>Firstname</th>                
-                       <!-- <th>Surname</th>  -->
                         <th>Lastname</th>
-                       <!-- <th>Phone</th> -->
-                       <!-- <th>Gurdian Contact</th>  -->
                         <th>Age</th>
                         <th>Gender</th>
-                       <!--  <th>Program/Major</th>  -->
-                       <!--   <th>Academic Year</th>  -->
                         <th>Year Of Study</th>   
-                        <th>Home Town</th>
+                        <!--<th>Home Town</th> -->
                         <th>County</th>
                          <th>Status</th>
                         <th>Activated On</th>
-                       
-                        <th>actions</th>
+                        <th>Action</th>
+                        <th>Download</th>
                     </tr>
                 </thead>   
                 <tbody class='tablebody'>
@@ -244,24 +231,18 @@ Contacts author the: +254718953974
                     %>
                       <tr class="tabledit">
                          
-                         <td width="10%"><%=ussdCount%> </td>
+                         <td width="3%"><%=ussdCount%> </td>
                          <td class="center" ><a class="Zlink" href="#" data-toggle="modal" data-target="#groupcheck" value='<%=s.getAdmNo()%>' name='<%=s.getUuid()%>' onclick="TableGet(this)"><%=s.getAdmNo()%></a> </td>
 
                          <td class="center"><%=s.getFirstName()%></td>
-
-                       <!--  <td class="center"><%//=s.getSurName()%></td> -->
                          <td class="center"><%=s.getLastName()%></td>  
-                         <!-- <td class="center"><%//=s.getMobile()%></td>  -->
-                       <!--  <td class="center"><%//=s.getGuardianContact()%></td> -->
                          <td class="center"><%=age%></td>
                          <td class="center"><%=s.getGender()%></td>
-                        <!--   <td class="center"><%//=s.getProgram()%></td>   -->
-                       <!--   <td class="center"><%//=s.getAcademicYear()%></td>     -->
-                         <td class="center"><%=s.getYearOfStudy()%></td>
-                         <td class="center"><%=s.getHomeTown()%></td>
+                         <td class="center" width="5%"><%=s.getYearOfStudy()%></td>
+                        <!-- <td class="center"><%//=s.getHomeTown()%></td> -->
                          <td class="center"><%=s.getCounty()%></td>  
-                         <td class="center"><%=statusHash.get(stustatusHash.get(s.getUuid() ))%></td>  
-                         <td class="center"><%=dateFormatter.format(s.getDateOfRegistration())%></td> 
+                         <td class="center"><%=statusHash.get(s.getStatusUuid())%></td>  
+                         <td class="center"><%=dateFormatter.format(s.getActivationDate())%></td> 
                         
                          <td class="center">
                             <form name="edit" method="post" action="editstudent.jsp"> 
@@ -296,15 +277,14 @@ Contacts author the: +254718953974
                                 <input type="hidden" name="vision" value="<%=ss.getMinistryVision()%>">
                                 <input class="btn btn-success" type="submit" name="edit" id="submit" value="Edit" /> 
                                 </form>   
-
-
-
-
-                                <form name="print" method="post" action="../studentReport">
-                                <input type="hidden" name="AdmNo" value="<%=s.getAdmNo()%>">
-                                <input class="btn btn-success" type="submit" name="printstudent" id="submit" value="Download" />
-                                </form>                       
+                      
                         </td>  
+                              <td class="center">
+                                <form name="print" method="post" action="../studentReport" target="_blank">
+                                <input type="hidden" name="AdmNo" value="<%=s.getAdmNo()%>">
+                                <input class="btn btn-success" type="submit" name="printstudent" id="submit" value="PDF" />
+                                </form> 
+                                </td>
                        </tr>
 
                     <%
@@ -347,21 +327,14 @@ Contacts author the: +254718953974
 
 
               
+                 
                  <br> <br> <br> <br> <br> <br>
                  <br> <br> <br> <br> <br> <br>
                  <br> <br> <br> <br> <br> <br>
                  <br> <br> <br> <br> <br> <br>
                  <br> <br> <br> <br> <br> <br>
                  <br> <br> <br> <br> <br> <br>
-                 <br> <br> <br> <br> <br> <br>
-                 <br> <br> <br> <br> <br> <br>
-                 <br> <br> <br> <br> <br> <br>
-                 <br> <br> <br> <br> <br> <br>
-                 <br> <br> <br> <br> <br> <br>
-                 <br> <br> <br> <br> <br> <br>
-                 <br> <br> <br> <br> <br> <br>
-                 <br> <br> <br> <br> <br> <br>
-                 <br> <br> <br> <br> <br> <br>
+                
                 
 
 
@@ -372,8 +345,10 @@ Contacts author the: +254718953974
  </div>
 </div>
 
+
+</div>
     <div id="tooplate_main_top"></div>        
-    <div id="tooplate_main">
+    <div id="tooplate_main">  </div>
         
     
     	

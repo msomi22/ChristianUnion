@@ -70,7 +70,14 @@ public interface CuStudentDAO {
 	 * @param student
 	 * @return whether student {@link Student} was updated successfully
 	 */
-	public boolean updateStudent(Student student);
+	public boolean activateStudent(Student student);
+	
+
+	/**
+	 * @param student
+	 * @return whether student {@link Student} was deactivated successfully
+	 */
+	public boolean deActivateStudent(Student student);
 	
 	  /**
 	   * 

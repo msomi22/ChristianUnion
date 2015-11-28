@@ -104,11 +104,11 @@ Contacts author the: +254718953974
     <form id="login_form" action="../adminLogin" method="POST">
 
     <div class="field_container">
-      <input type="text" placeholder="Username" name="Username">
+     Username: <input type="text" placeholder="Username" name="Username">
     </div>
     
     <div class="field_container">
-      <input type="Password" placeholder="Password" name="Password">
+     Password: <input type="Password" placeholder="Password" name="Password">
     </div>
                     
                      

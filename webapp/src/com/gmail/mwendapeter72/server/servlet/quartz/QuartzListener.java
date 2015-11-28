@@ -42,7 +42,7 @@ public class QuartzListener extends HttpServlet implements ServletContextListene
          */
         public void contextInitialized(ServletContextEvent servletContext) {
 
-               System.out.println("Context Initialized ::::Quartz By PeterMwenda");
+               //System.out.println("Context Initialized ::::Quartz By PeterMwenda");
                 
                 try {
                         // Setup the Job class and the Job group
@@ -72,7 +72,7 @@ public class QuartzListener extends HttpServlet implements ServletContextListene
          * @see javax.servlet.ServletContextListener#contextDestroyed(javax.servlet.ServletContextEvent)
          */
         public void contextDestroyed(ServletContextEvent servletContext) {
-                System.out.println("Context Destroyed ::::Quartz By PeterMwenda");
+                //System.out.println("Context Destroyed ::::Quartz By PeterMwenda");
                 try 
                 {
                         scheduler.shutdown();
