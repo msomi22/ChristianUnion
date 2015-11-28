@@ -1,6 +1,12 @@
 /**
  * 
- */
+*Maasai Mara University Christian Union Online Management System.
+*Copyright 2015 Fastech Solutions Ltd
+*Licensed under the Open Software License, Version 3.0 
+*The codes herein AND/OR this file should NOT, under any circumstances whatsoever, be copied without the author's approval.
+*Contacts author the: +254718953974
+*
+**/
 package com.gmail.mwendapeter72.server.bean.student;
 
 import java.util.Date;
@@ -8,7 +14,7 @@ import java.util.Date;
 import com.gmail.mwendapeter72.server.bean.AllBean;
 
 /**
- * @author peter
+ * @author peter<a href="mailto:mwendapeter72@gmail.com">Peter mwenda</a>
  *
  */
 public class StudentPosition extends AllBean{

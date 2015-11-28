@@ -93,6 +93,10 @@ protected void processRequest(HttpServletRequest request, HttpServletResponse re
 	       response.setContentType("application/pdf");
 	       
 	 	   String AdmNo = StringUtils.trimToEmpty(request.getParameter("AdmNo").toUpperCase());
+	 	   
+	 	   if(!StringUtils.isBlank(AdmNo)){
+	 		   
+	 	  
 	 	   Student s = studentDAO.getStudent(AdmNo);
 		   std = studentOtherDetailDAO.getDetail(s.getUuid());
 	 	    SimpleDateFormat formatter;
@@ -230,8 +234,13 @@ protected void processRequest(HttpServletRequest request, HttpServletResponse re
        
        //response.setContentType("application/pdf");
        response.setHeader("Content-Disposition", "attachment; filename= \" "+s.getAdmNo()+".pdf \" " );
-   }
-
+        }
+	 	   else{
+	 		  response.sendRedirect("admin/home.jsp"); 
+	 	   }
+       }
+	
+ 
 
 
 private Paragraph addEmptyLine(Paragraph paragraph, int number) {

@@ -54,6 +54,7 @@ public class AddStudent extends HttpServlet{
 	final String ERROR_NO_STUDENT_LASTNAME = "Please provide Your Last Name.";
 	final String ERROR_NO_STUDENT_EMAIL = "Please provide Your email address.";
 	final String ERROR_INVALID_EMAIL = "Email address Invalid.";
+	final String ERROR_EMAIL_EXIST ="This Email already exist";
 	final String ERROR_NO_PHONE = "Please provide Your Phone Number.";
 	final String ERROR_NO_GURDIAN_CONTACT = "Please provide Guardian Phone Number.";
 	final String ERROR_NO_DOB = "Please provide Your Year of Birth.";
@@ -74,6 +75,10 @@ public class AddStudent extends HttpServlet{
 	final String ERROR_DECLARATION_NOTCHECKED = "Please Accept the Declaration.";
 	
 	final String STUDENT_ADD_SUCCESS = "Your Information Was Submited Successfully.";
+	
+	String [] MinistryNameArray = null;
+	String [] DesiredMinistryArray = null; 
+	int count = 0;
 	
 
 	/**
@@ -117,20 +122,24 @@ protected void doPost(HttpServletRequest request, HttpServletResponse response)
 	   String Christian = StringUtils.trimToEmpty(request.getParameter("Christian"));
 	   String Duration = StringUtils.trimToEmpty(request.getParameter("Duration"));
 	   String Ministry = StringUtils.trimToEmpty(request.getParameter("Ministry"));
-	   String [] MinistryNameArray = request.getParameterValues("MinistryNames");
-	   String [] DesiredMinistryArray = request.getParameterValues("DesiredMinistries"); 
+	   MinistryNameArray = request.getParameterValues("MinistryNames");
+	   
+	   DesiredMinistryArray = request.getParameterValues("DesiredMinistries"); 
 	   String Vision = StringUtils.trimToEmpty(request.getParameter("Vision"));
 	   String Declaration = StringUtils.trimToEmpty(request.getParameter("Declaration"));
-	   
-	   
 	  
-	  
+	   //System.out.println(MinistryNameArray.length);
+	   //System.out.println(DesiredMinistryArray.length);
+	   
 	   SimpleDateFormat dateFormatter = new SimpleDateFormat("yyyy");
        Calendar now = Calendar.getInstance();   
        String current_year = dateFormatter.format(now.getTime()); 
        double currentYear = Double.parseDouble(current_year);
-       double YearOfBirth = Double.parseDouble(DOB);
-       age = Math.floor(currentYear-YearOfBirth);
+       if(!StringUtils.isEmpty(DOB) && ValidDob(DOB)){
+    	   double YearOfBirth = Double.parseDouble(DOB);
+           age = Math.floor(currentYear-YearOfBirth);
+       }
+      
 	 
 		// This is used to store parameter names and values from the form.
 	   	Map<String, String> paramHash = new HashMap<>();    	
@@ -177,6 +186,9 @@ protected void doPost(HttpServletRequest request, HttpServletResponse response)
 	   }else if(!emailValidator.isValid(Email)){		     
 		   session.setAttribute(SessionConstants.STUDENT_ADD_ERROR, ERROR_INVALID_EMAIL);  
 		  	   
+	   }else if(studentDAO.getStudentByEmail(Email) !=null){		     
+		   session.setAttribute(SessionConstants.STUDENT_ADD_ERROR, ERROR_EMAIL_EXIST);  
+		  	   
 	   }else if(StringUtils.isBlank(Phone)){
 		   session.setAttribute(SessionConstants.STUDENT_ADD_ERROR, ERROR_NO_PHONE); 
     	 
@@ -212,12 +224,13 @@ protected void doPost(HttpServletRequest request, HttpServletResponse response)
 	   }else if(StringUtils.isBlank(County)){
 		   session.setAttribute(SessionConstants.STUDENT_ADD_ERROR, ERROR_NO_STUDENT_COUNTY); 
     	  
-	   } else if(MinistryNameArray.length < 1  && StringUtils.isNotBlank(MinistryNameArray[0])) {
+	   }
+	   else if(MinistryNameArray.length == 0 ||  MinistryNameArray == null ) {
 			session.setAttribute(SessionConstants.STUDENT_ADD_ERROR, ERROR_NO_MINISTRY);
 			
-	   } else if(DesiredMinistryArray.length < 1 && StringUtils.isNotBlank(DesiredMinistryArray[0])) {
+	   } else if(DesiredMinistryArray.length == 0 ||  DesiredMinistryArray == null ) {
 			session.setAttribute(SessionConstants.STUDENT_ADD_ERROR, ERROR_NO_DESIRED_MINISTRY);	
-	  }
+	    }
 	   else if(!StringUtils.equals(Declaration, StringUtils.trimToEmpty("on"))){
 		   session.setAttribute(SessionConstants.STUDENT_ADD_ERROR, ERROR_DECLARATION_NOTCHECKED); 
     	 

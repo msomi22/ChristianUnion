@@ -282,7 +282,8 @@ Contacts author the: +254718953974
                               <td class="center">
                                 <form name="print" method="post" action="../studentReport" target="_blank">
                                 <input type="hidden" name="AdmNo" value="<%=s.getAdmNo()%>">
-                                <input class="btn btn-success" type="submit" name="printstudent" id="submit" value="PDF" />
+                                <!--<input class="toolbarBtn" type="hidden" name="page" value="home.jsp"> -->
+                     <input class="btn btn-success" type="submit" name="printstudent" id="submit" value="PDF" />
                                 </form> 
                                 </td>
                        </tr>
