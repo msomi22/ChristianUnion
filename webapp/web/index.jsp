@@ -121,7 +121,7 @@ Contacts author the: +254718953974
     <div id="tooplate_main" >
    
     <div id="homepage" class="clear">  
-     <h3><i class="icon-edit"></i>Membership Registration Form: Personl Information</h3>            
+     <h3><i class="icon-edit"></i>Membership Registration Form: Personnal Information</h3>            
       <P> <b style=color:red;>Please NOTE that fields marked with(*) are required/mandatory </b></P>
         
          <div class="box-content">
@@ -129,7 +129,7 @@ Contacts author the: +254718953974
                 <fieldset>
 
                     <div class="control-group">
-                        <label class="control-label" for="name">Admission Nummber*:</label>
+                        <label class="control-label" for="name">Admission Number*:</label>
                         <div class="controls">
                             <input class="input-xlarge focused" id="receiver" type="text" name="AdmNo" 
                             value="<%= StringUtils.trimToEmpty(paramHash.get("AdmNo")) %>"  >
@@ -364,11 +364,11 @@ Contacts author the: +254718953974
 
                      <h3><i class="icon-edit"></i> Student Declaration:</h3>        
                     <p>According to <b>MMUCU</b> Constitution <i>Article 6(A) (1)</i>.Full membership shall be open to all bonafide 
-                       registered undergeaduate students of <u>Maasai Mara University</u> Christan Union(Main campus) 
+                       registered undergraduate students of <u>Maasai Mara University</u> Christan Union(Main campus) 
                        who ascribe to the doctrinal basis in <i>article (5)</i> and soberly sign/accept the following declaration.</p>
                     <p>"In Joining <b>MMUCU,</b> <strong>I declare</strong> my Faith in Jesus as my Savior and Lord, and it is my desire by the Grace of God to
                     live a life consistent with this Declaration.I am also determined to give active support to the <b>MMUCU</b> as it seeks
-                    to fullfill it aims"</p>   
+                    to fulfil it aims"</p>   
                     <input type="checkbox" name="Declaration" id="Declaration" >
                     I Declare  <a href=#"></a>
 
@@ -392,7 +392,7 @@ Contacts author the: +254718953974
 
                       
                <i class="icon-edit"></i><p> COLOSSIANS 3:10 "Let the word of christ dwell in you richly in all
-               wisdom:teaching and admonishing one another in psalms and hymns and spiritual songs,singing
+               wisdom: teaching and admonishing one another in psalms and hymns and spiritual songs, singing
                with grace in your heart to the lord:</P> 
 
                    </div><!--/span-->
