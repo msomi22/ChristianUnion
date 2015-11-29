@@ -208,7 +208,7 @@
 
    <servlet-mapping>
         <servlet-name>StudentReport</servlet-name>
-        <url-pattern>/studentReport</url-pattern>
+        <url-pattern>/studentReport/*</url-pattern>
     </servlet-mapping>
 
 

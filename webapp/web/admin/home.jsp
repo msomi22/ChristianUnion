@@ -146,13 +146,16 @@ Contacts author the: +254718953974
                         
 
                                 String editErr = "";
+                                String reportErr = "";
                                 String editsuccess = "";
                                 session = request.getSession(false);
                                      editErr = (String) session.getAttribute(SessionConstants.STUDENT_UPDATE_ERROR);
+                                     reportErr = (String) session.getAttribute(SessionConstants.STUDENT_REPORT_ERROR);
                                      editsuccess = (String) session.getAttribute(SessionConstants.STUDENT_UPDATE_SUCCESS); 
 
                                 if(session != null) {
                                     editErr = (String) session.getAttribute(SessionConstants.STUDENT_UPDATE_ERROR);
+                                     reportErr = (String) session.getAttribute(SessionConstants.STUDENT_REPORT_ERROR);
                                     editsuccess = (String) session.getAttribute(SessionConstants.STUDENT_UPDATE_SUCCESS);
                                 }                        
 
@@ -167,6 +170,13 @@ Contacts author the: +254718953974
                                     out.println("success: " + editsuccess);
                                     out.println("</p>");                                   
                                     session.setAttribute(SessionConstants.STUDENT_UPDATE_SUCCESS, null);
+                                  } 
+
+                                  else if (StringUtils.isNotEmpty(reportErr)) {
+                                    out.println("<p style='color:red;'>");                                 
+                                    out.println("success: " + reportErr);
+                                    out.println("</p>");                                   
+                                    session.setAttribute(SessionConstants.STUDENT_REPORT_ERROR, null);
                                   } 
 
                             %>

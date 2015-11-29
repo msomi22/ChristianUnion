@@ -121,8 +121,8 @@ Contacts author the: +254718953974
     <div id="tooplate_main" >
    
     <div id="homepage" class="clear">  
-     <h3><i class="icon-edit"></i>Membership Registration Form: Personnal Information</h3>            
-      <P> <b style=color:red;>Please NOTE that fields marked with(*) are required/mandatory </b></P>
+    <P> <h3><i class="icon-edit"></i> Membership Registration Form: Personnal Information</h3> </P>            
+      <P>  <b style=color:red;>_________________ Please NOTE that fields marked with ( * ) are required/mandatory _____ </b></P>
         
          <div class="box-content">
             <form  class="form-horizontal"   action="addStudent" method="POST" >
@@ -218,7 +218,7 @@ Contacts author the: +254718953974
 
 
 
-                       <h3><i class="icon-edit"></i> Education Details*:</h3>      
+                       <h3><i class="icon-edit"></i> Education Details:</h3>      
 
 
                     <div class="control-group">

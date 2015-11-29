@@ -24,6 +24,8 @@ public class SessionConstants {
 	final public static String STUDENT_UPDATE_SUCCESS = "Student Updated Successfully";
 	final public static String STUDENT_UPDATE_ERROR = "Student Update Failed";
 	
+	final public static String STUDENT_REPORT_ERROR = "Report couldn't be generated";
+	
 	final public static String STUDENT_REGISTER_DETAILS = "Student Parameters";
 	
 	

@@ -75,10 +75,7 @@ protected void doPost(HttpServletRequest request, HttpServletResponse response)
    String academic_year = StringUtils.trimToEmpty(request.getParameter("academic_year"));
    String student_uuid = StringUtils.trimToEmpty(request.getParameter("student_uuid"));
    String email = StringUtils.trimToEmpty(request.getParameter("email"));
-   
-   s = studentDAO.getStudentByUuid(student_uuid);
-   theEmail = s.getEmail();
-   AcademicYear = s.getAcademicYear();
+  
    
    if(StringUtils.isBlank(academic_year)){
 	   session.setAttribute(SessionConstants.STUDENT_UPDATE_ERROR, ERROR_BLANK_ACADEMIC_YEAR); 
@@ -105,9 +102,11 @@ protected void doPost(HttpServletRequest request, HttpServletResponse response)
 	   session.setAttribute(SessionConstants.STUDENT_UPDATE_ERROR, ERROR_BLANK_STUDENT_UUID); 
 	   
     }else{
-	  
-	     // s = studentDAO.getStudentByUuid(student_uuid);
-	      //System.out.println(theEmail);
+    	 
+    	   s = studentDAO.getStudentByUuid(student_uuid);
+    	   theEmail = s.getEmail();
+    	   AcademicYear = s.getAcademicYear();
+	    
 	      String status_active = "85C6F08E-902C-46C2-8746-8C50E7D11E2E"; 
 	     
 	      Date now = new Date();
