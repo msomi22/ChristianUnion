@@ -1,15 +1,14 @@
 <%
 /**
 Maasai Mara University Christian Union Online Management System.
-
-
 Copyright 2015 Fastech Solutions Ltd
 Licensed under the Open Software License, Version 3.0 
-The codes herein AND/OR this file should NOT, under any circumstances whatsoever, be copied without the author's approval.
-
-Contacts author the: +254718953974
-
-@author peter<a href="mailto:mwendapeter72@gmail.com">Peter mwenda</a>
+The codes herein AND/OR this file CAN BE copied without the author's approval for learning purposes or for use in one's own project
+if need be, feel free to contact the author
+Contacts, Mobile: +254718953974
+         email: mwendapeter72@gmail.com
+         email: petermwenda83@yahoo.com 
+         @author peter<a href="mailto:mwendapeter72@gmail.com">Peter mwenda</a>
  */
 %>
 
@@ -90,7 +89,7 @@ $(window).load(function() {
     <div id="tooplate_menu">
         <ul>
             <li><a href="home.jsp" class="current">Home</a></li>
-             <li><a href="#">Manage </a></li>
+            <li><a href="manage.jsp">Manage </a></li>
             <li class="last"><a href="#">Sadaka</a></li>
             <li class="last"><a href="index.jsp">Logout</a></li>
         </ul>    	

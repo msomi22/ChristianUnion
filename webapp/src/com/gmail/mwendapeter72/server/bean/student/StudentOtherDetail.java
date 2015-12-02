@@ -1,23 +1,29 @@
 /**
- * 
+*StudentOtherDetail.java
+*
 *Maasai Mara University Christian Union Online Management System.
 *Copyright 2015 Fastech Solutions Ltd
 *Licensed under the Open Software License, Version 3.0 
-*The codes herein AND/OR this file should NOT, under any circumstances whatsoever, be copied without the author's approval.
-*Contacts author the: +254718953974
-*
+*The codes herein AND/OR this file CAN BE copied without the author's approval for learning purposes or for use in one's own project
+*if need be, feel free to contact the author
+*Contacts, Mobile: +254718953974
+*         email: mwendapeter72@gmail.com
+*         email: petermwenda83@yahoo.com 
 **/
 package com.gmail.mwendapeter72.server.bean.student;
 
 import com.gmail.mwendapeter72.server.bean.AllBean;
 
-/**
- * @author Muriithi<a href="mailto:mattjohnmurii@gmail.com">Muriithi John</a>
- * @author peter<a href="mailto:mwendapeter72@gmail.com">Peter mwenda</a>
+/**<p>
+ * Student Other details, these include non-personal information
+ * </P>
+ * @author <a href="mailto:mattjohnmurii@gmail.com">Muriithi John</a>
+ * @author <a href="mailto:mwendapeter72@gmail.com">Peter mwenda</a>
  *
  */
 public class StudentOtherDetail extends AllBean {
 
+	
 	/**
 	 * 
 	 */
@@ -111,7 +117,9 @@ public class StudentOtherDetail extends AllBean {
 		MinistryVision = ministryVision;
 	}
 
-	@Override
+	/**
+	 * @see java.lang.Object#toString()
+	 */
 	public String toString(){
 		StringBuilder builder = new StringBuilder();
 		builder.append("Student Other Details [ getUuid() =");
@@ -134,5 +142,5 @@ public class StudentOtherDetail extends AllBean {
 		return builder.toString(); 
 		}
 	
-
+	private static final long serialVersionUID = 3177630001274889508L;
 }

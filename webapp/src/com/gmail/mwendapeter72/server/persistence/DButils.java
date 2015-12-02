@@ -1,11 +1,14 @@
 /**
- * 
+*DButils.java
+*
 *Maasai Mara University Christian Union Online Management System.
 *Copyright 2015 Fastech Solutions Ltd
 *Licensed under the Open Software License, Version 3.0 
-*The codes herein AND/OR this file should NOT, under any circumstances whatsoever, be copied without the author's approval.
-*Contacts author the: +254718953974
-*
+*The codes herein AND/OR this file CAN BE copied without the author's approval for learning purposes or for use in one's own project
+*if need be, feel free to contact the author
+*Contacts, Mobile: +254718953974
+*         email: mwendapeter72@gmail.com
+*         email: petermwenda83@yahoo.com 
 **/
 package com.gmail.mwendapeter72.server.persistence;
 
@@ -21,8 +24,14 @@ import com.zaxxer.hikari.HikariConfig;
 import com.zaxxer.hikari.HikariDataSource;
 
 /**
+ * Information on logging into the database and pooling of JDBC. This
+ * class connects to the database.
+ * <p>
+ * Connection credentials like database name, password and IP are in an external
+ * configuration file.
+ * <p>
  * 
- * @author peter<a href="mailto:mwendapeter72@gmail.com">Peter mwenda</a>
+ * @author <a href="mailto:mwendapeter72@gmail.com">Peter mwenda</a>
  *
  */
 
@@ -48,11 +57,11 @@ public class DButils {
 	}
 	
 	/**
-	 * @param databaseName
-	 * @param Host
-	 * @param databaseUsername
-	 * @param databasePassword
-	 * @param databasePort
+	 * @param databaseName the  databaseName
+	 * @param Host the Host
+	 * @param databaseUsername the databaseUsername
+	 * @param databasePassword the databasePassword
+	 * @param databasePort the databasePort
 	 */
 	public DButils(String databaseName,String Host,String databaseUsername ,
 			String databasePassword,int databasePort){
@@ -67,8 +76,8 @@ public class DButils {
 
 
 	/**
-	 * @return con
-	 * @throws SQLException
+	 * @return con the db connection
+	 * @throws SQLException the SQLException
 	 */
 	public Connection getConnection() throws SQLException{
           Connection conn = null;

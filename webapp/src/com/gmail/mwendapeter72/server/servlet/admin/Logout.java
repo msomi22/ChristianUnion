@@ -1,11 +1,14 @@
 /**
- * 
+*Logout.java
+*
 *Maasai Mara University Christian Union Online Management System.
 *Copyright 2015 Fastech Solutions Ltd
 *Licensed under the Open Software License, Version 3.0 
-*The codes herein AND/OR this file should NOT, under any circumstances whatsoever, be copied without the author's approval.
-*Contacts author the: +254718953974
-*
+*The codes herein AND/OR this file CAN BE copied without the author's approval for learning purposes or for use in one's own project
+*if need be, feel free to contact the author
+*Contacts, Mobile: +254718953974
+*         email: mwendapeter72@gmail.com
+*         email: petermwenda83@yahoo.com 
 **/
 package com.gmail.mwendapeter72.server.servlet.admin;
 
@@ -19,6 +22,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 /**
+ * Invalidate admin session 
  *  @author peter<a href="mailto:mwendapeter72@gmail.com">Peter mwenda</a>
  *
  */
@@ -54,18 +58,14 @@ public class Logout extends HttpServlet{
         }  
     }
 
+   
     /**
-     * Handles the HTTP <code>GET</code> method.
-     *
-     * @param request servlet request
-     * @param response servlet response
-     * @throws ServletException if a servlet-specific error occurs
-     * @throws IOException if an I/O error occurs
+     * @see javax.servlet.http.HttpServlet#doGet(javax.servlet.http.HttpServletRequest, javax.servlet.http.HttpServletResponse)
      */
-    @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         doPost(request, response);
     }
 
+    private static final long serialVersionUID = -8169765800602209190L;
 }

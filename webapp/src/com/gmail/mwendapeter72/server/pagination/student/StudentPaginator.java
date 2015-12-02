@@ -1,11 +1,14 @@
 /**
- * 
+*StudentPaginator.java
+*
 *Maasai Mara University Christian Union Online Management System.
 *Copyright 2015 Fastech Solutions Ltd
 *Licensed under the Open Software License, Version 3.0 
-*The codes herein AND/OR this file should NOT, under any circumstances whatsoever, be copied without the author's approval.
-*Contacts author the: +254718953974
-*
+*The codes herein AND/OR this file CAN BE copied without the author's approval for learning purposes or for use in one's own project
+*if need be, feel free to contact the author
+*Contacts, Mobile: +254718953974
+*         email: mwendapeter72@gmail.com
+*         email: petermwenda83@yahoo.com 
 **/
 package com.gmail.mwendapeter72.server.pagination.student;
 
@@ -18,7 +21,10 @@ import com.gmail.mwendapeter72.server.persistence.utils.StudentUtils;
 
 
 /**
- * @author peter<a href="mailto:mwendapeter72@gmail.com">Peter mwenda</a>
+ * <p>
+ * This Paginator is used to manage pagination so that we can control the number of students displayed per page
+ * </p>
+ * @author <a href="mailto:mwendapeter72@gmail.com">Peter mwenda</a>
  *
  */
 public class StudentPaginator {
@@ -27,27 +33,20 @@ public class StudentPaginator {
 	private static StudentUtils studentUtils;
 	private static StudentDAO studentDAO;
 	private String AdmNo;
-    
-	/**
-	 * @param SchoolAccountUuid 
-	 * 
-	 */
+   
 	public StudentPaginator() {
-		//account = new SchoolAccount();
-		//account.setUuid(SchoolAccountUuid); 
-		
 	    studentUtils = StudentUtils.getInstance();
 		studentDAO = StudentDAO.getInstance();
-		//this.SchoolAccountUuid = SchoolAccountUuid;
+		
 	}
 	
-	    /**
-	     * @param databaseName
-	     * @param Host
-	     * @param databaseUsername
-	     * @param databasePassword
-	     * @param databasePort
-	     */
+	 /**
+     * @param databaseName the  databaseName
+     * @param Host the Host
+     * @param databaseUsername the databaseUsername
+     * @param databasePassword the databasePassword 
+     * @param databasePort the database Port
+     */
 	    public StudentPaginator(String databaseName, String Host, String databaseUsername, String databasePassword, int databasePort) {
 
 	        //initialize the DAOs
@@ -91,12 +90,11 @@ public class StudentPaginator {
     * Moves you forward to the page of the Incoming USSD session that comes
     * after the current page
     *
-    * @param currentPage
-    * @return	an Incoming USSD page
+    * @param currentPage the currentPage
+    * @return an Incoming USSD page
     */
    public StudentPage getNextPage(final StudentPage currentPage) {
        int totalPage = getTotalPage();
-
        StudentPage page = new StudentPage();
        List<Student> smsList = studentDAO.getStudentList(currentPage.getPageNum() * PAGESIZE, 
        		((currentPage.getPageNum() * PAGESIZE) + PAGESIZE));
@@ -111,7 +109,7 @@ public class StudentPaginator {
     * Moves you backward to the page of the Incoming USSD session that comes
     * before the current page
     *
-    * @param currentPage
+    * @param currentPage the currentPage
     * @return	an Incoming USSD page
     */
    public StudentPage getPrevPage(final StudentPage currentPage) {
@@ -138,10 +136,7 @@ public class StudentPaginator {
 		public int getTotalPage() {
 	        int totalSize = 0;
 
-	        //get the number of all sessions belonging to this email
 	        totalSize = studentUtils.getStudents(AdmNo);
-
-	//TODO: divide by the page size and add one to take care of remainders and what else?
 	        return ((totalSize - 1) / PAGESIZE) + 1;
 	    }
 	    

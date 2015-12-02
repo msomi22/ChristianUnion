@@ -1,4 +1,55 @@
-﻿Maasai Mara University ChristianUnion Management System
+﻿Maasai Mara University Christian Union Management System
+
+
+
+
+
+
+Acknowledgments
+I’d like to thank my colleagues who donated their time to review my entire documentations and codes, including my dad Peter Njeru(for his financial support), Joram Murithi(he gave me this idea),John Murithi(he did some coding),Migwi Nd'ung'u(did some proof-reading and coding the UI),Betty Kanana(for testing) and most important I acknowledge, Joyce Njoki Njuguna for her encouragements,reviewing and testing the system,proof-reading every part of the project and for her prayers,I can't forget to acknowledge the Almighty God for He was our driver all through. Any errors in the sysyem are entirely their fault (just kidding).
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 The system uses the following Programming techniques and libraries. 
 1) The System is based on Java Enterprise Edition (JavaEE), employing the widely used and the most professional and secure design/model, The MVC model . This means the system comprises some jsp files, java classes, Servlets ,xml files etc.
@@ -34,74 +85,6 @@ The form captures some relevant data which are then stored in a database.
 
 After a student registers with the system, his/her information will remain Active for a period of one year, after which, the information will be automatically in-activated by the system itself, some Scheduling libraries are used here.
 If the information is inactive , the student is expected to activate his/her Details through the activation module found in the student part of the System.
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
@@ -159,44 +142,6 @@ Here, the student is expected to supply his/her Admission number, the System wil
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
                     END OF STUDENT PART
 
 
@@ -211,71 +156,8 @@ On clicking a particular admission number, some more information will be display
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 2) The second part enables the Administrator to edit/update student information.
     
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 

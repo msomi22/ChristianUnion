@@ -1,11 +1,14 @@
 /**
- * 
+*QuartzListener.java
+*
 *Maasai Mara University Christian Union Online Management System.
 *Copyright 2015 Fastech Solutions Ltd
 *Licensed under the Open Software License, Version 3.0 
-*The codes herein AND/OR this file should NOT, under any circumstances whatsoever, be copied without the author's approval.
-*Contacts author the: +254718953974
-*
+*The codes herein AND/OR this file CAN BE copied without the author's approval for learning purposes or for use in one's own project
+*if need be, feel free to contact the author
+*Contacts, Mobile: +254718953974
+*         email: mwendapeter72@gmail.com
+*         email: petermwenda83@yahoo.com 
 **/
 package com.gmail.mwendapeter72.server.servlet.quartz;
 
@@ -28,7 +31,8 @@ import com.gmail.mwendapeter72.server.test.quartz.QuartzJob;
 public class QuartzListener extends HttpServlet implements ServletContextListener {
 
 /**
- * @author peter<a href="mailto:mwendapeter72@gmail.com">Peter mwenda</a>
+ * initialize the quarts scheduling file
+ * @author <a href="mailto:mwendapeter72@gmail.com">Peter mwenda</a>
  *
  */
 	private static final long serialVersionUID = -594007090895227780L;
@@ -41,16 +45,13 @@ public class QuartzListener extends HttpServlet implements ServletContextListene
          * @see javax.servlet.ServletContextListener#contextInitialized(javax.servlet.ServletContextEvent)
          */
         public void contextInitialized(ServletContextEvent servletContext) {
-
-               //System.out.println("Context Initialized ::::Quartz By PeterMwenda");
-                
-                try {
+                  
+        	  try {
                         // Setup the Job class and the Job group
                         JobDetail job = newJob(QuartzJob.class).withIdentity(
                                         "CronQuartzJob", "Group").build();
 
-                        // Create a Trigger that fires every .... 
-                        //"20 20 23 ? * *"
+                        // Create a Trigger that fires every 5 minutes 
                         Trigger trigger = newTrigger()
                         .withIdentity("TriggerName", "Group")
                         .startNow()
@@ -62,9 +63,9 @@ public class QuartzListener extends HttpServlet implements ServletContextListene
                         scheduler.start();
                         scheduler.scheduleJob(job, trigger);
                        
-                }
-                catch (SchedulerException e) {
-                        e.printStackTrace();
+                     }
+                 catch (SchedulerException e) {
+                   e.printStackTrace();
                 }
         }
 
@@ -72,14 +73,13 @@ public class QuartzListener extends HttpServlet implements ServletContextListene
          * @see javax.servlet.ServletContextListener#contextDestroyed(javax.servlet.ServletContextEvent)
          */
         public void contextDestroyed(ServletContextEvent servletContext) {
-                //System.out.println("Context Destroyed ::::Quartz By PeterMwenda");
                 try 
                 {
-                        scheduler.shutdown();
-                } 
-                catch (SchedulerException e) 
-                {
-                        e.printStackTrace();
+                    scheduler.shutdown();
+                  } 
+                  catch (SchedulerException e) 
+                 {
+                     e.printStackTrace();
                 }
-        }
+           }
 }

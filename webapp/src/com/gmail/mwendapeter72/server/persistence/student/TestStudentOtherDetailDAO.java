@@ -1,11 +1,14 @@
 /**
- * 
+*TestStudentOtherDetailDAO.java
+*
 *Maasai Mara University Christian Union Online Management System.
 *Copyright 2015 Fastech Solutions Ltd
 *Licensed under the Open Software License, Version 3.0 
-*The codes herein AND/OR this file should NOT, under any circumstances whatsoever, be copied without the author's approval.
-*Contacts author the: +254718953974
-*
+*The codes herein AND/OR this file CAN BE copied without the author's approval for learning purposes or for use in one's own project
+*if need be, feel free to contact the author
+*Contacts, Mobile: +254718953974
+*         email: mwendapeter72@gmail.com
+*         email: petermwenda83@yahoo.com 
 **/
 package com.gmail.mwendapeter72.server.persistence.student;
 
@@ -19,7 +22,8 @@ import org.junit.Test;
 import com.gmail.mwendapeter72.server.bean.student.StudentOtherDetail;
 
 /**
- * @author muriithi
+ * persistence test for {@link StudentOtherDetailDAO}
+ *  @author <a href="mailto:mwendapeter72@gmail.com">Peter mwenda</a>
  *
  */
 public class TestStudentOtherDetailDAO {
@@ -93,6 +97,7 @@ public class TestStudentOtherDetailDAO {
 		 assertTrue(store.putDetail(s));
 	}
 
+
 	/**
 	 * Test method for {@link com.gmail.mwendapeter72.server.persistence.student.StudentOtherDetailDAO#updateDetail(com.gmail.mwendapeter72.server.bean.student.StudentOtherDetail, java.lang.String)}.
 	 */
@@ -114,7 +119,7 @@ public class TestStudentOtherDetailDAO {
 	/**
 	 * Test method for {@link com.gmail.mwendapeter72.server.persistence.student.StudentOtherDetailDAO#deleteDetail(com.gmail.mwendapeter72.server.bean.student.StudentOtherDetail)}.
 	 */
-	//@Ignore
+	@Ignore
 	@Test
 	public void testDeleteDetail() {
 		store = new StudentOtherDetailDAO(databaseName, Host, databaseUsername, databasePassword, databasePort);
@@ -124,11 +129,11 @@ public class TestStudentOtherDetailDAO {
 	}
 
 	/**
-	 * Test method for {@link com.gmail.mwendapeter72.server.persistence.student.StudentOtherDetailDAO#getAllDetgail()}.
+	 * Test method for {@link com.gmail.mwendapeter72.server.persistence.student.StudentOtherDetailDAO#getAllDetailList(int, int)}.
 	 */
 	@Ignore
 	@Test
-	public void testGetAllDetgail() {
+	public void testGetAllDetailList() {
 		store = new StudentOtherDetailDAO(databaseName, Host, databaseUsername, databasePassword, databasePort);
 		 List<StudentOtherDetail> studentList = store.getAllDetailList(0,10);
 		 //assertEquals(studentList.size() , 15);

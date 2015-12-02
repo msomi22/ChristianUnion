@@ -1,11 +1,14 @@
 /**
- * 
+*TestStudentDAO.java
+*
 *Maasai Mara University Christian Union Online Management System.
 *Copyright 2015 Fastech Solutions Ltd
 *Licensed under the Open Software License, Version 3.0 
-*The codes herein AND/OR this file should NOT, under any circumstances whatsoever, be copied without the author's approval.
-*Contacts author the: +254718953974
-*
+*The codes herein AND/OR this file CAN BE copied without the author's approval for learning purposes or for use in one's own project
+*if need be, feel free to contact the author
+*Contacts, Mobile: +254718953974
+*         email: mwendapeter72@gmail.com
+*         email: petermwenda83@yahoo.com 
 **/
 package com.gmail.mwendapeter72.server.persistence.student;
 
@@ -21,8 +24,9 @@ import com.gmail.mwendapeter72.server.bean.student.Student;
 
 
 /**
- * @author peter<a href="mailto:mwendapeter72@gmail.com">Peter mwenda</a>
- * @author joram<a href="mailto:joramndungu10@gmail.com">Joram Muriithi</a>
+ * persistence test for {@link StudentDAO}
+ * @author <a href="mailto:mwendapeter72@gmail.com">Peter mwenda</a>
+ * @author <a href="mailto:joramndungu10@gmail.com">Joram Muriithi</a>
  *
  */
 public class TestStudentDAO {
@@ -100,9 +104,10 @@ public class TestStudentDAO {
 	
 	 private StudentDAO store;
 
-	/**
-	 * Test method for {@link com.gmail.mwendapeter72.server.persistence.student.StudentDAO#getStudent(java.lang.String)}.
-	 */
+
+		/**
+		 * Test method for {@link com.gmail.mwendapeter72.server.persistence.student.StudentDAO#getStudent(java.lang.String)}.
+		 */
 	@Ignore
 	@Test
 	public void testGetStudent() {
@@ -125,7 +130,7 @@ public class TestStudentDAO {
 	}
 	
 	/**
-	 * Test method for {@link com.gmail.mwendapeter72.server.persistence.student.StudentDAO#getStudentByUuid(java.lang.String)}.
+	 * Test method for {@link com.gmail.mwendapeter72.server.persistence.student.StudentDAO#getStudentByEmail(java.lang.String)}.
 	 */
 	@Ignore
 	@Test
@@ -138,7 +143,7 @@ public class TestStudentDAO {
 
 	
 	/**
-	 * Test method for {@link com.yahoo.petermwenda83.persistence.student.StudentDAO#putStudent(com.yahoo.petermwenda83.bean.student.StudentSubject)}.
+	 * Test method for {@link com.gmail.mwendapeter72.server.persistence.student.StudentDAO#getStudentAdmNo(java.lang.String)}.
 	 */
 	@Ignore
 	@Test
@@ -209,8 +214,9 @@ public class TestStudentDAO {
 
 	
 	
+
 	/**
-	 * Test method for {@link com.gmail.mwendapeter72.server.persistence.student.StudentDAO#updateStudent(com.gmail.mwendapeter72.server.bean.student.Student, java.lang.String)}.
+	 * Test method for {@link com.gmail.mwendapeter72.server.persistence.student.StudentDAO#activateStudent(com.gmail.mwendapeter72.server.bean.student.Student)}.
 	 */
 	@Ignore
 	@Test
@@ -227,7 +233,7 @@ public class TestStudentDAO {
 	}
 	
 	/**
-	 * Test method for {@link com.gmail.mwendapeter72.server.persistence.student.StudentDAO#updateStudent(com.gmail.mwendapeter72.server.bean.student.Student, java.lang.String)}.
+	 * Test method for {@link com.gmail.mwendapeter72.server.persistence.student.StudentDAO#deActivateStudent(com.gmail.mwendapeter72.server.bean.student.Student)}.
 	 */
 	@Ignore
 	@Test
@@ -243,7 +249,7 @@ public class TestStudentDAO {
 	/**
 	 * Test method for {@link com.gmail.mwendapeter72.server.persistence.student.StudentDAO#deleteStudent(com.gmail.mwendapeter72.server.bean.student.Student, java.lang.String)}.
 	 */
-	//@Ignore
+	@Ignore
 	@Test
 	public void testDeleteStudent() {
 		 store = new StudentDAO(databaseName, Host, databaseUsername, databasePassword, databasePort);
@@ -253,7 +259,7 @@ public class TestStudentDAO {
 	}
 
 	/**
-	 * Test method for {@link com.gmail.mwendapeter72.server.persistence.student.StudentDAO#getAllStdeunt()}.
+	 * Test method for {@link com.gmail.mwendapeter72.server.persistence.student.StudentDAO#getStudentList(int, int)}.
 	 */
 	@Ignore
 	@Test
@@ -267,7 +273,7 @@ public class TestStudentDAO {
 	}
 	
 	/**
-	 * Test method for {@link com.gmail.mwendapeter72.server.persistence.student.StudentDAO#getAllStdeunt()}.
+	 * Test method for {@link com.gmail.mwendapeter72.server.persistence.student.StudentDAO#getStudentList()}.
 	 */
 	@Ignore
 	@Test

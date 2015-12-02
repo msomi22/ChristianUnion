@@ -1,24 +1,20 @@
 <%
 /**
 Maasai Mara University Christian Union Online Management System.
-
-
 Copyright 2015 Fastech Solutions Ltd
 Licensed under the Open Software License, Version 3.0 
-The codes herein AND/OR this file should NOT, under any circumstances whatsoever, be copied without the author's approval.
-
-Contacts author the: +254718953974
-
-@author peter<a href="mailto:mwendapeter72@gmail.com">Peter mwenda</a>
+The codes herein AND/OR this file CAN BE copied without the author's approval for learning purposes or for use in one's own project
+if need be, feel free to contact the author
+Contacts, Mobile: +254718953974
+         email: mwendapeter72@gmail.com
+         email: petermwenda83@yahoo.com 
+         @author peter<a href="mailto:mwendapeter72@gmail.com">Peter mwenda</a>
  */
 %>
 
 
 <%@page import="com.gmail.mwendapeter72.server.pagination.student.StudentPaginator"%>
 <%@page import="com.gmail.mwendapeter72.server.pagination.student.StudentPage"%>
-
-<%@page import="com.gmail.mwendapeter72.server.pagination.student.detail.StudentPaginator2"%>
-<%@page import="com.gmail.mwendapeter72.server.pagination.student.detail.StudentPage2"%>
 
 <%@page import="com.gmail.mwendapeter72.server.persistence.student.StudentDAO"%>
 <%@page import="com.gmail.mwendapeter72.server.bean.student.Student"%>
@@ -30,8 +26,7 @@ Contacts author the: +254718953974
 <%@page import="com.gmail.mwendapeter72.server.persistence.student.StatusDAO"%>
 <%@page import="com.gmail.mwendapeter72.server.bean.student.Status"%>
 
-<%@page import="com.gmail.mwendapeter72.server.session.SessionConstants"%>
-<%@page import="com.gmail.mwendapeter72.server.session.admin.SessionConstants2"%>
+<%@page import="com.gmail.mwendapeter72.server.session.admin.SessionConstants"%>
 
 <%@page import="org.apache.commons.lang3.StringUtils"%>
 <%@page import="java.util.ArrayList"%>
@@ -55,13 +50,13 @@ Contacts author the: +254718953974
         response.sendRedirect("index.jsp");
     }
 
-    String username = (String) session.getAttribute(SessionConstants2.ADMIN_SESSION_KEY);
+    String username = (String) session.getAttribute(SessionConstants.ADMIN_SESSION_KEY);
     if (StringUtils.isEmpty(username)) {
         response.sendRedirect("index.jsp");
     }
 
-     session.setMaxInactiveInterval(SessionConstants2.SESSION_TIMEOUT);
-     response.setHeader("Refresh", SessionConstants2.SESSION_TIMEOUT + "; url=/ChristianUnion/admin");
+     session.setMaxInactiveInterval(SessionConstants.SESSION_TIMEOUT);
+     response.setHeader("Refresh", SessionConstants.SESSION_TIMEOUT + "; url=/ChristianUnion/admin");
 
    HashMap<String, String> statusHash = new HashMap<String, String>();
 
@@ -289,11 +284,10 @@ Contacts author the: +254718953974
                                 </form>   
                       
                         </td>  
-                              <td class="center">
+                               <td class="center">
                                 <form name="print" method="post" action="../studentReport" target="_blank">
                                 <input type="hidden" name="AdmNo" value="<%=s.getAdmNo()%>">
-                                <!--<input class="toolbarBtn" type="hidden" name="page" value="home.jsp"> -->
-                     <input class="btn btn-success" type="submit" name="printstudent" id="submit" value="PDF" />
+                                <input class="btn btn-success" type="submit" name="printstudent" id="submit" value="PDF" />
                                 </form> 
                                 </td>
                        </tr>
@@ -334,7 +328,7 @@ Contacts author the: +254718953974
                     
                     
                     
-	            </div>
+	            </div> 
 
 
               

@@ -1,0 +1,23 @@
+++++++++  Maasai Mara university Christain Union Management System  ++++++++
+
+
+++TODO++
+  Load Test: We subject the application to work level approaching the limit of its spesifications.
+
+             GOAL: Define the maximum amount of work the system can handle without significance 
+                   performance degradation.
+
+
+  
+       1)Longevity/Endurance testing: - we evaluates system's ability to handle constant moderate work load for a long time.
+
+       2)Volume Testing: - we subject the system to heavy work load for a limited time
+       
+       NB:
+       Stress Testing:
+       we evaluate the extents to which the system keep working when subjected to extreme work loads
+
+
+ Pilot Test: group of end users will try the system prior to it full deployment, this will enable us give back feedback on the performance of the system
+
+ Beta Test: testing the product in it user's environment (by all users)

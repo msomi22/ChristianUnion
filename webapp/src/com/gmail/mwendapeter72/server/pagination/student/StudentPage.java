@@ -1,11 +1,14 @@
 /**
- * 
+*StudentPage.java
+*
 *Maasai Mara University Christian Union Online Management System.
 *Copyright 2015 Fastech Solutions Ltd
 *Licensed under the Open Software License, Version 3.0 
-*The codes herein AND/OR this file should NOT, under any circumstances whatsoever, be copied without the author's approval.
-*Contacts author the: +254718953974
-*
+*The codes herein AND/OR this file CAN BE copied without the author's approval for learning purposes or for use in one's own project
+*if need be, feel free to contact the author
+*Contacts, Mobile: +254718953974
+*         email: mwendapeter72@gmail.com
+*         email: petermwenda83@yahoo.com 
 **/
 package com.gmail.mwendapeter72.server.pagination.student;
 
@@ -17,7 +20,10 @@ import com.gmail.mwendapeter72.server.bean.student.Student;
 
 
 /**
- * @author peter<a href="mailto:mwendapeter72@gmail.com">Peter mwenda</a>
+ * <p>
+ * This POJO is used to manage pagination so that we can control the number of students displayed per page
+ * </p>
+ * @author <a href="mailto:mwendapeter72@gmail.com">Peter mwenda</a>
  *
  */
 public class StudentPage {
@@ -37,7 +43,12 @@ public class StudentPage {
 		contents = new ArrayList<>();
 	}
    
-	
+	/**
+	 * @param pageNum the pageNum
+	 * @param totalPage the totalPage
+	 * @param pagesize the  pagesize
+	 * @param contents the contents
+	 */
 	public StudentPage(final int pageNum, final int totalPage, final int pagesize,
 			final List<Student> contents) {
 		this.pageNum = pageNum;
@@ -106,7 +117,7 @@ public class StudentPage {
 
     /**
      *
-     * @return		<code>true</code> if this is the first page; <code>false</code>
+     * @return	<code>true</code> if this is the first page; <code>false</code>
      * for otherwise
      */
 	
@@ -116,7 +127,7 @@ public class StudentPage {
 
 	    /**
 	     *
-	     * @return		<code>true</code> if this is the last page; <code>false</code>
+	     * @return	<code>true</code> if this is the last page; <code>false</code>
 	     * for otherwise
 	     */
 	    public boolean isLastPage() {

@@ -1,11 +1,14 @@
 /**
- * 
+*Login.java
+*
 *Maasai Mara University Christian Union Online Management System.
 *Copyright 2015 Fastech Solutions Ltd
 *Licensed under the Open Software License, Version 3.0 
-*The codes herein AND/OR this file should NOT, under any circumstances whatsoever, be copied without the author's approval.
-*Contacts author the: +254718953974
-*
+*The codes herein AND/OR this file CAN BE copied without the author's approval for learning purposes or for use in one's own project
+*if need be, feel free to contact the author
+*Contacts, Mobile: +254718953974
+*         email: mwendapeter72@gmail.com
+*         email: petermwenda83@yahoo.com 
 **/
 package com.gmail.mwendapeter72.server.servlet.admin;
 
@@ -27,23 +30,26 @@ import org.apache.log4j.Logger;
 import org.jasypt.util.text.BasicTextEncryptor;
 
 import com.gmail.mwendapeter72.server.servlet.util.PropertiesConfig;
-import com.gmail.mwendapeter72.server.session.admin.SessionConstants2;
-//import com.gmail.mwendapeter72.server.util.FontImageGenerator;
+import com.gmail.mwendapeter72.server.session.admin.SessionConstants;
 
 /**
+ * used for admin login
  * @author peter<a href="mailto:mwendapeter72@gmail.com">Peter mwenda</a>
  *
  */
 public class Login extends HttpServlet{
 	
-	 private Logger logger;
-	 // Error message provided when incorrect captcha is submitted
-	    final String ACCOUNT_SIGN_IN_BAD_CAPTCHA = "Sorry, the characters you entered did not "
+	 /**
+	 * 
+	 */
+	
+	private Logger logger;
+	final String ACCOUNT_SIGN_IN_BAD_CAPTCHA = "Sorry, the characters you entered did not "
 	            + "match those provided in the image. Please try again.";
    
-	    private BasicTextEncryptor textEncryptor;
+	private BasicTextEncryptor textEncryptor;
 
-		  private String hiddenCaptchaStr = "";
+	private String hiddenCaptchaStr = "";
 		 
 	/**
      *
@@ -74,23 +80,21 @@ public class Login extends HttpServlet{
          String password = StringUtils.trimToEmpty(request.getParameter("Password"));
          hiddenCaptchaStr = request.getParameter("captchaHidden");
          String captchaAnswer = request.getParameter("captchaAnswer").trim();
-         
-         //System.out.println(username);
-         //System.out.println(password);
+       
         
          if (!StringUtils.equals(password, PropertiesConfig.getConfigValue("ADMIN_PASSWORD"))) {
-             session.setAttribute(SessionConstants2.ADMIN_SIGN_IN_ERROR_KEY, SessionConstants2.ADMIN_SIGN_IN_ERROR_VALUE);
+             session.setAttribute(SessionConstants.ADMIN_SIGN_IN_ERROR_KEY, SessionConstants.ADMIN_SIGN_IN_ERROR_VALUE);
              response.sendRedirect("admin/index.jsp");
          } else if (!StringUtils.equals(username, PropertiesConfig.getConfigValue("ADMIN_USERNAME"))) {
-            session.setAttribute(SessionConstants2.ADMIN_SIGN_IN_ERROR_KEY, SessionConstants2.ADMIN_SIGN_IN_ERROR_KEY);
+            session.setAttribute(SessionConstants.ADMIN_SIGN_IN_ERROR_KEY, SessionConstants.ADMIN_SIGN_IN_ERROR_KEY);
             response.sendRedirect("admin/index.jsp");
          
          }else if (!validateCaptcha(hiddenCaptchaStr, captchaAnswer)) {
-             session.setAttribute(SessionConstants2.ADMIN_SIGN_IN_ERROR_KEY, ACCOUNT_SIGN_IN_BAD_CAPTCHA);
+             session.setAttribute(SessionConstants.ADMIN_SIGN_IN_ERROR_KEY, ACCOUNT_SIGN_IN_BAD_CAPTCHA);
              response.sendRedirect("admin/index.jsp");
          } else {
-             session.setAttribute(SessionConstants2.ADMIN_SESSION_KEY, "admin");
-             session.setAttribute(SessionConstants2.ADMIN_LOGIN_TIME_KEY, new Date());
+             session.setAttribute(SessionConstants.ADMIN_SESSION_KEY, "admin");
+             session.setAttribute(SessionConstants.ADMIN_LOGIN_TIME_KEY, new Date());
              
             response.sendRedirect("admin/home.jsp");
          }
@@ -130,4 +134,5 @@ private boolean validateCaptcha(String encodedSystemCaptcha, String userCaptcha)
             throws ServletException, IOException {
         processRequest(request, response);
     }
+    private static final long serialVersionUID = 8039574614217263114L;
 }

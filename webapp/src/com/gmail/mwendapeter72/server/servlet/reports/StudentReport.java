@@ -1,6 +1,15 @@
 /**
- * 
- */
+*StudentReport.java
+*
+*Maasai Mara University Christian Union Online Management System.
+*Copyright 2015 Fastech Solutions Ltd
+*Licensed under the Open Software License, Version 3.0 
+*The codes herein AND/OR this file CAN BE copied without the author's approval for learning purposes or for use in one's own project
+*if need be, feel free to contact the author
+*Contacts, Mobile: +254718953974
+*         email: mwendapeter72@gmail.com
+*         email: petermwenda83@yahoo.com 
+**/
 package com.gmail.mwendapeter72.server.servlet.reports;
 
 import java.io.IOException;
@@ -42,7 +51,8 @@ import com.itextpdf.text.pdf.PdfWriter;
 
 
 /**
- * @author peter
+ * Generate student report inform of PDF
+ * @author <a href="mailto:mwendapeter72@gmail.com">Peter mwenda</a>
  *
  */
 public class StudentReport extends HttpServlet{
@@ -70,7 +80,7 @@ public class StudentReport extends HttpServlet{
 	 
 	 private Font bigFont = new Font(Font.FontFamily.TIMES_ROMAN, 22, Font.BOLD);
 	 private Font smallBold = new Font(Font.FontFamily.TIMES_ROMAN, 12, Font.BOLD);
-	 private Font normalText = new Font(Font.FontFamily.COURIER, 12);
+	// private Font normalText = new Font(Font.FontFamily.COURIER, 12);
 	 
 	 private Logger logger;
 	/**

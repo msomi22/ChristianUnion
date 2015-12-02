@@ -1,11 +1,14 @@
 /**
- * 
+*Student.java
+*
 *Maasai Mara University Christian Union Online Management System.
 *Copyright 2015 Fastech Solutions Ltd
 *Licensed under the Open Software License, Version 3.0 
-*The codes herein AND/OR this file should NOT, under any circumstances whatsoever, be copied without the author's approval.
-*Contacts author the: +254718953974
-*
+*The codes herein AND/OR this file CAN BE copied without the author's approval for learning purposes or for use in one's own project
+*if need be, feel free to contact the author
+*Contacts, Mobile: +254718953974
+*         email: mwendapeter72@gmail.com
+*         email: petermwenda83@yahoo.com 
 **/
 package com.gmail.mwendapeter72.server.bean.student;
 
@@ -14,16 +17,14 @@ import java.util.Date;
 import com.gmail.mwendapeter72.server.bean.AllBean;
 
 
-/**
- * @author peter<a href="mailto:mwendapeter72@gmail.com">Peter mwenda</a>
- * @author joram<a href="mailto:joramndungu10@gmail.com">Joram Muriithi</a>
+/**<p>
+ * A student within the MMUCU System
+ * </P>
+ * @author <a href="mailto:mwendapeter72@gmail.com">Peter mwenda</a>
+ * @author <a href="mailto:joramndungu10@gmail.com">Joram Muriithi</a>
  *
  */
 public class Student extends AllBean implements Comparable<Student> {
-	
-	/**
-	 * 
-	 */
 	
 	private String StatusUuid;
 	private String AdmNo;
@@ -44,10 +45,7 @@ public class Student extends AllBean implements Comparable<Student> {
 	private Date ActivationDate;
 	
 	
-
-	/**
-	 * 
-	 */
+	
 	public Student() {
 		super();
 		StatusUuid = ""; 

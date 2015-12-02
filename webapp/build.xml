@@ -147,8 +147,8 @@
       
       <classpath refid="compile.classpath" />
 
-      <doctitle>  <![CDATA[<h1>CU MANAGEMENT SYSTEM</h1>]]>    </doctitle>
-      <bottom>  <![CDATA[<i>Copyright &#169; 2015 PETER PROJECT.</i>]]>     </bottom>
+      <doctitle>  <![CDATA[<h1>Maasai Mara University Christian Union Management System </h1>]]>    </doctitle>
+      <bottom>  <![CDATA[<i>Copyright &#169; 2015 FasTech Solutions Ltd.</i>]]>     </bottom>
 
     </javadoc>
   </target> 

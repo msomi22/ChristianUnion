@@ -1,11 +1,14 @@
 /**
- * 
+*StudentUtils.java
+*
 *Maasai Mara University Christian Union Online Management System.
 *Copyright 2015 Fastech Solutions Ltd
 *Licensed under the Open Software License, Version 3.0 
-*The codes herein AND/OR this file should NOT, under any circumstances whatsoever, be copied without the author's approval.
-*Contacts author the: +254718953974
-*
+*The codes herein AND/OR this file CAN BE copied without the author's approval for learning purposes or for use in one's own project
+*if need be, feel free to contact the author
+*Contacts, Mobile: +254718953974
+*         email: mwendapeter72@gmail.com
+*         email: petermwenda83@yahoo.com 
 **/
 package com.gmail.mwendapeter72.server.persistence.utils;
 
@@ -23,7 +26,8 @@ import com.gmail.mwendapeter72.server.persistence.DBConnectDAO;
 
 
 /**
- * @author peter<a href="mailto:mwendapeter72@gmail.com">Peter mwenda</a>
+ * Utility that manages Student(s)
+ * @author <a href="mailto:mwendapeter72@gmail.com">Peter mwenda</a>
  *
  */
 public class StudentUtils extends DBConnectDAO {
@@ -31,7 +35,10 @@ public class StudentUtils extends DBConnectDAO {
 	  private static StudentUtils studentUtils;
 	  private final Logger logger = Logger.getLogger(this.getClass());
 
-	  public static StudentUtils getInstance() {
+	  /**
+	 * @return {@link StudentUtils }
+	 */
+	public static StudentUtils getInstance() {
 	        if (studentUtils == null) {
 	        	studentUtils = new StudentUtils();
 	        }
@@ -46,14 +53,21 @@ public class StudentUtils extends DBConnectDAO {
 		 super();
 	}
 	
+	/**
+	 * @param databaseName the  databaseName 
+	 * @param Host the  Host
+	 * @param databaseUsername the databaseUsername
+	 * @param databasePassword the databasePassword
+	 * @param databasePort the databasePort
+	 */
 	public StudentUtils(String databaseName, String Host, String databaseUsername, String databasePassword, int databasePort) {
         super(databaseName, Host, databaseUsername, databasePassword, databasePort);
     }
 	
 	
 	/**
-	 * @param SchoolAccountUuid
-	 * @return
+	 * @param AdmNo the AdmNo
+	 * @return count
 	 */
 	public int getStudents(String AdmNo) {
         int count = 0;
@@ -81,8 +95,8 @@ public class StudentUtils extends DBConnectDAO {
     
 	
 	 /**
-	 * @param accountuuid
-	 * @return
+	 * @param AdmNo the AdmNo
+	 * @return int count
 	 */
 	public int getIncomingCount(String AdmNo) {
 	        int count=0;
