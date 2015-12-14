@@ -13,6 +13,7 @@ Contacts, Mobile: +254718953974
 %>
 
 
+<%@page import="com.gmail.mwendapeter72.server.session.admin.SessionConstants"%>
 
 <%@page import="com.gmail.mwendapeter72.server.persistence.student.StudentDAO"%>
 <%@page import="com.gmail.mwendapeter72.server.bean.student.Student"%>
@@ -38,6 +39,24 @@ Contacts, Mobile: +254718953974
 
 
  <%
+
+
+if (session == null) {
+        response.sendRedirect("index.jsp");
+    }
+
+ String username = (String) session.getAttribute(SessionConstants.ADMIN_SESSION_KEY);
+    if (StringUtils.isEmpty(username)) {
+        response.sendRedirect("index.jsp");
+    }
+
+     session.setMaxInactiveInterval(SessionConstants.SESSION_TIMEOUT);
+     response.setHeader("Refresh", SessionConstants.SESSION_TIMEOUT + "; url=../logout");
+    
+   
+
+
+
  String Uuid = request.getParameter("Uuid");
  String Adm = request.getParameter("Admiss");
   //out.println(Adm+"  *** "+Uuid);

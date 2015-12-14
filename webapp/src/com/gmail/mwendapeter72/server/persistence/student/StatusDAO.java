@@ -32,7 +32,7 @@ import com.gmail.mwendapeter72.server.persistence.DBConnectDAO;
 
 /**
  * 
- * Persistence implementation for {@link Status}s.
+ * Persistence implementation for {@link StatusDAO}.
  * 
  * Copyright (c) FasTech Solutions Ltd., Dec 02, 2015
  * 

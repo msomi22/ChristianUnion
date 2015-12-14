@@ -232,5 +232,29 @@ public class StudentOtherDetailDAO extends DBConnectDAO implements CuStudentOthe
 		return studentdotherDetailsList;		
 	}
 
+	/* (non-Javadoc)
+	 * @see com.gmail.mwendapeter72.server.persistence.student.CuStudentOtherDetailDAO#getDetailList()
+	 */
+	@Override
+	public List<StudentOtherDetail> getDetailList() {
+		List<StudentOtherDetail> list =new  ArrayList<>(); 
+		try(   
+				Connection conn = dbutils.getConnection();
+				PreparedStatement  pstmt = conn.prepareStatement("SELECT * FROM StudentOtherInfo ;");   
+				ResultSet rset = pstmt.executeQuery();
+				) {
+
+			list = beanProcessor.toBeanList(rset, StudentOtherDetail.class);
+
+
+		} catch(SQLException e){
+			logger.error("SQL Exception when getting all StudentOtherDetail");
+			logger.error(ExceptionUtils.getStackTrace(e));
+			System.out.println(ExceptionUtils.getStackTrace(e));
+		}
+
+		return list;
+	}
+
 
 }

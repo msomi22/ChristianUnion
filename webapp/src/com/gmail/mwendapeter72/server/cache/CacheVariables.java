@@ -20,11 +20,34 @@ package com.gmail.mwendapeter72.server.cache;
  */
 public class CacheVariables {
 
-    public static String CACHE_STATISTICS_BY_STUDENT = "StatisticsEmail";
+    public static String CACHE_STATISTICS_BY_STUDENT = "CacheAllStudentsStatistics";
+    public final static String CACHE_STUDENTS_STATISTICS = "CacheStudent";
     public final static String CACHE_STUDENT_BY_ADM_NO = "StudentAdmNo";
 
     // The following caches have an UUID as the key for the object
     public final static String CACHE_STUDENT_BY_UUID = "StudentUuid";
+    public final static String CACHE_STUDENT_OTHER_INFO_BY_UUID = "StudentOtherInfoUuid";
+    
+    public final static String CACHE_STATUS_BY_UUID = "StatusUuid";
+    
+    public final static String CACHE_LEADERS_REGISTER_BY_UUID = "LeadersRegisterUuid"; 
+    public final static String CACHE_POSITION_BY_UUID = "PositionUuid";
+    
+    public final static String CACHE_EXECUTIVE_BY_UUID = "executiveUuid";
+    public final static String CACHE_EXECUTIVE_HEAD_BY_UUID = "ExecutiveHeadUuid";
+    
+    public final static String CACHE_FAMILY_BY_UUID = "FamilyUuid";
+    public final static String CACHE_FAMILY_HEAD_BY_UUID = "FamilyHeadUuid";
+    public final static String CACHE_GUKA_BY_UUID = "GukaUuid";
+    
+    public final static String CACHE_MINISTRY_BY_UUID = "MinistryUuid";
+    public final static String CACHE_MINISTRY_HEAD_BY_UUID = "MinistryHeadUuid";
+    
+    
+    
+    public final static String CACHE_EXECUTIVE_HEAD_BY_STUDENT_UUID = "ExecHeadUuid"; 
+    public final static String CACHE_FAMILY_HEAD_BY_STUDENT_UUID = "famHeadUuid";
+    public final static String CACHE_MINISTRY_HEAD_BY_STUDENT_UUID = "minHeadUuid";
 
     //Cache variables to be used in the admin section
     public static String CACHE_ALL_STUDENTS_STATISTICS_KEY = "CacheAllAccountsStatisticsKey";

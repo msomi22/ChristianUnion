@@ -22,18 +22,27 @@ import org.quartz.JobExecutionContext;
 import org.quartz.JobExecutionException;
 
 import com.gmail.mwendapeter72.server.bean.student.Student;
+import com.gmail.mwendapeter72.server.cache.CacheVariables;
 import com.gmail.mwendapeter72.server.persistence.student.StudentDAO;
+
+import net.sf.ehcache.Cache;
+import net.sf.ehcache.CacheManager;
+import net.sf.ehcache.Element;
 
 
 /**
- * quartz that auto deactivate a student after an year
+ * quartz that auto deactivate a student after a year
  * @author <a href="mailto:mwendapeter72@gmail.com">Peter mwenda</a>
  *
  */
 public class QuartzJob implements Job {
 	
 	private static  StudentDAO studentDAO;
-	
+	private CacheManager cacheManager;
+	private Cache studentsCache;
+    private List keys;
+	private net.sf.ehcache.Element element;
+	Student student;
 	 List<Student> studentList = new ArrayList<>();
 	
 	 HashMap<String,String> statusHash = new HashMap<String,String>(); 
@@ -48,7 +57,10 @@ public class QuartzJob implements Job {
 	 * 
 	 */
 	public QuartzJob() {
-		studentDAO = StudentDAO.getInstance();
+		super();
+		 studentDAO = StudentDAO.getInstance();
+		 cacheManager = CacheManager.getInstance();
+	     studentsCache = cacheManager.getCache(CacheVariables.CACHE_STUDENT_BY_UUID);
 	   
 	}
 
@@ -62,7 +74,15 @@ public class QuartzJob implements Job {
     }
 
 	private  void ChangeStatus() {
-		studentList = studentDAO.getStudentList(); 		
+		
+		        keys = studentsCache.getKeys();
+		        for (Object key : keys) {
+		              element =  studentsCache.get(key);
+		              student = (Student) ((net.sf.ehcache.Element) element).getObjectValue();
+		              studentList.add(student);
+		        }
+		 
+		       	
 		if(studentList !=null){	
 		for(Student student : studentList){
 		     Date activationDate =	student.getActivationDate();
@@ -79,33 +99,18 @@ public class QuartzJob implements Job {
 						 student2.setUuid(student.getUuid()); 
 						 student2.setStatusUuid(STATUS_INACTIVE_UUID);
 						 studentDAO.deActivateStudent(student2); 
+						 updateAccountCache(student2);
 				           }
 				 		
-		}
+		            }
 			
-		} 
-	} //end private  void ChangeStatus() {
-	
-	/*private  void sendMail() {
-		 System.out.println("Context Destroyed ::::Quartz send email By PeterMwenda");
-		 String email = "mwendapeter72@gmail.com";
-		 
-		 String body = "Hello  your new password is: xxxxxx";
-		 
-		EmailUtil util = new EmailUtil(
-				PropertiesConfig.getConfigValue("EMAIL_DEFAULT_EMAIL_FROM"), // from
-				email, // to 
-				"Email Test", // subject, 
-				body, 
-				PropertiesConfig.getConfigValue("EMAIL_OUTGOING_SMTP"), // outgoing SMTP host
-			 	Integer.parseInt(PropertiesConfig.getConfigValue("EMAIL_OUTGOING_SMTP_PORT")), // outgoing SMTP port
-			 	PropertiesConfig.getConfigValue("EMAIL_OUTGOING_SMTP_USERNAME"), // outgoing SMTP username 
-			 	PropertiesConfig.getConfigValue("EMAIL_OUTGOING_SMTP_PASSWORD") // outgoing SMTP password
-				);
+		    } 
+	    }
+
+
+	private void updateAccountCache(Student student2) {
+		 cacheManager.getCache(CacheVariables.CACHE_EXECUTIVE_HEAD_BY_UUID).put(new Element(student2.getUuid(), student2));
 		
-		util.start();
-		
-	
-	}*/
+	} 
 	
 }

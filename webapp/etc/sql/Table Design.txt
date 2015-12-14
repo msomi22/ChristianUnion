@@ -37,6 +37,38 @@ The tables are divided into the following sections:
 
       
 
+
+-- -------------------
+-- Table Executive.
+-- -------------------
+      -Id
+      -Uuid
+      -Category 
+
+-- -------------------
+-- Table Ministry.
+-- -------------------
+      -Id
+      -Uuid
+      -MinistryName       
+
+
+-- -------------------
+-- Table Family.
+-- -------------------
+      -Id
+      -Uuid
+      -FamilyName       
+     
+
+-- -------------------
+-- Table Position.
+-- -------------------
+      -Id
+      -Uuid
+      -PositionName 
+
+
 -- -------------------
 -- Table Student
 -- -------------------
@@ -78,16 +110,17 @@ The tables are divided into the following sections:
 
 
 -- -------------------
--- Table StudentPosition.
+-- Table LeadersRegister.
 -- -------------------
       -Id
       -Uuid
       -StudentUuid References Student(Uuid) 
       -StatusUuid References Status(Uuid) 
+      -Category
       -Position
+      -SubPosition
       -StartDate
       -EndDate
-    
 
 
 

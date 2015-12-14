@@ -141,5 +141,20 @@ public class TestStudentOtherDetailDAO {
 			System.out.println(ss);
 		}
 	}
+	
+
+	/**
+	 * Test method for {@link com.gmail.mwendapeter72.server.persistence.student.StudentOtherDetailDAO#getAllDetailList(int, int)}.
+	 */
+	@Ignore
+	@Test
+	public void testGetDetailList() {
+		store = new StudentOtherDetailDAO(databaseName, Host, databaseUsername, databasePassword, databasePort);
+		 List<StudentOtherDetail> studentList = store.getDetailList();
+		 //assertEquals(studentList.size() , 15);
+		 for(StudentOtherDetail ss : studentList){
+			System.out.println(ss);
+		}
+	}
 
 }

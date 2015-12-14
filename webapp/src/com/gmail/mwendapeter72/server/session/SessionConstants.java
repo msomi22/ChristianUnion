@@ -19,7 +19,6 @@ package com.gmail.mwendapeter72.server.session;
  */
 public class SessionConstants {
 	
-	final public static int SESSION_TIMEOUT = 200; 
 	
 	//Student Management
 	final public static String STUDENT_ADD_SUCCESS = "Student Addedd Successfully";
@@ -31,8 +30,6 @@ public class SessionConstants {
 	final public static String STUDENT_REPORT_ERROR = "Report couldn't be generated";
 	
 	final public static String STUDENT_REGISTER_DETAILS = "Student Parameters";
-	
-	
 	
 	
 	

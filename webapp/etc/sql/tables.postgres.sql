@@ -51,6 +51,68 @@ ALTER TABLE Status OWNER TO cu;
 
 
 
+-- -------------------
+-- Table Executive
+-- -------------------
+CREATE TABLE  Executive (
+    Id SERIAL PRIMARY KEY,
+    Uuid text UNIQUE NOT NULL,
+    Category text
+    
+
+);
+\COPY Executive(Uuid,Category) FROM '/tmp/Executive.csv' WITH DELIMITER AS '|' CSV HEADER
+ALTER TABLE Executive OWNER TO cu;
+
+
+
+
+
+-- -------------------
+-- Table Ministry
+-- -------------------
+CREATE TABLE  Ministry (
+    Id SERIAL PRIMARY KEY,
+    Uuid text UNIQUE NOT NULL,
+    MinistryName text
+    
+
+);
+\COPY Ministry(Uuid,MinistryName) FROM '/tmp/Ministry.csv' WITH DELIMITER AS '|' CSV HEADER
+ALTER TABLE Ministry OWNER TO cu;
+
+
+
+-- -------------------
+-- Table Family
+-- -------------------
+CREATE TABLE  Family (
+    Id SERIAL PRIMARY KEY,
+    Uuid text UNIQUE NOT NULL,
+    FamilyName text
+    
+
+);
+\COPY Family(Uuid,FamilyName) FROM '/tmp/Family.csv' WITH DELIMITER AS '|' CSV HEADER
+ALTER TABLE Family OWNER TO cu;
+
+
+
+-- -------------------
+-- Table Position
+-- -------------------
+CREATE TABLE  Position (
+    Id SERIAL PRIMARY KEY,
+    Uuid text UNIQUE NOT NULL,
+    PositionName text
+    
+
+);
+\COPY Position(Uuid,PositionName) FROM '/tmp/Position.csv' WITH DELIMITER AS '|' CSV HEADER
+ALTER TABLE Position OWNER TO cu;
+
+
+
 
 
 
@@ -106,26 +168,24 @@ ALTER TABLE StudentOtherInfo OWNER TO cu;
 
 
 -- -------------------
--- Table StudentApproval
+-- Table LeadersRegister
 -- -------------------
-CREATE TABLE  StudentPosition (
+CREATE TABLE  LeadersRegister (
     Id SERIAL PRIMARY KEY,
     Uuid text UNIQUE NOT NULL,
-    StudentUuid text REFERENCES Student(Uuid),
+    StudentUuid text UNIQUE REFERENCES Student(Uuid),
     StatusUuid text REFERENCES Status(Uuid),
-    Position text,
+    Category text ,
+    Position text ,
+    SubPosition text ,
     StartDate  timestamp with time zone DEFAULT now(),
-    EndDate  timestamp with time zone DEFAULT now()
+    EndDate  timestamp 
    
     
 
 );
-\COPY StudentPosition(Uuid,StudentUuid,StatusUuid,Position,StartDate,EndDate) FROM '/tmp/StudentPosition.csv' WITH DELIMITER AS '|' CSV HEADER
-ALTER TABLE StudentPosition OWNER TO cu;
-
-
-
-
+\COPY LeadersRegister(Uuid,StudentUuid,StatusUuid,Category,Position,SubPosition,StartDate,EndDate) FROM '/tmp/LeadersRegister.csv' WITH DELIMITER AS '|' CSV HEADER
+ALTER TABLE LeadersRegister OWNER TO cu;
 
 
 

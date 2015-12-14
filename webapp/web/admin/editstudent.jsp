@@ -33,33 +33,19 @@ if (session == null) {
     }
 
      session.setMaxInactiveInterval(SessionConstants.SESSION_TIMEOUT);
-     response.setHeader("Refresh", SessionConstants.SESSION_TIMEOUT + "; url=/ChristianUnion/admin");
+     response.setHeader("Refresh", SessionConstants.SESSION_TIMEOUT + "; url=../logout");
 
+      
+    
 
 
 %>
 
 
 
-
-
-<style type="text/css">
-   input{
-    height: 26px !important;
-   }
-   
- </style>
-
-<div id="tooplate_wrapper">
-
   <jsp:include page="header.jsp" />
-    
-  <div id="container" class="clear"> 
-   <div id="tooplate_main_top"></div>        
-            <div id="tooplate_main" >
-                 
-
- <div class="box-content">
+ 
+           <div class="box-content">
 
 
 
@@ -225,27 +211,11 @@ if (session == null) {
             </form>
              
 
-           </div>
-
-
-          </div>
-
-
-                 <br> <br> <br> <br> <br> <br>
-                 
-                 
-   <div id="tooplate_main_top"></div>        
-    <div id="tooplate_main">
-        </div>
-
-    
-        
-        <div class="cleaner"></div>
+           
     </div> 
+
+
+
   <jsp:include page="footer.jsp" />
 
-        
-</div> <!-- end of wrapper -->
-
-
-
+  

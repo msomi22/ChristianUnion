@@ -1,3 +1,5 @@
+<!DOCTYPE html>
+
 <%
 /**
 Maasai Mara University Christian Union Online Management System.
@@ -16,7 +18,7 @@ Contacts, Mobile: +254718953974
 <%@page import="org.apache.commons.lang3.StringUtils"%>
 <%@page import="org.apache.commons.lang3.RandomStringUtils"%>
 <%@page import="org.jasypt.util.text.BasicTextEncryptor"%>
-
+<%@ page import="com.gmail.mwendapeter72.server.servlet.util.PropertiesConfig" %>
 <%@page import="java.util.ArrayList"%>
 <%@page import="java.util.HashMap"%>
 <%@page import="java.util.List"%>
@@ -32,47 +34,44 @@ Contacts, Mobile: +254718953974
     }
 
 
+     
+
     
      //response.setIntHeader("Refresh",200);
-       String ENCRYPT_PASSWORD = "Vuwachip2";
-       BasicTextEncryptor textEncryptor = new BasicTextEncryptor();    
-       textEncryptor.setPassword(ENCRYPT_PASSWORD);
+      
+       BasicTextEncryptor textEncryptor = new BasicTextEncryptor();   
+       textEncryptor.setPassword(PropertiesConfig.getConfigValue("ENCRYPT_PASSWORD")); 
+      
 
 
       String captcha = RandomStringUtils.randomAlphabetic(4); 
-      String encryptedCaptcha = textEncryptor.encrypt(captcha.toLowerCase());
+      String encryptedCaptcha = textEncryptor.encrypt(captcha);
 %>
 
 
 
 
-<!DOCTYPE html>
 <html >
   <head>
     <meta charset="UTF-8">
-    <title>Login Form</title>
+    <title>Admin Login</title>
     
     
-    <link rel="stylesheet" href="css/reset.css">
-
-
-<!DOCTYPE html>
-<html>
-<head>
-    <title>login</title>
-
+ <link rel="stylesheet" href="css/reset.css">
  <script src="js/prefixfree.min.js"></script>
  <link href="../css/adminlogin.css" rel="stylesheet"/>
  <link href="../css/bootstrap/bootstrap-cerulean.css" rel="stylesheet">
  <link href="../css/bootstrap/bootstrap-responsive.css" rel="stylesheet">
-</head>
-<body>
-                
+ </head>
+ <body>
+
+ 
+      <div id="login">           
                              
 
 
 
-    <div id="login">
+   
 
                              <%
 
@@ -87,7 +86,7 @@ Contacts, Mobile: +254718953974
 
                                 if (StringUtils.isNotEmpty(loginError)) {
                                     out.println("<p style='color:red;'>");                 
-                                    out.println("error: " + loginError);
+                                    out.println("Oh my God!: " + loginError);
                                     out.println("</p>");                                 
                                     session.setAttribute(SessionConstants.ADMIN_SIGN_IN_ERROR_KEY, null);
                                   } 
@@ -100,7 +99,7 @@ Contacts, Mobile: +254718953974
 
 
 
-    <form id="login_form" action="../adminLogin" method="POST">
+    <form id="login_form" action="../adminLogin" method="POST" >
 
     <div class="field_container">
      Username: <input type="text" placeholder="Username" name="Username">
@@ -118,8 +117,8 @@ Contacts, Mobile: +254718953974
                         <div class='wrapper'>
                             <label for='captchaAnswer'>Are You a robot?</label>
                             <div id="spam-check">
-                                <span id="captchaGuidelines">Type the characters you see in the image below. (<em>Letters are case-sensitive</em>)</span><br>
-                                <img id="captcha" src=<% out.println("\"" + fontImageUrl + "\"");%> width="68" height="29" />
+                                <span id="captchaGuidelines">Type the characters you see in the image below. (<em>Letters are not case-sensitive</em>)</span><br>
+                                <img id="captcha" src=<% out.println("\"" + fontImageUrl + "\"");%> width="80" height="40" />
                                 <input type="text" name="captchaAnswer" id="captchaAnswer" size="5" class="input_normal" />
                                 <input type="hidden" name="captchaHidden" id="captchaHidden"
                                        value=<% out.println("\"" + URLEncoder.encode(encryptedCaptcha, "UTF-8") + "\"");%> />
@@ -135,8 +134,8 @@ Contacts, Mobile: +254718953974
    
     </form>
 
-</div>
-    
+  </div>  
+   
     
   </body>
 </html>

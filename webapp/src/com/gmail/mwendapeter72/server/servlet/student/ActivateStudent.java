@@ -26,8 +26,12 @@ import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.validator.routines.EmailValidator;
 
 import com.gmail.mwendapeter72.server.bean.student.Student;
+import com.gmail.mwendapeter72.server.cache.CacheVariables;
 import com.gmail.mwendapeter72.server.persistence.student.StudentDAO;
 import com.gmail.mwendapeter72.server.session.SessionConstants;
+
+import net.sf.ehcache.CacheManager;
+import net.sf.ehcache.Element;
 
 /**
  * Used to activate student after they have been auto deactivated by the system
@@ -43,19 +47,21 @@ public class ActivateStudent extends HttpServlet{
 	private static StudentDAO studentDAO;
 	private EmailValidator emailValidator;
 	
-	final String ERROR_BLANK_ACADEMIC_YEAR = "Please provide Your Academic Year.";
-	final String ERROR_UNCHANGED_ACADEMIC_YEAR = "Please Update your academic year.";
-	final String ERROR_BLANK_EMAIL = "Please provide Your email address.";
-	final String ERROR_EMAIN_NOT_FOUND = "Email Not found, You Must provide the email you provided during registration, If the problem persist visit MMUCU office.";
-	final String ERROR_EMAIL_INVALID = "Your email address is not valid.";
-	final String ERROR_BLANK_YEAR_STUDY = "Please provide Your Year of Study.";
-	final String ERROR_YEAR_STUDY_INVALID = "Sorry! Year of Study is Invalid,It Must Be a Digit And can't Be Greater tahn 4 Not Unless Your Program takes Five years.";
-	final String ERROR_BLANK_STUDENT_UUID = "Operation Not Allowed.";
+	final String ERROR_EMAIN_NOT_FOUND = "   Email Not found, You Must provide the email you provided during registration, If the problem persist visit MMUCU office.";
+	final String ERROR_YEAR_STUDY_INVALID = " Sorry! Year of Study is Invalid,It Must Be a Digit And can't Be Greater tahn 4 Not Unless Your Program takes Five years.";
 	final String STUDENT_ACTIVATE_SUCCESS = "Student Information  Successfully Activated.";
-
+	final String ERROR_UNCHANGED_ACADEMIC_YEAR = " Please Update your academic year.";
+	final String ERROR_BLANK_ACADEMIC_YEAR = " Please provide Your Academic Year.";
+	final String ERROR_BLANK_YEAR_STUDY = " Please provide Your Year of Study.";
+	final String ERROR_BLANK_EMAIL = " Please provide Your email address.";
+	final String ERROR_EMAIL_INVALID = " Your email address is not valid.";
+	final String ERROR_BLANK_STUDENT_UUID = "Operation Not Allowed.";
+	
 	 String theEmail;
 	 String AcademicYear;
 	 Student s;
+	 
+	 private CacheManager cacheManager;
 	/**
     *
     * @param config
@@ -65,6 +71,7 @@ public class ActivateStudent extends HttpServlet{
        super.init(config);
        studentDAO = StudentDAO.getInstance();
        emailValidator = EmailValidator.getInstance();
+       cacheManager = CacheManager.getInstance();
 	}
 
    /**
@@ -119,6 +126,7 @@ protected void doPost(HttpServletRequest request, HttpServletResponse response)
 	      s.setActivationDate(now); 
 	      s.setStatusUuid(status_active); 
 	      studentDAO.activateStudent(s); 
+	      updateStudentCache(s);
 	     
 	      session.setAttribute(SessionConstants.STUDENT_UPDATE_SUCCESS, STUDENT_ACTIVATE_SUCCESS);
  
@@ -128,7 +136,12 @@ protected void doPost(HttpServletRequest request, HttpServletResponse response)
      }
  
  
- /**
+ private void updateStudentCache(Student s) {
+	 cacheManager.getCache(CacheVariables.CACHE_STUDENT_BY_UUID).put(new Element(s.getUuid(), s));
+	
+}
+
+/**
  * @param email
  * @return true or false
  */

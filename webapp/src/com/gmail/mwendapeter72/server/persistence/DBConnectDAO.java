@@ -27,7 +27,7 @@ import com.gmail.mwendapeter72.server.servlet.util.DbPoolUtil;
 public class DBConnectDAO {
 
 	
-	 protected DButils dbutils;
+	 protected DBCredentials dbutils;
 	/**
 	 * @throws SQLException 
 	 * 
@@ -43,7 +43,7 @@ public class DBConnectDAO {
 	 * @param databasePort the databasePort
 	 */
 	public DBConnectDAO(String databaseName, String Host, String databaseUsername, String databasePassword, int databasePort) {
-		dbutils = new DButils(databaseName, Host, databaseUsername, databasePassword, databasePort);
+		dbutils = new DBCredentials(databaseName, Host, databaseUsername, databasePassword, databasePort);
 	}
 	
 	 

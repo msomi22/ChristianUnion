@@ -72,11 +72,13 @@ public class StudentReport extends HttpServlet{
 	 String AdmNo;
 	 
 	 public static final String RESOURCE = "/opt/Programs/img/tooplate_logo.png";
+	 public static final String RESOURCE2 = "/opt/Programs/img/fastech.png";
+	 
 	 final String PDF_TITLE = "Maasai Mara University Christian Union";
-	 final String PDF_BOTTOM_TEXT = "Tel: +254 (0)xxxxxxxxxx\n"
+	 final String PDF_BOTTOM_TEXT = "Tel: +254 (0)721669959\n"
 						            + "Web: http://www.mmucu.com\n"
-						            + "Email: mmucu@gmail.com\n"
-						            + "CONFIDENTIAL, (c) Copyright M.M.U.C.U";
+						            + "Email: njokibrayant@gmail.com\n";
+						          
 	 
 	 private Font bigFont = new Font(Font.FontFamily.TIMES_ROMAN, 22, Font.BOLD);
 	 private Font smallBold = new Font(Font.FontFamily.TIMES_ROMAN, 12, Font.BOLD);
@@ -95,8 +97,7 @@ public class StudentReport extends HttpServlet{
        logger = Logger.getLogger(this.getClass());
       
    }
-   
-   //invoked from doGet method to create PDF through servlet 
+  
    
 /**
  * @param request
@@ -168,7 +169,7 @@ protected void processRequest(HttpServletRequest request, HttpServletResponse re
 	           preface.add(new Paragraph(PDF_BOTTOM_TEXT));
 	           preface.setAlignment(Element.ALIGN_RIGHT);
 	           
-	           Image img = Image.getInstance(RESOURCE);
+	           Image img = Image.getInstance(RESOURCE2);
 	           document.add(img);
 	           document.add(preface);
 	           
@@ -230,7 +231,6 @@ protected void processRequest(HttpServletRequest request, HttpServletResponse re
 	           document.add(p16);
 	           
 
-	         // document.add(addEmptyLine(new Paragraph("jjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjj."), 1));
 	           
 	           document.add(new Paragraph(selector.process("\n\n\nCollosians 3:4 \"When Christ, who is our life,"
 	           		                     + " shall appear, then shall ye also appear with him in glory \" ")));

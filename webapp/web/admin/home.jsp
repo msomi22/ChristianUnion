@@ -13,10 +13,11 @@ Contacts, Mobile: +254718953974
 %>
 
 
+<%@page import="com.gmail.mwendapeter72.server.cache.CacheVariables"%>
+
 <%@page import="com.gmail.mwendapeter72.server.pagination.student.StudentPaginator"%>
 <%@page import="com.gmail.mwendapeter72.server.pagination.student.StudentPage"%>
 
-<%@page import="com.gmail.mwendapeter72.server.persistence.student.StudentDAO"%>
 <%@page import="com.gmail.mwendapeter72.server.bean.student.Student"%>
 
 <%@page import="com.gmail.mwendapeter72.server.persistence.student.StudentOtherDetailDAO"%>
@@ -30,7 +31,6 @@ Contacts, Mobile: +254718953974
 
 <%@page import="org.apache.commons.lang3.StringUtils"%>
 <%@page import="java.util.ArrayList"%>
-<%@page import="java.util.HashMap"%>
 <%@page import="java.util.List"%>
 <%@page import="java.text.SimpleDateFormat"%>
 <%@page import="java.util.Calendar"%>
@@ -42,11 +42,18 @@ Contacts, Mobile: +254718953974
 <%@page import="java.util.HashMap"%>
 <%@page import="java.net.URLEncoder"%>
 
+<%@ page import="net.sf.ehcache.Cache" %>
+<%@ page import="net.sf.ehcache.CacheManager" %>
+<%@ page import="net.sf.ehcache.Element" %>
+
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 
+<%
 
- <%
-  if (session == null) {
+
+
+
+if (session == null) {
         response.sendRedirect("index.jsp");
     }
 
@@ -56,87 +63,74 @@ Contacts, Mobile: +254718953974
     }
 
      session.setMaxInactiveInterval(SessionConstants.SESSION_TIMEOUT);
-     response.setHeader("Refresh", SessionConstants.SESSION_TIMEOUT + "; url=/ChristianUnion/admin");
+     response.setHeader("Refresh", SessionConstants.SESSION_TIMEOUT + "; url=../logout");
 
-   HashMap<String, String> statusHash = new HashMap<String, String>();
-
-   Student student;
-   StudentOtherDetail studentDetal;
-   Status status;
+      
+     
+      
 
 
-   StatusDAO statusDAO = StatusDAO.getInstance();
-   List<Status> statustList = new ArrayList(); 
-   statustList = statusDAO.getAllStatus();
-  // out.println(statustList);
+
+     //Stusent Cache Management
+       CacheManager mgr = CacheManager.getInstance();
+       Cache studentsCache = mgr.getCache(CacheVariables.CACHE_STUDENT_BY_UUID);
+       HashMap<String, Student> studentHash = new HashMap<String, Student>();
+
+       Student student;
+       StudentOtherDetail studentDetal;
+       Status status;
+       List keys;
+       Element element;
+
+     //get Student details from chase, put them in hashmap
+      List<Student> studentList = new ArrayList(); 
+      keys = studentsCache.getKeys();
+      for (Object key : keys) {
+            element = studentsCache.get(key);
+            student = (Student) element.getObjectValue();
+            studentHash.put(student.getUuid(),student);
+            studentList.add(student);
+      }
+
+      HashMap<String, String> statusHash = new HashMap<String, String>();
+
+     
+
+        StatusDAO statusDAO = StatusDAO.getInstance();
+        List<Status> statustList = new ArrayList(); 
+        statustList = statusDAO.getAllStatus();
+      // out.println(statustList);
        for(Status stat : statustList){
            statusHash.put(stat.getUuid(), stat.getStatus());
        }
-    
-    
-
-  // out.println(stustatustList);
-
-   StudentDAO studentDAO = StudentDAO.getInstance();
-   List<Student> studentList1 = new ArrayList(); 
-   studentList1 = studentDAO.getStudentList(0,15);
-
-
-  
-     int ussdCount = 0;
-     StudentPaginator paginator = new StudentPaginator();
-     StudentPage studentpage;
-
      
-     studentpage = (StudentPage) session.getAttribute("currentPage");
-        String referrer = request.getHeader("referer");
-        String pageParam = (String) request.getParameter("page");
 
-        // We are to give the first page
-        if (studentpage == null
-                || !StringUtils.endsWith(referrer, "home.jsp")
-                || StringUtils.equalsIgnoreCase(pageParam, "first")) {
-              studentpage = paginator.getFirstPage();
-
-            //We are to give the last page
-        } else if (StringUtils.equalsIgnoreCase(pageParam, "last")) {
-             studentpage = paginator.getLastPage();
-
-            // We are to give the previous page
-        } else if (StringUtils.equalsIgnoreCase(pageParam, "previous")) {
-            studentpage = paginator.getPrevPage(studentpage);
-
-            // We are to give the next page 
-        } else if (StringUtils.equalsIgnoreCase(pageParam, "next"))  {
-           studentpage = paginator.getNextPage(studentpage);
-        }
-
-        session.setAttribute("currentPage", studentpage);
-        studentList1 = studentpage.getContents();
-        ussdCount = (studentpage.getPageNum() - 1) * studentpage.getPagesize() + 1;
-      // }
-
-
-
-
-
-
- 
    //date format
     SimpleDateFormat dateFormatter = new SimpleDateFormat("yyyy-dd-MM");
     SimpleDateFormat timezoneFormatter = new SimpleDateFormat("z");
 
-      %>
+
+    /*if(out.getBufferSize() !=0){
+          out.clearBuffer();
+          out.println("error");
+          return;
+      } */
+
+
     
 
+%> 
+<jsp:include page="header.jsp" />
+
+  
 
 
-        <div id="tooplate_wrapper">
-
-        <jsp:include page="header.jsp" />
-
-
-                             <%
+<div class="row-fluid sortable">		
+    <div class="box span12">
+       
+        <div class="box-content">
+            
+                    <%
 
                         
 
@@ -176,26 +170,9 @@ Contacts, Mobile: +254718953974
 
                             %>
 
-        <div id="container" class="clear"> 
 
-          <div id="tooplate_main_top"></div>        
-            <div id="tooplate_main" >
-
-         <div id="search_box">
-            <form action="#" method="get">
-                <input type="text" placeholder="Search By AdmNo" name="q" size="10" id="searchfield" title="searchfield" onkeyup="displaystudents(this.value)" />
-            </form>
-        </div>
-
-
-
-
-
-        <div id="tooplate_middle">     
-         <div id="middle_left">
-            <p>MMU CU Student Basic Details</p>
-          </div>
-                <table class="table table-striped table-bordered bootstrap-datatable datatable">
+            <div>
+            <table class="table table-striped table-bordered bootstrap-datatable datatable">
                 <thead>
                     <tr>
                         <th>*</th>
@@ -212,8 +189,8 @@ Contacts, Mobile: +254718953974
                         <th>Action</th>
                         <th>Download</th>
                     </tr>
-                </thead>   
-                <tbody class='tablebody'>
+               </thead>   
+               <tbody class='tablebody'>
                        
 
                      <%   
@@ -221,7 +198,7 @@ Contacts, Mobile: +254718953974
                       Calendar now = Calendar.getInstance();   
                       String nowdate = dateFormatter2.format(now.getTime());                                                    
                       int count = 1;
-                       for (Student s : studentList1) {
+                       for (Student s : studentList) {
 
                          String dob = s.getDOB();
         
@@ -236,7 +213,7 @@ Contacts, Mobile: +254718953974
                     %>
                       <tr class="tabledit">
                          
-                         <td width="3%"><%=ussdCount%> </td>
+                         <td width="3%"><%=count%> </td>
                          <td class="center" ><a class="Zlink" href="#" data-toggle="modal" data-target="#groupcheck" value='<%=s.getAdmNo()%>' name='<%=s.getUuid()%>' onclick="TableGet(this)"><%=s.getAdmNo()%></a> </td>
 
                          <td class="center"><%=s.getFirstName()%></td>
@@ -293,75 +270,28 @@ Contacts, Mobile: +254718953974
                        </tr>
 
                     <%
-                           ussdCount++;
+                           count++;
                            
                         }
                     %>
 
                 </tbody>
-                </table>  
-                    
-                <div id="pagination">
-                <form name="pageForm" method="post" action="home.jsp">                                
-                    <%                                            
-                        if (!studentpage.isFirstPage()) {
-                    %>
-                        <input class="toolbarBtn" type="submit" name="page" value="First" />
-                        <input class="toolbarBtn" type="submit" name="page" value="Previous" />
-                    <%
-                        }
-                    %>
-                    <span class="pageInfo">Page 
-                        <span class="pagePosition currentPage"><%= studentpage.getPageNum()%></span> of 
-                        <span class="pagePosition"><%= studentpage.getTotalPage()%></span>
-                    </span>   
-                    <%
-                        if (!studentpage.isLastPage()) {                        
-                    %>
-                        <input class="toolbarBtn" type="submit" name="page" value="Next">  
-                        <input class="toolbarBtn" type="submit" name="page" value="Last">
-                    <%
-                       }
-                    %>                                
-                </form>
+            </table>  
             </div>
-                    
-                    
-                    
-	            </div> 
+
+       <br>   <br>   <br>
 
 
-              
-                 
-                 <br> <br> <br> <br> <br> <br>
-                 <br> <br> <br> <br> <br> <br>
-                 <br> <br> <br> <br> <br> <br>
-                 <br> <br> <br> <br> <br> <br>
-                 <br> <br> <br> <br> <br> <br>
-                 <br> <br> <br> <br> <br> <br>
-                
-                
-
-
-             
-
+                  
 <div class="modal fade" id="groupcheck" tabindex="-1" role="dialog" arialabelled="exampleModalLabeled" aria-hidden="true">
 <div id="scroll21" style="width:800px; ">
  </div>
 </div>
 
+        </div>
+    </div><!--/span-->
 
-</div>
-    <div id="tooplate_main_top"></div>        
-    <div id="tooplate_main">  </div>
-        
-    
-    	
-        <div class="cleaner"></div>
-    </div> <!-- end of main -->
+</div><!--/row-->
 
-    
-  <jsp:include page="footer.jsp" />
 
-        
-</div> <!-- end of wrapper -->
+<jsp:include page="footer.jsp" />

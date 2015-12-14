@@ -61,6 +61,11 @@
         <servlet-class>com.gmail.mwendapeter72.server.servlet.reports.StudentReport</servlet-class>
     </servlet>
 
+    <servlet>
+        <servlet-name>LeadersReport</servlet-name>
+        <servlet-class>com.gmail.mwendapeter72.server.servlet.reports.LeadersReport</servlet-class>
+    </servlet>
+
 
 
 
@@ -108,6 +113,8 @@
      
     </servlet>
      
+ 
+
     <servlet>
         <servlet-name>AdminLogout</servlet-name>
         <servlet-class>com.gmail.mwendapeter72.server.servlet.admin.Logout</servlet-class>
@@ -117,62 +124,90 @@
 
 
 
-     <!-- Start -jsp 
-      <servlet>
-      <servlet-name>jsp</servlet-name>
-      <servlet-class>org.apache.jasper.servlet.JspServlet</servlet-class>
-       <init-param>
-      	<param-name>development</param-name>
-      	<param-value>true</param-value>
-      	</init-param>
-      	<init-param>
-      	<param-name>CheckInterval</param-name>
-      	<param-value>0</param-value>
-      </init-param>
 
-      </servlet>
--->
+
+
+    <servlet>
+        <servlet-name>FindLeader</servlet-name>
+        <servlet-class>com.gmail.mwendapeter72.server.servlet.student.FindLeader</servlet-class>
+     
+    </servlet>
+
+
+    <servlet>
+        <servlet-name>FindFamilyHead</servlet-name>
+        <servlet-class>com.gmail.mwendapeter72.server.servlet.student.FindFamilyHead</servlet-class>
+     
+    </servlet>
+
+    <servlet>
+        <servlet-name>FindMinistry</servlet-name>
+        <servlet-class>com.gmail.mwendapeter72.server.servlet.student.FindMinistry</servlet-class>
+     
+    </servlet>
+
+    <servlet>
+        <servlet-name>FindExec</servlet-name>
+        <servlet-class>com.gmail.mwendapeter72.server.servlet.student.FindExec</servlet-class>
+     
+    </servlet>
+
+
+
+
+
+
+
+
+
+
+
+
+     <servlet>
+        <servlet-name>RegisterLeader</servlet-name>
+        <servlet-class>com.gmail.mwendapeter72.server.servlet.student.RegisterLeader</servlet-class>
+     
+    </servlet>
+
+     <servlet>
+        <servlet-name>AssignFamily</servlet-name>
+        <servlet-class>com.gmail.mwendapeter72.server.servlet.student.AssignFamily</servlet-class>
+     
+    </servlet>
+
+
+ <servlet>
+        <servlet-name>AssignExecutive</servlet-name>
+        <servlet-class>com.gmail.mwendapeter72.server.servlet.student.AssignExecutive</servlet-class>
+     
+    </servlet>
+
+ <servlet>
+        <servlet-name>AssignMinistry</servlet-name>
+        <servlet-class>com.gmail.mwendapeter72.server.servlet.student.AssignMinistry</servlet-class>
+     
+    </servlet>
+
+
+
+     <servlet>
+        <servlet-name>TerminateRole</servlet-name>
+        <servlet-class>com.gmail.mwendapeter72.server.servlet.student.TerminateRole</servlet-class>
+     
+    </servlet>
+
+
        
 
-      <servlet>
-      <servlet-name>Update</servlet-name>
-      <jsp-file>/studentupdate.jsp</jsp-file>
-      </servlet>
-
-       <servlet-mapping>
-    	<servlet-name>Update</servlet-name>
-    	<url-pattern>/update</url-pattern>
-      </servlet-mapping>
-
-      <servlet>
-      <servlet-name>RegForm</servlet-name>
-      <jsp-file>/index.jsp</jsp-file>
-       </servlet>
-
-       <servlet-mapping>
-    	<servlet-name>RegForm</servlet-name>
-    	<url-pattern>/register</url-pattern>
-      </servlet-mapping>
 
 
-     
-      <!-- End -jsp -->
-
-     
+  <!-- Servlet mapping start -->
 
 
 
 
 
-
-
-
-
-
-
-
-
-    <!-- Servlet mapping start -->
+  
    
       <servlet-mapping>
         <servlet-name>AddStudent</servlet-name>
@@ -205,12 +240,85 @@
       <servlet-mapping>
         <servlet-name>AdminLogin</servlet-name>
         <url-pattern>/adminLogin</url-pattern>      
-     </servlet-mapping>
+     </servlet-mapping> 
 
  <servlet-mapping>
         <servlet-name>AdminLogout</servlet-name>
         <url-pattern>/logout</url-pattern>
     </servlet-mapping>
+
+ 
+ <servlet-mapping>
+        <servlet-name>FindLeader</servlet-name>
+        <url-pattern>/findLeader</url-pattern>      
+    </servlet-mapping>
+
+    <servlet-mapping>
+        <servlet-name>FindFamilyHead</servlet-name>
+        <url-pattern>/findFamilyHead</url-pattern>      
+    </servlet-mapping>
+
+    <servlet-mapping>
+        <servlet-name>FindMinistry</servlet-name>
+        <url-pattern>/findMinistry</url-pattern>      
+    </servlet-mapping>
+
+    <servlet-mapping>
+        <servlet-name>FindExec</servlet-name>
+        <url-pattern>/findExec</url-pattern>      
+    </servlet-mapping>
+
+
+
+
+
+
+
+
+
+
+
+
+
+ <servlet-mapping>
+        <servlet-name>RegisterLeader</servlet-name>
+        <url-pattern>/registerLeader</url-pattern>      
+    </servlet-mapping>
+
+     <servlet-mapping>
+        <servlet-name>AssignFamily</servlet-name>
+        <url-pattern>/assignFamily</url-pattern>      
+    </servlet-mapping>
+
+
+
+     <servlet-mapping>
+        <servlet-name>AssignMinistry</servlet-name>
+        <url-pattern>/assignMinistry</url-pattern>      
+    </servlet-mapping>
+
+     <servlet-mapping>
+        <servlet-name>AssignExecutive</servlet-name>
+        <url-pattern>/assignExecutive</url-pattern>      
+    </servlet-mapping>
+
+
+
+
+
+
+
+
+
+
+
+
+
+     <servlet-mapping>
+        <servlet-name>TerminateRole</servlet-name>
+        <url-pattern>/terminateRole</url-pattern>      
+    </servlet-mapping>
+
 
 
 
@@ -223,6 +331,15 @@
         <servlet-name>StudentReport</servlet-name>
         <url-pattern>/studentReport/*</url-pattern>
     </servlet-mapping>
+
+ <servlet-mapping>
+        <servlet-name>LeadersReport</servlet-name>
+        <url-pattern>/leadersReport/*</url-pattern>
+    </servlet-mapping>
+
+
+
+
 
 
      <!-- Start -jsp mapping -->

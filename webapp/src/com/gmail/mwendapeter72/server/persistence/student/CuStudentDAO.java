@@ -18,7 +18,7 @@ import java.util.List;
 import com.gmail.mwendapeter72.server.bean.student.Student;
 
 /**
- * persistence description for {@link Student}s.
+ * persistence description for {@link StudentDAO}.
  * @author <a href="mailto:mwendapeter72@gmail.com">Peter mwenda</a>
  * @author <a href="mailto:joramndungu10@gmail.com">Joram Muriithi</a>
  *
@@ -30,6 +30,13 @@ public interface CuStudentDAO {
 	 * @return student object of {@link Student} for the given admission number
 	 */
 	public Student getStudent(String AdmNo);
+	
+	/**
+	 * Retrieve the {@link Student} corresponding to the AdmNo.
+	 * @param AdmNo the student's admno
+	 * @return student object of {@link Student} for the given admission number
+	 */
+	public Student getStudent(String Uuid, String Gender);
 	
 	/**
 	 * Retrieve the {@link Student} corresponding to the Email.

@@ -107,6 +107,37 @@ public class StudentDAO extends DBConnectDAO  implements CuStudentDAO {
 	}
 
 
+	/**
+	 * @see com.gmail.mwendapeter72.server.persistence.student.CuStudentDAO#getStudent(java.lang.String, java.lang.String)
+	 */
+	public Student getStudent(String Uuid, String Gender) {
+		Student student = null;
+		ResultSet rset = null;
+		try(
+				Connection conn = dbutils.getConnection();
+				PreparedStatement pstmt = conn.prepareStatement("SELECT * FROM Student WHERE Uuid = ? AND Gender = ?;");       
+
+				){
+
+			pstmt.setString(1, Uuid); 
+			pstmt.setString(2, Gender); 
+			rset = pstmt.executeQuery();
+			while(rset.next()){
+
+				student  = beanProcessor.toBean(rset,Student.class);
+			}
+
+
+
+		}catch(SQLException e){
+			logger.error("SQL Exception when getting Student  with Uuid: " + Uuid);
+			logger.error(ExceptionUtils.getStackTrace(e));
+			System.out.println(ExceptionUtils.getStackTrace(e));
+		}
+
+		return student; 
+	}
+
 
 	/**
 	 * @see com.gmail.mwendapeter72.server.persistence.student.CuStudentDAO#getStudentAdmNo(java.lang.String)

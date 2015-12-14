@@ -12,14 +12,14 @@ Contacts, Mobile: +254718953974
  */
 %>
 
-
+<%@page import="com.gmail.mwendapeter72.server.session.admin.SessionConstants"%>
 <%@page import="com.gmail.mwendapeter72.server.persistence.student.StatusDAO"%>
 <%@page import="com.gmail.mwendapeter72.server.bean.student.Status"%>
 <%@page import="com.gmail.mwendapeter72.server.persistence.student.StudentDAO"%>
 <%@page import="com.gmail.mwendapeter72.server.bean.student.Student"%>
 <%@page import="com.gmail.mwendapeter72.server.persistence.student.StudentOtherDetailDAO"%>
 <%@page import="com.gmail.mwendapeter72.server.bean.student.StudentOtherDetail"%>
-<%@page import="com.gmail.mwendapeter72.server.session.SessionConstants"%>
+
 <%@page import="org.apache.commons.lang3.StringUtils"%>
 <%@page import="java.util.ArrayList"%>
 <%@page import="java.util.HashMap"%>
@@ -38,6 +38,17 @@ Contacts, Mobile: +254718953974
 
 
  <%
+if (session == null) {
+        response.sendRedirect("index.jsp");
+    }
+ String username = (String) session.getAttribute(SessionConstants.ADMIN_SESSION_KEY);
+    if (StringUtils.isEmpty(username)) {
+        response.sendRedirect("index.jsp");
+    }
+
+
+     
+
     
     HashMap<String, String> statusHash = new HashMap<String, String>();
 
@@ -134,7 +145,7 @@ Contacts, Mobile: +254718953974
                                 </td> 
 
                                 <td class="center">
-                                <form name="print" method="post" action="../studentReport">
+                                <form name="print" method="post" action="../studentReport" target="_blank">
                                 <input type="hidden" name="AdmNo" value="<%=s.getAdmNo()%>">
                                 <input class="btn btn-success" type="submit" name="printstudent" id="submit" value="PDF" />
                                 </form>                       

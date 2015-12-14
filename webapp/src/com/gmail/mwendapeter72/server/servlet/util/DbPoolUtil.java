@@ -19,7 +19,7 @@ import javax.servlet.http.HttpServlet;
 
 import org.apache.log4j.Logger;
 
-import com.gmail.mwendapeter72.server.persistence.DButils;
+import com.gmail.mwendapeter72.server.persistence.DBCredentials;
 
 
 /**
@@ -31,7 +31,7 @@ import com.gmail.mwendapeter72.server.persistence.DButils;
 public class DbPoolUtil extends HttpServlet {
 
 	
-	private static DButils dButils; 
+	private static DBCredentials dBCredentials; 
 	
 	private Logger logger = Logger.getLogger(this.getClass());
 	
@@ -44,15 +44,15 @@ public class DbPoolUtil extends HttpServlet {
     public void init(ServletConfig config) throws ServletException {
         super.init(config);
         
-        dButils = new DButils();
+        dBCredentials = new DBCredentials();
     }
     
     
     /**
      * @return the database credentials class
      */
-    public static DButils getDBCredentials() {
-    	return dButils;
+    public static DBCredentials getDBCredentials() {
+    	return dBCredentials;
     }
     
     
@@ -63,7 +63,7 @@ public class DbPoolUtil extends HttpServlet {
     public void destroy() {
 		logger.info("Now shutting down database pools.");
     	
-		dButils.closeConnections();		
+		dBCredentials.closeConnections();		
 	} 
     
     

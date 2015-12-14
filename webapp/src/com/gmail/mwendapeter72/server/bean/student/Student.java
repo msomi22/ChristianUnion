@@ -14,7 +14,7 @@ package com.gmail.mwendapeter72.server.bean.student;
 
 import java.util.Date;
 
-import com.gmail.mwendapeter72.server.bean.AllBean;
+import com.gmail.mwendapeter72.server.bean.StorableBean;
 
 
 /**<p>
@@ -24,7 +24,7 @@ import com.gmail.mwendapeter72.server.bean.AllBean;
  * @author <a href="mailto:joramndungu10@gmail.com">Joram Muriithi</a>
  *
  */
-public class Student extends AllBean implements Comparable<Student> {
+public class Student extends StorableBean implements Comparable<Student> {
 	
 	private String StatusUuid;
 	private String AdmNo;

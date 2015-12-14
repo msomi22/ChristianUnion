@@ -30,9 +30,13 @@ import org.apache.commons.validator.routines.EmailValidator;
 
 import com.gmail.mwendapeter72.server.bean.student.Student;
 import com.gmail.mwendapeter72.server.bean.student.StudentOtherDetail;
+import com.gmail.mwendapeter72.server.cache.CacheVariables;
 import com.gmail.mwendapeter72.server.persistence.student.StudentDAO;
 import com.gmail.mwendapeter72.server.persistence.student.StudentOtherDetailDAO;
 import com.gmail.mwendapeter72.server.session.SessionConstants;
+
+import net.sf.ehcache.CacheManager;
+import net.sf.ehcache.Element;
 
 /**
  * used to add student to the system 
@@ -46,43 +50,49 @@ public class AddStudent extends HttpServlet{
 	private static final long serialVersionUID = -2648186311562388253L;
 	private static StudentDAO studentDAO;
 	private static StudentOtherDetailDAO studentOtherDetailDAO;
+	
 	private EmailValidator emailValidator;
-	final String STATUS_ACTIVE_UUID ="85C6F08E-902C-46C2-8746-8C50E7D11E2E";
+	private final String STATUS_ACTIVE_UUID ="85C6F08E-902C-46C2-8746-8C50E7D11E2E";
 	
 	
-	final String ERROR_NO_ADMNO = "Please provide Your Admission Number.";
-	final String ERROR_ADMNO_EXIST = "Admission Number Alraedy exist.";
-	final String ERROR_DOB_TOO_YOUNG = "Sorry! Your age is below 18.";
-	final String ERROR_NO_STUDENT_FIRTSTNAME = "Please provide Your First Name.";
-	final String ERROR_NO_STUDENT_SURNAME = "Please provide Your SurName.";
-	final String ERROR_NO_STUDENT_LASTNAME = "Please provide Your Last Name.";
-	final String ERROR_NO_STUDENT_EMAIL = "Please provide Your email address.";
-	final String ERROR_INVALID_EMAIL = "Email address Invalid.";
-	final String ERROR_EMAIL_EXIST ="This Email already exist";
-	final String ERROR_NO_PHONE = "Please provide Your Phone Number.";
-	final String ERROR_NO_GURDIAN_CONTACT = "Please provide Guardian Phone Number.";
-	final String ERROR_NO_DOB = "Please provide Your Year of Birth.";
-	final String ERROR_INVALID_DOB = "Please provide A Valid Year of Birth.";
-	final String ERROR_NO_GENDER_SELECTED = "Please Select Your Gender.";
-	final String ERROR_NO_STUDENT_PROGRAM = "Please Provide Your Program/Major.";
+	private final String ERROR_NO_ADMNO = "Please provide Your Admission Number.";
+	private final String ERROR_ADMNO_EXIST = "Admission Number Alraedy exist.";
+	private final String ERROR_DOB_TOO_YOUNG = " Your age is below 18.";
+	private final String ERROR_NO_STUDENT_FIRTSTNAME = "Please provide Your First Name.";
+	private final String ERROR_NO_STUDENT_SURNAME = "Please provide Your SurName.";
+	private final String ERROR_NO_STUDENT_LASTNAME = "Please provide Your Last Name.";
+	private final String ERROR_NO_STUDENT_EMAIL = "Please provide Your email address.";
+	private final String ERROR_INVALID_EMAIL = "Email address Invalid.";
+	private final String ERROR_EMAIL_EXIST ="This Email already exist";
+	private final String ERROR_NO_PHONE = "Please provide Your Phone Number.";
+	private final String ERROR_NO_GURDIAN_CONTACT = "Please provide Guardian Phone Number.";
+	private final String ERROR_NO_DOB = "Please provide Your Year of Birth.";
+	private final String ERROR_INVALID_DOB = "Please provide A Valid Year of Birth.";
+	private final String ERROR_NO_GENDER_SELECTED = "Please Select Your Gender.";
+	private final String ERROR_NO_STUDENT_PROGRAM = "Please Provide Your Program/Major.";
 	
-	final String ERROR_NO_STUDENT_ACADEMIC_YEAR = "Please Provide Your Academic Year.";
-	final String ERROR_NO_STUDENT_YEAR_OF_STUDY = "Please Provide Your Year of Study.";
-	final String ERROR_NO_STUDENT_HOME_TOWN = "Please Provide Your Home Town.";
-	final String ERROR_NO_STUDENT_COUNTY = "Please Provide Your County.";
+	private final String ERROR_NO_STUDENT_ACADEMIC_YEAR = "Please Provide Your Academic Year.";
+	private final String ERROR_NO_STUDENT_YEAR_OF_STUDY = "Please Provide Your Year of Study.";
+	private final String ERROR_NO_STUDENT_HOME_TOWN = "Please Provide Your Home Town.";
+	private final String ERROR_NO_STUDENT_COUNTY = "Please Provide Your County.";
 	
-	final String ERROR_NO_MINISTRY = "Please Select atleast one Ministry.";
-	final String ERROR_NO_DESIRED_MINISTRY = "Please Select atleast one Desired Ministry.";
-	double age;
+	//private final String ERROR_NO_MINISTRY = "Please Select atleast one Ministry.";
+	//private final String ERROR_NO_DESIRED_MINISTRY = "Please Select atleast one Desired Ministry.";
+	private double age;
 	
 	
-	final String ERROR_DECLARATION_NOTCHECKED = "Please Accept the Declaration.";
+	private final String ERROR_DECLARATION_NOTCHECKED = "Please Accept the Declaration.";
 	
-	final String STUDENT_ADD_SUCCESS = "Your Information Was Submited Successfully.";
+	private final String STUDENT_ADD_SUCCESS = "Your Information Was Submited Successfully.";
 	
-	String [] MinistryNameArray = null;
-	String [] DesiredMinistryArray = null; 
-	int count = 0;
+	private String [] MinistryNameArray = null;
+	private String [] DesiredMinistryArray = null; 
+	private String ministries = "";
+	private String Desiredministries ="";
+	
+	
+    private CacheManager cacheManager;
+	//private int count = 0;
 	
 
 	/**
@@ -95,6 +105,7 @@ public class AddStudent extends HttpServlet{
        studentDAO = StudentDAO.getInstance();
        studentOtherDetailDAO = StudentOtherDetailDAO.getInstance();
        emailValidator = EmailValidator.getInstance();
+       cacheManager = CacheManager.getInstance();
    }
    
    /**
@@ -126,9 +137,12 @@ protected void doPost(HttpServletRequest request, HttpServletResponse response)
 	   String Christian = StringUtils.trimToEmpty(request.getParameter("Christian"));
 	   String Duration = StringUtils.trimToEmpty(request.getParameter("Duration"));
 	   String Ministry = StringUtils.trimToEmpty(request.getParameter("Ministry"));
-	   MinistryNameArray = request.getParameterValues("MinistryNames");
 	   
-	   DesiredMinistryArray = request.getParameterValues("DesiredMinistries"); 
+	   if(request.getParameterValues("MinistryNames") !=null && request.getParameterValues("DesiredMinistries") !=null){
+	      MinistryNameArray = request.getParameterValues("MinistryNames");
+	      DesiredMinistryArray = request.getParameterValues("DesiredMinistries"); 
+	    }
+	  
 	   String Vision = StringUtils.trimToEmpty(request.getParameter("Vision"));
 	   String Declaration = StringUtils.trimToEmpty(request.getParameter("Declaration"));
 	  
@@ -229,22 +243,19 @@ protected void doPost(HttpServletRequest request, HttpServletResponse response)
 		   session.setAttribute(SessionConstants.STUDENT_ADD_ERROR, ERROR_NO_STUDENT_COUNTY); 
     	  
 	   }
-	   else if(MinistryNameArray.length == 0 ||  MinistryNameArray == null ) {
-			session.setAttribute(SessionConstants.STUDENT_ADD_ERROR, ERROR_NO_MINISTRY);
-			
-	   } else if(DesiredMinistryArray.length == 0 ||  DesiredMinistryArray == null ) {
-			session.setAttribute(SessionConstants.STUDENT_ADD_ERROR, ERROR_NO_DESIRED_MINISTRY);	
-	    }
+	  
 	   else if(!StringUtils.equals(Declaration, StringUtils.trimToEmpty("on"))){
 		   session.setAttribute(SessionConstants.STUDENT_ADD_ERROR, ERROR_DECLARATION_NOTCHECKED); 
     	 
 	   }else{
 		   
-		   String ministries = String.join(",", MinistryNameArray);
-		   String Desiredministries = String.join(",", DesiredMinistryArray);
+		   if(MinistryNameArray !=null && DesiredMinistryArray !=null){
+		   ministries = String.join(",", MinistryNameArray);
+		   Desiredministries = String.join(",", DesiredMinistryArray);
+		   }
 		   
 		  session.setAttribute(SessionConstants.STUDENT_REGISTER_DETAILS, null);
-		  Student s = new Student();
+		  Student  s = new Student();
 			 
 			  s.setUuid(s.getUuid());
 			  s.setAdmNo(AdmNo.toUpperCase());
@@ -263,10 +274,11 @@ protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			  s.setCounty(County.toUpperCase());
 			  s.setStatusUuid(STATUS_ACTIVE_UUID);
 			  studentDAO.putStudent(s);
-		   
+			  //s = studentDAO.getStudent(AdmNo); //  Ensures the student is populated with the correct ID
+			  updateStudentCache(s);
 		  
 		  
-		   StudentOtherDetail   d = new StudentOtherDetail();
+			  StudentOtherDetail d = new StudentOtherDetail();
 			  d = new StudentOtherDetail();
 			  d.setMinistryName(ministries.toUpperCase()); 
 			  d.setDesiredMinistry(Desiredministries.toUpperCase());	
@@ -276,6 +288,8 @@ protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			  d.setMinistry(Ministry.toUpperCase());
 			  d.setMinistryVision(Vision);
 			  studentOtherDetailDAO.putDetail(d);
+			  //d = studentOtherDetailDAO.getDetail(s.getUuid());
+			  updateStudentOtherInfoCache(d); 
 			
 		  session.setAttribute(SessionConstants.STUDENT_ADD_SUCCESS, STUDENT_ADD_SUCCESS); 
 		   
@@ -290,6 +304,7 @@ protected void doPost(HttpServletRequest request, HttpServletResponse response)
 
    
 
+
 private boolean ValidDob(String dOB) {
 	boolean success = true;
 	String regex ="\\d+";//     /^\d{4}$/
@@ -300,6 +315,19 @@ private boolean ValidDob(String dOB) {
 		success = false;
 	}
 	return success;
+}
+
+
+private void updateStudentCache(Student studennt) {
+	//cacheManager.getCache(CacheVariables.CACHE_STUDENT_BY_ADM_NO).put(new Element(studennt.getAdmNo(), studennt));
+	cacheManager.getCache(CacheVariables.CACHE_STUDENT_BY_UUID).put(new Element(studennt.getUuid(), studennt));
+	
+}
+
+
+private void updateStudentOtherInfoCache(StudentOtherDetail studeOthe) {
+	cacheManager.getCache(CacheVariables.CACHE_STUDENT_OTHER_INFO_BY_UUID).put(new Element(studeOthe.getUuid(), studeOthe));
+	
 }
 
 /**

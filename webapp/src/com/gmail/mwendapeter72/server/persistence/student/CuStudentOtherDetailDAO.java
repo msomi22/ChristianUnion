@@ -63,5 +63,13 @@ public interface CuStudentOtherDetailDAO {
 	 */
     
 	public List<StudentOtherDetail> getAllDetailList(int startIndex , int endIndex);
+	
+	 
+		/**
+		 * Retrieve all {@link StudentOtherDetail}
+		 * @return the list of all students other details
+		 */
+	    
+		public List<StudentOtherDetail> getDetailList();
 
 }

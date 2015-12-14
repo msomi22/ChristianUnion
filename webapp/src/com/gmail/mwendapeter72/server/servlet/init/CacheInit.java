@@ -33,11 +33,17 @@ import net.sf.ehcache.config.SizeOfPolicyConfiguration;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.log4j.Logger;
 
-import com.gmail.mwendapeter72.server.bean.AllBean;
+import com.gmail.mwendapeter72.server.bean.StorableBean;
 import com.gmail.mwendapeter72.server.bean.student.Student;
 import com.gmail.mwendapeter72.server.cache.CacheVariables;
+import com.gmail.mwendapeter72.server.persistence.student.StatusDAO;
 import com.gmail.mwendapeter72.server.persistence.student.StudentDAO;
-import com.gmail.mwendapeter72.server.persistence.student.StudentPositionDAO;
+import com.gmail.mwendapeter72.server.persistence.student.StudentOtherDetailDAO;
+import com.gmail.mwendapeter72.server.persistence.student.leader.LeadersRegisterDAO;
+import com.gmail.mwendapeter72.server.persistence.student.leader.PositionDAO;
+import com.gmail.mwendapeter72.server.persistence.student.leader.executive.ExecutiveDAO;
+import com.gmail.mwendapeter72.server.persistence.student.leader.family.FamilyDAO;
+import com.gmail.mwendapeter72.server.persistence.student.leader.ministry.MinistryDAO;
 import com.gmail.mwendapeter72.server.servlet.util.PropertiesConfig;
 
 
@@ -53,8 +59,19 @@ public class CacheInit extends HttpServlet {
 	 */
 	private static final long serialVersionUID = -3008204545799439966L;
 
+	protected StudentOtherDetailDAO studentOtherDetailDAO;
 	protected StudentDAO studentDAO;
-	protected StudentPositionDAO StudentPositionDAO;
+	protected StatusDAO statusDAO;
+	
+	protected LeadersRegisterDAO leadersRegisterDAO;
+	protected PositionDAO positionDAO;
+	
+	protected ExecutiveDAO executiveDAO;
+	
+	protected FamilyDAO familyDAO;
+	
+	protected MinistryDAO ministryDAO;
+	
 	
     private CacheManager cacheManager;
     private SizeOfPolicyConfiguration sizeOfPolicyConfiguration;
@@ -70,9 +87,21 @@ public class CacheInit extends HttpServlet {
     @Override
     public void init(ServletConfig config) throws ServletException {
         super.init(config);
-
+       
+        studentOtherDetailDAO = StudentOtherDetailDAO.getInstance();
         studentDAO = StudentDAO.getInstance();
-      
+        statusDAO = StatusDAO.getInstance();
+       
+        
+        leadersRegisterDAO = LeadersRegisterDAO.getInstance();
+        positionDAO = PositionDAO.getInstance();
+        
+        executiveDAO = ExecutiveDAO.getInstance();
+        
+        familyDAO = FamilyDAO.getInstance();
+        
+        ministryDAO = MinistryDAO.getInstance();
+       
         sizeOfPolicyConfiguration = new SizeOfPolicyConfiguration();
         sizeOfPolicyConfiguration.setMaxDepthExceededBehavior("abort");
 
@@ -96,18 +125,40 @@ public class CacheInit extends HttpServlet {
         config.setUpdateCheck(false);
 
         cacheManager = CacheManager.create(config);
-      //studentDAO
-        List<? extends AllBean> objList;
-
-        objList = studentDAO.getStudentList(0, 15); 
+      
+        List<? extends StorableBean> objList;
+        
+        objList = studentDAO.getStudentList();
         initCacheByUuid(CacheVariables.CACHE_STUDENT_BY_UUID, objList);
+        
+        objList = statusDAO.getAllStatus();
+        initCacheByUuid(CacheVariables.CACHE_STATUS_BY_UUID, objList);
+        
+        objList = studentOtherDetailDAO.getDetailList();
+        initCacheByUuid(CacheVariables.CACHE_STUDENT_OTHER_INFO_BY_UUID, objList);
+        
+        objList = leadersRegisterDAO.getLeadersList();
+        initCacheByUuid(CacheVariables.CACHE_LEADERS_REGISTER_BY_UUID, objList);
+        
+        objList = positionDAO.getPositionList();
+        initCacheByUuid(CacheVariables.CACHE_POSITION_BY_UUID, objList);
+        
+        objList = executiveDAO.getExecutiveList();
+        initCacheByUuid(CacheVariables.CACHE_EXECUTIVE_BY_UUID, objList);
        
+        objList = familyDAO.getFamilyList();
+        initCacheByUuid(CacheVariables.CACHE_FAMILY_BY_UUID, objList);
+        
+       
+        objList = ministryDAO.getAllMinistres();
+        initCacheByUuid(CacheVariables.CACHE_MINISTRY_BY_UUID, objList);
+        
+      
 
-        initAccountsCache(CacheVariables.CACHE_STUDENT_BY_ADM_NO);
-           
-
+        initStudentsCache(CacheVariables.CACHE_STUDENT_BY_ADM_NO);
+        
         initGenericCache(CacheVariables.CACHE_STATISTICS_BY_STUDENT);
-        initGenericCache(CacheVariables.CACHE_STUDENT_BY_ADM_NO);        
+        initGenericCache(CacheVariables.CACHE_STUDENTS_STATISTICS);        
     }
     
 
@@ -116,7 +167,7 @@ public class CacheInit extends HttpServlet {
      * @param cacheName
      * @param objList
      */
-    private void initCacheByUuid(String cacheName, List<? extends AllBean> objList) {
+    private void initCacheByUuid(String cacheName, List<? extends StorableBean> objList) {
     	Cache cache = null;
         if (!cacheManager.cacheExists(cacheName)) {
             CacheConfiguration cacheConfig = new CacheConfiguration().sizeOfPolicy(sizeOfPolicyConfiguration);
@@ -136,17 +187,17 @@ public class CacheInit extends HttpServlet {
         	cache = mgr.getCache(cacheName);
         }
      
-        for (AllBean b : objList) {
+        for (StorableBean b : objList) {
             cache.put(new Element(b.getUuid(), b)); // UUID as the key            
         }
     }    
     
 
+   
     /**
-     *
      * @param cacheName
      */
-    private void initAccountsCache(String cacheName) {
+    private void initStudentsCache(String cacheName) {
 
         if (!cacheManager.cacheExists(cacheName)) {
             CacheConfiguration cacheConfig = new CacheConfiguration().sizeOfPolicy(sizeOfPolicyConfiguration);
@@ -155,23 +206,23 @@ public class CacheInit extends HttpServlet {
             cacheConfig.setEternal(true); // Sets whether elements are eternal.    	
             cacheConfig.setName(cacheName); // Sets the name of the cache.
 
-            Cache accountsCache = new Cache(cacheConfig);
-            cacheManager.addCacheIfAbsent(accountsCache);
-            if (accountsCache.getStatus() == Status.STATUS_UNINITIALISED) {
-                accountsCache.initialise();
+            Cache studentsCache = new Cache(cacheConfig);
+            cacheManager.addCacheIfAbsent(studentsCache);
+            if (studentsCache.getStatus() == Status.STATUS_UNINITIALISED) {
+            	studentsCache.initialise();
             }
 
-            List<Student> allstudents = studentDAO.getStudentList(0, 15); 
+            List<Student> allstudents = studentDAO.getStudentList();
 
             if (StringUtils.equals(cacheName, CacheVariables.CACHE_STUDENT_BY_ADM_NO)) {
                 for (Student stu : allstudents) {
-                    accountsCache.put(new Element(stu.getAdmNo(), stu));		// admno as the key
+                	studentsCache.put(new Element(stu.getAdmNo(), stu));		// admno as the key
                 }
             }
         }
     }
 
-    
+   
     
     /**
      *

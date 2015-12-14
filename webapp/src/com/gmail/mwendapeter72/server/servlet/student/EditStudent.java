@@ -26,9 +26,13 @@ import org.apache.commons.validator.routines.EmailValidator;
 
 import com.gmail.mwendapeter72.server.bean.student.Student;
 import com.gmail.mwendapeter72.server.bean.student.StudentOtherDetail;
+import com.gmail.mwendapeter72.server.cache.CacheVariables;
 import com.gmail.mwendapeter72.server.persistence.student.StudentDAO;
 import com.gmail.mwendapeter72.server.persistence.student.StudentOtherDetailDAO;
 import com.gmail.mwendapeter72.server.session.SessionConstants;
+
+import net.sf.ehcache.CacheManager;
+import net.sf.ehcache.Element;
 
 /**
  * used to edit student information 
@@ -43,13 +47,17 @@ public class EditStudent extends HttpServlet{
 	private static StudentDAO studentDAO;
 	private static StudentOtherDetailDAO studentOtherDetailDAO;
 	private EmailValidator emailValidator;
+	private CacheManager cacheManager;
+	 
+	Student s;
+	StudentOtherDetail d;
 	
 	
 	final String ERROR_ADMNO_EXIST = "Admission Number Alraedy exist.";
 	final String ERROR_INVALID_EMAIL = "Email address Invalid.";
 	final String ERROR_INVALID_DOB = "Please provide A Valid Year of Birth.";
 	
-	final String ERROR_STUDENT_UPDATE = "Error! Student Details Not Updated.";
+	final String ERROR_STUDENT_UPDATE = " Student Details Not Updated.";
 	final String STUDENT_UPDATE_SUCCESS = "Student Information  Successfully Updated.";
 
 	/**
@@ -61,7 +69,7 @@ public class EditStudent extends HttpServlet{
        super.init(config);
        studentDAO = StudentDAO.getInstance();
        studentOtherDetailDAO = StudentOtherDetailDAO.getInstance();
-    
+       cacheManager = CacheManager.getInstance();
  
        emailValidator = EmailValidator.getInstance();
    }
@@ -102,16 +110,7 @@ protected void doPost(HttpServletRequest request, HttpServletResponse response)
 	   String DesiredMinistry = StringUtils.trimToEmpty(request.getParameter("desiredministry"));
 	   String Vision = StringUtils.trimToEmpty(request.getParameter("vision"));
 	  
-	   
-	  /* System.out.println(Gender);
-	   System.out.println(YearOfStudy);
-	   System.out.println(Vision);*/
-	   
-	   /*if(studentDAO.getStudent(AdmNo) !=null){
-		   session.setAttribute(SessionConstants.STUDENT_UPDATE_ERROR, ERROR_ADMNO_EXIST); 
-    	
-	   } 
-	   else*/ if(!emailValidator.isValid(Email)){		     
+	   if(!emailValidator.isValid(Email)){		     
 		   session.setAttribute(SessionConstants.STUDENT_UPDATE_ERROR, ERROR_INVALID_EMAIL);  
 		  	   
 	   }else if(!ValidDob(DOB)){
@@ -122,7 +121,7 @@ protected void doPost(HttpServletRequest request, HttpServletResponse response)
 		   session.setAttribute(SessionConstants.STUDENT_REGISTER_DETAILS, null);
 		   
 		   
-			  Student s = new Student();
+			  s = new Student();
 			  s = studentDAO.getStudentByUuid(Uuid);// Populate Student Object with the correct id
 			  
 			  s.setUuid(Uuid);
@@ -141,9 +140,9 @@ protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			  s.setHomeTown(HomeTown.toUpperCase());
 			  s.setCounty(County.toUpperCase());
 			  studentDAO.updateStudent(s, Uuid);
-			   
+			  updateStudentCache(s);
 			  
-			  StudentOtherDetail d = new StudentOtherDetail();
+			  d = new StudentOtherDetail();
 			  d = studentOtherDetailDAO.getDetail(Uuid);// Populate StudentOtherDetail Object with the correct id
 			  
 			  d.setStudentUuid(Uuid);
@@ -154,6 +153,8 @@ protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			  d.setDesiredMinistry(DesiredMinistry.toUpperCase());
 			  d.setMinistryVision(Vision);
 			  studentOtherDetailDAO.updateDetail(d, Uuid); 
+			  updateStudentOtherInfoCache(d); 
+			  
 			  session.setAttribute(SessionConstants.STUDENT_UPDATE_SUCCESS, STUDENT_UPDATE_SUCCESS);
 		   
 	   } 
@@ -162,6 +163,15 @@ protected void doPost(HttpServletRequest request, HttpServletResponse response)
    }
    
 
+private void updateStudentOtherInfoCache(StudentOtherDetail dd) {
+	cacheManager.getCache(CacheVariables.CACHE_STUDENT_OTHER_INFO_BY_UUID).put(new Element(dd.getUuid(), dd));
+	
+}
+
+private void updateStudentCache(Student ss) {
+	cacheManager.getCache(CacheVariables.CACHE_STUDENT_BY_UUID).put(new Element(ss.getUuid(), ss));
+	
+}
 
 private boolean ValidDob(String dOB) {
 	boolean success = true;

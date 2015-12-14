@@ -11,6 +11,9 @@ Contacts, Mobile: +254718953974
          @author peter<a href="mailto:mwendapeter72@gmail.com">Peter mwenda</a>
  */
 %>
+<%@page import="com.gmail.mwendapeter72.server.cache.CacheVariables"%>
+<%@page import="com.gmail.mwendapeter72.server.bean.student.leader.ministry.Ministry"%>
+
 
 <%@page import="com.gmail.mwendapeter72.server.util.FontImageGenerator"%>
 <%@page import="com.gmail.mwendapeter72.server.session.SessionConstants"%>
@@ -24,6 +27,10 @@ Contacts, Mobile: +254718953974
 <%@page import="java.net.URLEncoder"%>
 <%@page import="java.util.Calendar" %>
 
+<%@ page import="net.sf.ehcache.Cache" %>
+<%@ page import="net.sf.ehcache.CacheManager" %>
+<%@ page import="net.sf.ehcache.Element" %>
+
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 
 <%
@@ -36,6 +43,23 @@ Contacts, Mobile: +254718953974
 
        BasicTextEncryptor textEncryptor = new BasicTextEncryptor();    
        textEncryptor.setPassword(FontImageGenerator.SECRET_KEY);   
+
+       CacheManager mgr = CacheManager.getInstance();
+       Cache minCache = mgr.getCache(CacheVariables.CACHE_MINISTRY_BY_UUID);
+
+       Ministry ministry;
+  
+       List keys;
+       Element element;
+
+       List<Ministry> ministryList = new ArrayList<Ministry>();
+
+        keys = minCache.getKeys();
+        for (Object key : keys) {
+            element = minCache.get(key);
+            ministry = (Ministry) element.getObjectValue();
+            ministryList.add(ministry);
+        }
 
 
       String captcha = RandomStringUtils.randomAlphabetic(4); 
@@ -318,12 +342,18 @@ Contacts, Mobile: +254718953974
                         <label class="control-label" for="name">Which Ministry(ies)/Current Ministry(ies):</label>
                         <div class="controls">
                             <select name="MinistryNames"  multiple>
-                                <option value="Bible Study" selected>Bible Study</option>
-                                <option value="Praise And Worship">Praise And Worship</option>
-                                <option value="Intercessory">Intercessory</option>
-                                <option value="Evangelism">Evangelism</option>
-                                <option value="Evangelism">Techinical</option>
-                                <option value="Evangelism">Ushering</option>
+                               
+                               <%
+                                    int count = 1;
+                                    if (ministryList != null) {
+                                        for (Ministry m : ministryList) {
+                                %>
+                                <option value="<%= m.getMinistryName()%>"><%=m.getMinistryName()%></option>
+                                <%
+                                            count++;
+                                        }
+                                    }
+                                %>
 
                             </select>                           
                           
@@ -335,12 +365,17 @@ Contacts, Mobile: +254718953974
                         <label class="control-label" for="name">Which Ministry(ies) would you like to serve in the MMUCU?:</label>
                        <div class="controls">
                             <select name="DesiredMinistries" multiple>
-                                <option value="Bible Study" selected>Bible Study</option>
-                                <option value="Praise And Worship">Praise And Worship</option>
-                                <option value="Intercessory">Intercessory</option>
-                                <option value="Evangelism">Evangelism</option>
-                                <option value="Evangelism">Techinical</option>
-                                <option value="Evangelism">Ushering</option>
+                                <%
+                                    int count2 = 1;
+                                    if (ministryList != null) {
+                                        for (Ministry mm : ministryList) {
+                                %>
+                                <option value="<%= mm.getMinistryName()%>"><%=mm.getMinistryName()%></option>
+                                <%
+                                            count2++;
+                                        }
+                                    }
+                                %>
                                 
                             </select>                           
                           

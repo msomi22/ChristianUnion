@@ -12,7 +12,7 @@
 **/
 package com.gmail.mwendapeter72.server.bean.student;
 
-import com.gmail.mwendapeter72.server.bean.AllBean;
+import com.gmail.mwendapeter72.server.bean.StorableBean;
 
 /**<p>
  * Student Other details, these include non-personal information
@@ -21,7 +21,7 @@ import com.gmail.mwendapeter72.server.bean.AllBean;
  * @author <a href="mailto:mwendapeter72@gmail.com">Peter mwenda</a>
  *
  */
-public class StudentOtherDetail extends AllBean {
+public class StudentOtherDetail extends StorableBean {
 
 	
 	/**

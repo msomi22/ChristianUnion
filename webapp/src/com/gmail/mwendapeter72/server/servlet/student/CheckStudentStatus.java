@@ -46,11 +46,13 @@ public class CheckStudentStatus extends HttpServlet{
 	
 	final String STATUS_INACTIVE_UUID = StringUtils.trim("6C03705B-E05E-420B-B5B8-C7EE36643E60"); 
 	
-	final String ERROR_NO_ADMNO = "Please provide Your Admission Number.";
+	final String STUDENT_DETAILS_INACTIVE = "Your Information  Is 'NOT' Active,Please activate In the Form Below.";
 	final String ERROR_ADMNO_NOT_FOUND = "Your Admission Number Was Not Found in the system.";
 	final String STUDENT_UPDATE_SUCCESS = "Student Information  Successfully Updated.";
+	final String ERROR_NO_ADMNO = "Please Provide Your Admission Number.";
+	
 	final String STUDENT_DETAILS_ACTIVE = "Your Information  Is Still Active.";
-	final String STUDENT_DETAILS_INACTIVE = "Your Information  Is 'NOT' Active,Please activate In the Form Below.";
+	
     
 	
 	 Long diffhours;
