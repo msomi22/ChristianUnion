@@ -12,8 +12,10 @@ Contacts, Mobile: +254718953974
  */
 %>
 
-
+<%@page import="com.gmail.mwendapeter72.server.persistence.student.leader.LeadersRegisterDAO"%>
 <%@page import="com.gmail.mwendapeter72.server.bean.student.leader.LeadersRegister"%>
+
+<%@page import="com.gmail.mwendapeter72.server.persistence.student.StudentDAO"%>
 <%@page import="com.gmail.mwendapeter72.server.bean.student.Student"%>
 
 <%@page import="com.gmail.mwendapeter72.server.session.admin.SessionConstants"%>
@@ -60,6 +62,15 @@ Contacts, Mobile: +254718953974
        //Leaders Register Cache Management
        Cache leadersRegisterCache = mgr.getCache(CacheVariables.CACHE_LEADERS_REGISTER_BY_UUID);
        HashMap<String, LeadersRegister> leadersRegisterHash = new HashMap<String, LeadersRegister>();
+
+
+        LeadersRegisterDAO leadersRegisterDAO = LeadersRegisterDAO.getInstance();
+        StudentDAO studentDAO = StudentDAO.getInstance();
+
+        List<Student> studentList = new ArrayList<Student>();
+        studentList = studentDAO.getStudentList();
+
+
        
       //Variables
       Student student;
@@ -71,21 +82,26 @@ Contacts, Mobile: +254718953974
         keys = studentsCache.getKeys();
         for (Object key : keys) {
               element = studentsCache.get(key);
-              student = (Student) element.getObjectValue();
-              studentHash.put(student.getUuid(),student);
+              //student = (Student) element.getObjectValue();
+              //studentHash.put(student.getUuid(),student);
         }
 
+        for(Student students : studentList){
+            studentHash.put(students.getUuid(),students);
+           }
+
       //Leaders Register Management
-         LeadersRegister leaderReg = new LeadersRegister(); 
+      LeadersRegister leaderReg = new LeadersRegister(); 
       List<LeadersRegister> leadersRegisterList = new ArrayList<LeadersRegister>();
       keys = leadersRegisterCache.getKeys();
       for (Object key : keys) {
             element = leadersRegisterCache.get(key);
             leaderReg = (LeadersRegister) element.getObjectValue();
             leadersRegisterHash.put(leaderReg.getStudentUuid(),leaderReg);
-            leadersRegisterList.add(leaderReg); 
+           // leadersRegisterList.add(leaderReg); 
         }
 
+        leadersRegisterList = leadersRegisterDAO.getLeadersList();
        
          SimpleDateFormat dateFormatter = new SimpleDateFormat("yyyy-dd-MM");
         // Basic Variables
@@ -123,13 +139,13 @@ Contacts, Mobile: +254718953974
 
                                 if (StringUtils.isNotEmpty(findError)) {
                                     out.println("<p style='color:red;'>");                 
-                                    out.println("error: " + findError);
+                                    out.println("Oh my God!: " + findError);
                                     out.println("</p>");                                 
                                     session.setAttribute(SessionConstants.STUDENT_FIND_ERROR, null);
                                   } 
                                    else if (StringUtils.isNotEmpty(findsuccess)) {
                                     out.println("<p style='color:green;'>");                                 
-                                    out.println("success: " + findsuccess);
+                                    out.println("Sharom!: " + findsuccess);
                                     out.println("</p>");                                   
                                     session.setAttribute(SessionConstants.STUDENT_UPDATE_SUCCESS, null);
                                   } 

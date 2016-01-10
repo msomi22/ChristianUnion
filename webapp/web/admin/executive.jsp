@@ -82,7 +82,8 @@ if (session == null) {
   <jsp:include page="header.jsp" />
 
 
-
+          <div class="row-fluid sortable">    
+                <div class="box span12">
 
            <div class="box-content">
                    <%
@@ -105,13 +106,13 @@ if (session == null) {
 
                                 if (StringUtils.isNotEmpty(findError)) {
                                     out.println("<p style='color:red;'>");                 
-                                    out.println("error: " + findError);
+                                    out.println("Oh my God!: " + findError);
                                     out.println("</p>");                                 
                                     session.setAttribute(SessionConstants.STUDENT_FIND_ERROR, null);
                                   } 
                                    else if (StringUtils.isNotEmpty(findsuccess)) {
                                     out.println("<p style='color:green;'>");                                 
-                                    out.println("success: " + findsuccess);
+                                    out.println("Sharom!: " + findsuccess);
                                     out.println("</p>");                                   
                                     session.setAttribute(SessionConstants.STUDENT_UPDATE_SUCCESS, null);
                                   } 
@@ -127,9 +128,13 @@ if (session == null) {
 
 
              %>
+             <div class="content_title"> 
+                <h3>MMUCU Executives Registration </h3>
+                
+            </div>
 
         <!-- <div id="tooplate_middle"> -->  
-             <P><b style=color:blue;> Executive </b></P>
+             
               <form  class="form-horizontal"   action="../findExec" method="POST" >
                 <fieldset>
 
@@ -163,8 +168,8 @@ if (session == null) {
 
                         <div class="control-group" id="dividm">
                         <label class="control-label" for="name">Role:</label>
-                        <div class="controls" id="getExecName">
-                             <select name="CategoryUuid" id="Name" >
+                        <div class="controls" id="getPosition">
+                             <select name="Position" id="Position" >
                              <option value="">Select One</option>
                                 <%      
                                     int count = 1;
@@ -172,7 +177,7 @@ if (session == null) {
                                         for (Executive ex : execList) {
                                 %>
 
-                                <option value="<%=ex.getUuid()%>"  ><%=ex.getCategory()%></option>
+                                <option value="<%=ex.getCategory()%>"  ><%=ex.getCategory()%></option>
                                 <%
                                             count++;
                                         }
@@ -201,7 +206,9 @@ if (session == null) {
 
 
          </div> 
-
+   
+        </div>
+    </div><!--/span-->
   <jsp:include page="footer.jsp" />
 
         

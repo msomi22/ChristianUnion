@@ -133,7 +133,8 @@ if (session == null) {
   <jsp:include page="header.jsp" />
 
 
-             
+             <div class="row-fluid sortable">    
+                <div class="box span12">
 
          <div class="box-content">
 
@@ -157,13 +158,13 @@ if (session == null) {
 
                                 if (StringUtils.isNotEmpty(findError)) {
                                     out.println("<p style='color:red;'>");                 
-                                    out.println("error: " + findError);
+                                    out.println("Oh my God!: " + findError);
                                     out.println("</p>");                                 
                                     session.setAttribute(SessionConstants.STUDENT_FIND_ERROR, null);
                                   } 
                                    else if (StringUtils.isNotEmpty(findsuccess)) {
                                     out.println("<p style='color:green;'>");                                 
-                                    out.println("success: " + findsuccess);
+                                    out.println("Sharom!: " + findsuccess);
                                     out.println("</p>");                                   
                                     session.setAttribute(SessionConstants.STUDENT_UPDATE_SUCCESS, null);
                                   } 
@@ -179,9 +180,13 @@ if (session == null) {
 
 
              %>
-
+           
+           <div class="content_title"> 
+                <h3>MMUCU Family Leaders Registration </h3>
+                
+            </div>
         <!-- <div id="tooplate_middle"> -->  
-             <P><b style=color:blue;> Assign Family </b></P>
+            
               <form  class="form-horizontal"   action="../findFamilyHead" method="POST" >
                 <fieldset>
 
@@ -219,9 +224,8 @@ if (session == null) {
                              <select name="Category" id="Category" >
                              <option value="">select one</option>
                              <option value="Dad/Mum">Dad/Mum</option>
-                             <option value="Overall Dad">Overall Dad</option>
-                              <option value="Overall Mum">Overall Mum</option>
-                             
+                             <option value="Overall Dad/Mum">Overall Dad/Mum</option>
+                           
                             </select>                           
                           
                         </div>
@@ -232,7 +236,7 @@ if (session == null) {
                         <div class="control-group" id="dividm">
                         <label class="control-label" for="name">Family:</label>
                         <div class="controls" id="getFamName">
-                             <select name="familyUuid" id="FamName" >
+                             <select name="FamilyName" id="FamName" >
                              <option value="">select one</option>
                              <%      
                                     int count = 1;  
@@ -240,7 +244,7 @@ if (session == null) {
                                         for (Family f : famList) {
                                 %>
 
-                                <option value="<%=f.getUuid()%>"  ><%=f.getFamilyName()%></option>
+                                <option value="<%=f.getFamilyName()%>"  ><%=f.getFamilyName()%></option>
                                 <%
                                             count++;
                                         }
@@ -271,6 +275,9 @@ if (session == null) {
 
 
          </div> 
+
+        </div>
+    </div><!--/span-->
 
   <jsp:include page="footer.jsp" />
 

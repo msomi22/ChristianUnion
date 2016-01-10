@@ -15,7 +15,7 @@ Contacts, Mobile: +254718953974
 <html lang="en">
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-<title>Christian Union</title>
+  <title>Maasai Mara University Christian Union</title>
 <meta name="keywords" content="" />
 <meta name="description" content="" />
 

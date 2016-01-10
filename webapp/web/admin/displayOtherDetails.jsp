@@ -105,13 +105,17 @@ if (session == null) {
                          <tr>  <td width="30%" class="center">Desired Ministry(ies)</td>           <td class="center"><%=studentDetails.getDesiredMinistry()%></td> </tr>
                          <tr>  <td width="30%" class="center">Ministry(ies) Vision</td>             <td class="center"><%=studentDetails.getMinistryVision()%></td>   </tr>                    
                 
-                 <% } else 
-                            {%>
+                 <% } else{
 
-                            <tr>  <td class="center">NO DETAILS THAT WERE FOUND!!</td> </tr>
+                        String message = "NO DETAILS FOUND!"; 
+                        out.println("<tr>  <td class=\"center\">" + message + "</td> </tr>");
+                       
+                          } 
 
-                 <%
-                    }
+                          
+
+                
+                    
                  %>
                   </tbody>
                 </table>                    

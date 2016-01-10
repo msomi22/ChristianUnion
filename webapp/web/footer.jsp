@@ -12,10 +12,12 @@ Contacts, Mobile: +254718953974
  */
 %>
 
-  <div id="tooplate_footer">
-    	Copyright © 2015 <a href="#">Maasai Mara University Christiannion</a>-Developed By: <a href="http://www.facebook.com/fastech.co.ke">FasTech Solutions</a>
-    </div> <!-- end of footer -->
+<%@page import="java.util.Calendar" %>
 
+    
+    <div id="tooplate_footer">
+       Copyright  &copy; <%= Calendar.getInstance().get(Calendar.YEAR)%> Maasai Mara University Christiannion - Developed By : <a href="http://www.facebook.com/fastech.co.ke" target="_blank">FasTech Solutions Ltd</a> 
+    </div> <!-- end of footer -->
   
     
     </body>

@@ -173,7 +173,7 @@ ALTER TABLE StudentOtherInfo OWNER TO cu;
 CREATE TABLE  LeadersRegister (
     Id SERIAL PRIMARY KEY,
     Uuid text UNIQUE NOT NULL,
-    StudentUuid text UNIQUE REFERENCES Student(Uuid),
+    StudentUuid text REFERENCES Student(Uuid),
     StatusUuid text REFERENCES Status(Uuid),
     Category text ,
     Position text ,

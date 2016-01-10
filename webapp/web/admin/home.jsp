@@ -18,6 +18,7 @@ Contacts, Mobile: +254718953974
 <%@page import="com.gmail.mwendapeter72.server.pagination.student.StudentPaginator"%>
 <%@page import="com.gmail.mwendapeter72.server.pagination.student.StudentPage"%>
 
+<%@page import="com.gmail.mwendapeter72.server.persistence.student.StudentDAO"%>
 <%@page import="com.gmail.mwendapeter72.server.bean.student.Student"%>
 
 <%@page import="com.gmail.mwendapeter72.server.persistence.student.StudentOtherDetailDAO"%>
@@ -30,6 +31,9 @@ Contacts, Mobile: +254718953974
 <%@page import="com.gmail.mwendapeter72.server.session.admin.SessionConstants"%>
 
 <%@page import="org.apache.commons.lang3.StringUtils"%>
+<%@page import="org.apache.commons.lang3.math.NumberUtils"%>
+
+
 <%@page import="java.util.ArrayList"%>
 <%@page import="java.util.List"%>
 <%@page import="java.text.SimpleDateFormat"%>
@@ -64,21 +68,15 @@ if (session == null) {
 
      session.setMaxInactiveInterval(SessionConstants.SESSION_TIMEOUT);
      response.setHeader("Refresh", SessionConstants.SESSION_TIMEOUT + "; url=../logout");
-
-      
-     
-      
-
-
-
+  
+      StudentDAO studentDAO = StudentDAO.getInstance();
      //Stusent Cache Management
        CacheManager mgr = CacheManager.getInstance();
        Cache studentsCache = mgr.getCache(CacheVariables.CACHE_STUDENT_BY_UUID);
-       HashMap<String, Student> studentHash = new HashMap<String, Student>();
 
-       Student student;
-       StudentOtherDetail studentDetal;
-       Status status;
+       Student student = new Student();
+     
+
        List keys;
        Element element;
 
@@ -87,10 +85,13 @@ if (session == null) {
       keys = studentsCache.getKeys();
       for (Object key : keys) {
             element = studentsCache.get(key);
-            student = (Student) element.getObjectValue();
-            studentHash.put(student.getUuid(),student);
-            studentList.add(student);
+            //student = (Student) element.getObjectValue();
+           // studentList.add(student);
       }
+      studentList = studentDAO.getStudentList();
+
+      List<Student> studentList1 = new ArrayList(); 
+      studentList1 = studentDAO.getStudentList(0,15);
 
       HashMap<String, String> statusHash = new HashMap<String, String>();
 
@@ -99,7 +100,7 @@ if (session == null) {
         StatusDAO statusDAO = StatusDAO.getInstance();
         List<Status> statustList = new ArrayList(); 
         statustList = statusDAO.getAllStatus();
-      // out.println(statustList);
+     
        for(Status stat : statustList){
            statusHash.put(stat.getUuid(), stat.getStatus());
        }
@@ -116,7 +117,37 @@ if (session == null) {
           return;
       } */
 
+     int ussdCount = 0;
+     StudentPaginator paginator = new StudentPaginator();
+     StudentPage studentpage;
 
+     
+     studentpage = (StudentPage) session.getAttribute("currentPage");
+        String referrer = request.getHeader("referer");
+        String pageParam = (String) request.getParameter("page");
+
+        // We are to give the first page
+        if (studentpage == null
+                || !StringUtils.endsWith(referrer, "home.jsp")
+                || StringUtils.equalsIgnoreCase(pageParam, "first")) {
+              studentpage = paginator.getFirstPage();
+
+            //We are to give the last page
+        } else if (StringUtils.equalsIgnoreCase(pageParam, "last")) {
+             studentpage = paginator.getLastPage();
+
+            // We are to give the previous page
+        } else if (StringUtils.equalsIgnoreCase(pageParam, "previous")) {
+            studentpage = paginator.getPrevPage(studentpage);
+
+            // We are to give the next page 
+        } else if (StringUtils.equalsIgnoreCase(pageParam, "next"))  {
+           studentpage = paginator.getNextPage(studentpage);
+        }
+
+        session.setAttribute("currentPage", studentpage);
+        studentList1 = studentpage.getContents();
+        ussdCount = (studentpage.getPageNum() - 1) * studentpage.getPagesize() + 1;
     
 
 %> 
@@ -135,44 +166,45 @@ if (session == null) {
                         
 
                                 String editErr = "";
-                                String reportErr = "";
                                 String editsuccess = "";
                                 session = request.getSession(false);
-                                     editErr = (String) session.getAttribute(SessionConstants.STUDENT_UPDATE_ERROR);
-                                     reportErr = (String) session.getAttribute(SessionConstants.STUDENT_REPORT_ERROR);
+                                     editErr = (String) session.getAttribute(SessionConstants.STUDENT_UPDATE_ERROR);                                
                                      editsuccess = (String) session.getAttribute(SessionConstants.STUDENT_UPDATE_SUCCESS); 
 
                                 if(session != null) {
                                     editErr = (String) session.getAttribute(SessionConstants.STUDENT_UPDATE_ERROR);
-                                     reportErr = (String) session.getAttribute(SessionConstants.STUDENT_REPORT_ERROR);
                                     editsuccess = (String) session.getAttribute(SessionConstants.STUDENT_UPDATE_SUCCESS);
                                 }                        
 
                                 if (StringUtils.isNotEmpty(editErr)) {
                                     out.println("<p style='color:red;'>");                 
-                                    out.println("error!!: " + editErr);
+                                    out.println("Oh my God!: " + editErr);
                                     out.println("</p>");                                 
                                     session.setAttribute(SessionConstants.STUDENT_UPDATE_ERROR, null);
                                   } 
                                    else if (StringUtils.isNotEmpty(editsuccess)) {
                                     out.println("<p style='color:green;'>");                                 
-                                    out.println("success: " + editsuccess);
+                                    out.println("Sharom!: " + editsuccess);
                                     out.println("</p>");                                   
                                     session.setAttribute(SessionConstants.STUDENT_UPDATE_SUCCESS, null);
                                   } 
 
-                                  else if (StringUtils.isNotEmpty(reportErr)) {
-                                    out.println("<p style='color:red;'>");                                 
-                                    out.println("success: " + reportErr);
-                                    out.println("</p>");                                   
-                                    session.setAttribute(SessionConstants.STUDENT_REPORT_ERROR, null);
-                                  } 
+                                 
 
                             %>
 
 
             <div>
-            <table class="table table-striped table-bordered bootstrap-datatable datatable">
+                            <div id="search_box">
+                     <form action="#" method="get">
+                <input type="text" placeholder="Search By AdmNo" name="q" size="10" id="searchfield" title="searchfield" onkeyup="displaystudents(this.value)" />
+                    </form>
+                      </div>
+
+
+
+
+            <table class="table table-striped table-bordered bootstrap-datatable ">
                 <thead>
                     <tr>
                         <th>*</th>
@@ -182,9 +214,8 @@ if (session == null) {
                         <th>Age</th>
                         <th>Gender</th>
                         <th>Year Of Study</th>   
-                        <!--<th>Home Town</th> -->
                         <th>County</th>
-                         <th>Status</th>
+                        <th>Status</th>
                         <th>Activated On</th>
                         <th>Action</th>
                         <th>Download</th>
@@ -196,16 +227,19 @@ if (session == null) {
                      <%   
                       SimpleDateFormat dateFormatter2 = new SimpleDateFormat("yyyy");
                       Calendar now = Calendar.getInstance();   
-                      String nowdate = dateFormatter2.format(now.getTime());                                                    
+                      String nowdate =(String) dateFormatter2.format(now.getTime());  
+
                       int count = 1;
-                       for (Student s : studentList) {
+                      if(studentList1 !=null){
+                       for (Student s : studentList1) {
 
                          String dob = s.getDOB();
-        
-                         int y = Integer.parseInt(dob);
-                         int a = Integer.parseInt(nowdate);
+                        
+                         int birthYear =  NumberUtils.toInt(dob);
+                         int currentYear = NumberUtils.toInt(nowdate);
 
-                         int age = a-y;
+                         int age = currentYear - birthYear;
+                     
                        
 
                        
@@ -213,7 +247,7 @@ if (session == null) {
                     %>
                       <tr class="tabledit">
                          
-                         <td width="3%"><%=count%> </td>
+                         <td width="3%"><%=ussdCount%> </td>
                          <td class="center" ><a class="Zlink" href="#" data-toggle="modal" data-target="#groupcheck" value='<%=s.getAdmNo()%>' name='<%=s.getUuid()%>' onclick="TableGet(this)"><%=s.getAdmNo()%></a> </td>
 
                          <td class="center"><%=s.getFirstName()%></td>
@@ -221,7 +255,6 @@ if (session == null) {
                          <td class="center"><%=age%></td>
                          <td class="center"><%=s.getGender()%></td>
                          <td class="center" width="5%"><%=s.getYearOfStudy()%></td>
-                        <!-- <td class="center"><%//=s.getHomeTown()%></td> -->
                          <td class="center"><%=s.getCounty()%></td>  
                          <td class="center"><%=statusHash.get(s.getStatusUuid())%></td>  
                          <td class="center"><%=dateFormatter.format(s.getActivationDate())%></td> 
@@ -248,7 +281,8 @@ if (session == null) {
                                   
                      StudentOtherDetailDAO studentDetailsDAO = StudentOtherDetailDAO.getInstance();
                      StudentOtherDetail ss;
-                     ss = studentDetailsDAO.getDetail(s.getUuid());   
+                     ss = studentDetailsDAO.getDetail(s.getUuid());  
+                     if(ss !=null) {
                                 %>
 
                                 <input type="hidden" name="ischristian" value="<%=ss.getChristian()%>">
@@ -270,13 +304,42 @@ if (session == null) {
                        </tr>
 
                     <%
-                           count++;
-                           
+                           ussdCount++;
+                             }
+                            }
                         }
                     %>
 
                 </tbody>
             </table>  
+
+
+            <div id="pagination">
+                <form name="pageForm" method="post" action="home.jsp">                                
+                    <%                                            
+                        if (!studentpage.isFirstPage()) {
+                    %>
+                        <input class="toolbarBtn" type="submit" name="page" value="First" />
+                        <input class="toolbarBtn" type="submit" name="page" value="Previous" />
+                    <%
+                        }
+                    %>
+                    <span class="pageInfo">Page 
+                        <span class="pagePosition currentPage"><%= studentpage.getPageNum()%></span> of 
+                        <span class="pagePosition"><%= studentpage.getTotalPage()%></span>
+                    </span>   
+                    <%
+                        if (!studentpage.isLastPage()) {                        
+                    %>
+                        <input class="toolbarBtn" type="submit" name="page" value="Next">  
+                        <input class="toolbarBtn" type="submit" name="page" value="Last">
+                    <%
+                       }
+                    %>                                
+                </form>
+            </div>
+
+
             </div>
 
        <br>   <br>   <br>

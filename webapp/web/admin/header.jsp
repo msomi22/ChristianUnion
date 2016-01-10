@@ -166,8 +166,8 @@ if (session == null) {
                             <li class="nav-header hidden-tablet">Main</li>                                                     
 
 
-                            <li><a class="ajax-link" href="home.jsp"><i class="icon-home"></i><span class="hidden-tablet"> Home</span></a></li>
-                             <li><a class="ajax-link" href="manage.jsp"><i class="icon-home"></i><span class="hidden-tablet"> Manage</span></a></li>
+                            <li><a class="ajax-link" href="home.jsp"><i class="icon-home"></i><span class="hidden-tablet">Home</span></a></li>
+                             <li><a class="ajax-link" href="manage.jsp"><i class="icon-home"></i><span class="hidden-tablet">Leaders</span></a></li>
                             <li><a class="ajax-link" href="executive.jsp"><i class="icon-envelope"></i><span class="hidden-tablet">Executive</span></a></li>
                             <li><a class="ajax-link" href="family.jsp"><i class="icon-edit"></i><span class="hidden-tablet">Families</span></a></li>
                             <li><a class="ajax-link" href="ministry.jsp"><i class="icon-trash"></i><span class="hidden-tablet">Ministries</span></a></li>

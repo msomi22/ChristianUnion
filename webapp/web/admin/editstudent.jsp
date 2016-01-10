@@ -44,10 +44,16 @@ if (session == null) {
 
 
   <jsp:include page="header.jsp" />
+
+    <div class="row-fluid sortable">    
+                <div class="box span12">
  
            <div class="box-content">
 
-
+             <div class="content_title"> 
+                <h3>Please Don't Save Blank Fields </h3>
+                
+            </div>
 
             <form class="form-horizontal" action="../editStudent" method="POST"  >
                 <fieldset>
@@ -214,7 +220,9 @@ if (session == null) {
            
     </div> 
 
-
+   
+        </div>
+    </div><!--/span-->
 
   <jsp:include page="footer.jsp" />
 

@@ -111,7 +111,8 @@ if (session == null) {
 
   <jsp:include page="header.jsp" />
 
-
+      <div class="row-fluid sortable">    
+                <div class="box span12">
          <div class="box-content">
 
             
@@ -135,13 +136,13 @@ if (session == null) {
 
                                 if (StringUtils.isNotEmpty(findError)) {
                                     out.println("<p style='color:red;'>");                 
-                                    out.println("error: " + findError);
+                                    out.println("Oh my God!: " + findError);
                                     out.println("</p>");                                 
                                     session.setAttribute(SessionConstants.STUDENT_FIND_ERROR, null);
                                   } 
                                    else if (StringUtils.isNotEmpty(findsuccess)) {
                                     out.println("<p style='color:green;'>");                                 
-                                    out.println("success: " + findsuccess);
+                                    out.println("Sharom!: " + findsuccess);
                                     out.println("</p>");                                   
                                     session.setAttribute(SessionConstants.STUDENT_UPDATE_SUCCESS, null);
                                   } 
@@ -157,8 +158,13 @@ if (session == null) {
 
 
              %>
+
+              <div class="content_title"> 
+                <h3>MMUCU Ministry Leaders Registration </h3>
+                
+            </div>
         <!-- <div id="tooplate_middle"> -->  
-             <P><b style=color:blue;> Assign Ministry </b></P>
+            
               <form  class="form-horizontal"   action="../findMinistry" method="POST" >
                 <fieldset>
 
@@ -193,14 +199,14 @@ if (session == null) {
                         <div class="control-group" id="dividm">
                         <label class="control-label" for="name">Ministry:</label>
                         <div class="controls" id="getMinistryName">
-                             <select name="MinistryName" id="MinistryName" >
+                             <select name="Position" id="Position" >
                              <option value="">select one</option>
                              <%
                                     int count = 1;
                                     if (ministryList != null) {
                                         for (Ministry m : ministryList) {
                                 %>
-                                <option value="<%= m.getUuid()%>"><%=m.getMinistryName()%></option>
+                                <option value="<%= m.getMinistryName()%>"><%=m.getMinistryName()%></option>
                                 <%
                                             count++;
                                         }
@@ -215,11 +221,11 @@ if (session == null) {
 
 
                         <div class="control-group" id="dividm">
-                        <label class="control-label" for="name">Role:</label>
+                        <label class="control-label" for="name">Position:</label>
                         <div class="controls" id="getRole">
-                             <select name="Position" id="Position" >
+                             <select name="SubPosition" id="SubPosition" >
                              <option value="">select one</option>
-                             <option value="Chair Person">Chair Person</option>
+                             <option value="Chairperson">Chairperson</option>
                              <option value="Secretary">Secretary</option>
                              <option value="Treasurer">Treasurer</option>                             
                             </select>                           
@@ -244,6 +250,9 @@ if (session == null) {
 
 
          </div> 
+
+        </div>
+    </div><!--/span-->
 
   <jsp:include page="footer.jsp" />
 

@@ -95,6 +95,15 @@ Contacts, Mobile: +254718953974
  <div id="container" class="clear"> 
   
 
+
+
+
+
+<div id="tooplate_main_top"></div>      
+
+
+
+
                              <%
 
                          HashMap<String, String> paramHash = (HashMap<String, String>) session.getAttribute(
@@ -137,9 +146,7 @@ Contacts, Mobile: +254718953974
 
 
 
-
-
-<div id="tooplate_main_top"></div>        
+  
     <div id="tooplate_main" >
    
     <div id="homepage" class="clear">  

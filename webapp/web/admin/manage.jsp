@@ -14,7 +14,10 @@ Contacts, Mobile: +254718953974
 
 
 <%@page import="com.gmail.mwendapeter72.server.cache.CacheVariables"%>
+<%@page import="com.gmail.mwendapeter72.server.persistence.student.StudentDAO"%>
 <%@page import="com.gmail.mwendapeter72.server.bean.student.Student"%>
+
+<%@page import="com.gmail.mwendapeter72.server.persistence.student.leader.LeadersRegisterDAO"%>
 <%@page import="com.gmail.mwendapeter72.server.bean.student.leader.LeadersRegister"%>
 <%@page import="com.gmail.mwendapeter72.server.bean.student.leader.Position"%>
 
@@ -72,9 +75,14 @@ if (session == null) {
        HashMap<String, Position> positionHash = new HashMap<String, Position>();
 
 
-    
-      List keys;
-      Element element;
+       LeadersRegisterDAO leadersRegisterDAO = LeadersRegisterDAO.getInstance();
+       StudentDAO studentDAO = StudentDAO.getInstance();
+
+       List<Student> studentList = new ArrayList<Student>();
+       studentList = studentDAO.getStudentList();
+
+       List keys;
+       Element element;
 
 
 
@@ -83,8 +91,8 @@ if (session == null) {
       keys = studentsCache.getKeys();
       for (Object key : keys) {
             element = studentsCache.get(key);
-            student = (Student) element.getObjectValue();
-            studentHash.put(student.getUuid(),student);
+           // student = (Student) element.getObjectValue();
+            //studentHash.put(student.getUuid(),student);
       }
           //Leaders Register Management
           LeadersRegister leaderReg = new LeadersRegister();
@@ -94,8 +102,15 @@ if (session == null) {
             element = leadersRegisterCache.get(key);
             leaderReg = (LeadersRegister) element.getObjectValue();
             leadersRegisterHash.put(leaderReg.getStudentUuid(),leaderReg);
-            leadersRegisterList.add(leaderReg); 
+            //leadersRegisterList.add(leaderReg); 
         }
+       
+         leadersRegisterList = leadersRegisterDAO.getLeadersList();
+
+
+         for(Student students : studentList){
+            studentHash.put(students.getUuid(),students);
+           }
 
          Position position;
          List<Position> positionList = new ArrayList<Position>();
@@ -165,8 +180,11 @@ if (session == null) {
              %>
 
 
-              
-               <P><b style=color:blue;>MMUCU Leaders Registration:</b></P>
+               <div class="content_title"> 
+                <h3>MMUCU Leaders Registration  </h3>
+                
+             </div>
+               
                <form  class="form-horizontal"   action="../findLeader" method="POST" >
                 <fieldset>
 
@@ -244,9 +262,10 @@ if (session == null) {
 
 
 
-            <div id="middle_left">
-            <P><b style=color:blue;> Registered Leaders </b></P>
-            </div>
+            <div class="content_title"> 
+                <h3>Below are the Registered Leaders </h3>
+                
+             </div>
               <table class="table table-striped table-bordered bootstrap-datatable datatable">
               <thead>
                     <tr>
@@ -264,10 +283,11 @@ if (session == null) {
                          <tr class="tabledit">    
                           <% 
                           int leadercount = 1;
+                          if(leadersRegisterList !=null){
                          for(LeadersRegister leader : leadersRegisterList){
                             student =  studentHash.get(leader.getStudentUuid());
                              if(StringUtils.equals(leader.getStatusUuid(),STATUS_ACTIVE)){
-                            
+                            if(student !=null){
                            %>
                          <td width="3%"><%=leadercount%> </td>
                          <td class="center"><%=student.getAdmNo()%></td>  
@@ -280,13 +300,15 @@ if (session == null) {
                               <form name="terminateRole" method="post" action="../terminateRole">
                               <input type="hidden" name="StudentUuid" value="<%=leader.getStudentUuid()%>">
                               <input type="hidden" name="StatusUuid" value="<%=leader.getStatusUuid()%>">
-                              <input class="btn btn-success" type="submit" name="TerminateRole" id="submit" value="Terminate" />
+                              <input class="btn btn-success" type="submit" name="Remove" id="submit" value="Remove" />
                               </form> 
                         </td>   
                                            
                        </tr>
                          <%
                                leadercount++;
+                                 }
+                               }
                               }
                              }
                            %>
