@@ -2,7 +2,7 @@
 # Web Application based on JEE.
 # Server: Wildfly.
 # JDK 1.6  required
-# 
+# changed, git
 #
 #
 #
